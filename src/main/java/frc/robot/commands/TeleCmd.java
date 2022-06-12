@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.commands.gamepad.OI;
 import frc.robot.subsystems.OmniDrive;
+import frc.robot.subsystems.Sensor;
 
 public class TeleCmd extends CommandBase
 {
@@ -11,16 +12,8 @@ public class TeleCmd extends CommandBase
      * Bring in Subsystem and Gamepad code
      */
     private final OmniDrive m_omnidrive;
+    private final Sensor m_sensor;
     private final OI m_oi;
-
-
-    /**
-     * Joystick inputs
-     */
-
-    double x=0;
-    double y=0;
-    double w=0;
 
     /**
      * Constructor
@@ -28,6 +21,7 @@ public class TeleCmd extends CommandBase
     public TeleCmd(OmniDrive omnidrive, OI oi)
     {
         m_omnidrive = RobotContainer.m_omnidrive;
+        m_sensor = RobotContainer.m_sensor;
         m_oi = RobotContainer.m_oi;
         addRequirements(m_omnidrive); //add the drive subsystem as a requirement 
 		//addRequirements(m_menu); 
@@ -53,11 +47,16 @@ public class TeleCmd extends CommandBase
          */
         //Right stick for X-Y control
         //Left stick for W (rotational) control
-        x = m_oi.getRightDriveX();
-        y = -m_oi.getRightDriveY();//Down is positive. Need to negate
-        w = -m_oi.getLeftDriveX(); //X-positive is CW. Need to negate
+        double x = m_oi.getRightDriveX();
+        double y = -m_oi.getRightDriveY();//Down is positive. Need to negate
+        double w = -m_oi.getLeftDriveX(); //X-positive is CW. Need to negate
 
-        m_omnidrive.setRobotSpeedXYW(x*0.6, y*0.6, w*Math.PI);
+        //Get other buttons?
+
+        //Add code here to control servo motor etc.
+        m_omnidrive.setMotorOut012(x,y,w);
+
+        //m_omnidrive.setRobotSpeedXYW(x*0.6, y*0.6, w*Math.PI);
 
     }
 
@@ -69,7 +68,7 @@ public class TeleCmd extends CommandBase
     @Override
     public void end(boolean interrupted)
     {
-        m_omnidrive.setMotorSpeedAll(0);
+        m_omnidrive.setMotorOut012(0, 0, 0);
     }
 
     /**

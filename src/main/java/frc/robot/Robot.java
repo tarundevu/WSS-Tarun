@@ -25,11 +25,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private OmniDrive m_omnidrive;
   private Notifier m_follower;
-  // public Robot() {
-  //   addPeriodic(() -> {
-  //       m_omnidrive.doPID();
-  //   }, 0.01, 0.005);
-  // }
+
    /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -46,9 +42,6 @@ public class Robot extends TimedRobot {
       m_follower.startPeriodic(Constants.PID_DT);
     }
 
-    //CameraServer.getInstance().startAutomaticCapture();
-    //CvSink cvSink = CameraServer.getInstance().getVideo();
-    //CvSource outputStream = CameraServer.getInstance().putVideo("camera", 640, 480);
   }
 
   /**

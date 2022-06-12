@@ -31,13 +31,12 @@ public class OmniDrive extends SubsystemBase
     //Motors and encoders
     private final TitanQuad[] motors;
     private final TitanQuadEncoder[] encoders;
-    //vmx private final Encoder[] encoders;  //VMX encoder
 
     //PID stuff
     private PIDController[] pidControllers;
     private double[] pidInputs;
     private double[] pidOutputs;
-    private double[] pidFBs;
+
     private double[] encoderDists;
     private double[] encoderDists_2;
     private double[] encoderSpeeds;
@@ -48,9 +47,6 @@ public class OmniDrive extends SubsystemBase
     // Odometry class for tracking robot pose
     private final OmniDriveOdometry m_odometry;
     
-    //DigitalOutput debugOut = new DigitalOutput(8);
-
-
     //For testing. These should be in another subsystem
     private double pid_dT = Constants.PID_DT;
 
@@ -87,7 +83,6 @@ public class OmniDrive extends SubsystemBase
 
 
         encoders = new TitanQuadEncoder[Constants.MOTOR_NUM];
-        //vmx encoders = new Encoder[Constants.MOTOR_NUM];
         encoderDists = new double[Constants.MOTOR_NUM];
         encoderDists_2 = new double[Constants.MOTOR_NUM];
         encoderSpeeds = new double[Constants.MOTOR_NUM];
@@ -95,9 +90,6 @@ public class OmniDrive extends SubsystemBase
         motorOuts = new double[Constants.MOTOR_NUM];
 
         for (int i=0; i<Constants.MOTOR_NUM; i++) {
-            //vmx encoders[i] = new Encoder(i*2, i*2+1, false, Encoder.EncodingType.k4X);
-            //vmx encoders[i].setDistancePerPulse(Constants.KENCODERDISTPERPULSE);
-            //vmx encoderDists[i] = encoders[i].getDistance();
             encoders[i] = new TitanQuadEncoder(motors[i], i, Constants.KENCODERDISTPERPULSE);
             encoders[i].reset();
             encoderDists[i] = encoders[i].getEncoderDistance();
@@ -114,7 +106,6 @@ public class OmniDrive extends SubsystemBase
         //Inputs and Outputs for wheel controller
         pidInputs = new double[Constants.PID_NUM];
         pidOutputs = new double[Constants.PID_NUM];
-        pidFBs = new double[Constants.PID_NUM];
 
         // gyro for rotational heading control
         gyro = new AHRS(SPI.Port.kMXP);
@@ -154,31 +145,43 @@ public class OmniDrive extends SubsystemBase
     public void resetHeading() {
         curHeading = targetHeading = getYawRad();
     }
+
     /**
-     * Sets the speed of the motor
+     * Sets the Output power of the 3 motors
      * <p>
      * 
-     * @param speed range -1 to 1 (0 stop)
+     * @param speed0 range -1 to 1 (0 stop)
+     * @param speed1 range -1 to 1 (0 stop)
+     * @param speed2 range -1 to 1 (0 stop)
      */
-    public void setMotorSpeedAll(final double speed)
+    public void setMotorOut012(double speed0, double speed1, double speed2)
     {
-        for (int i=0; i<Constants.MOTOR_NUM; i++) {
-            motors[i].set(speed);
-        }
-        
-    }
-    // CCW is positive
-    public void setMotorSpeed012(double speed0, double speed1, double speed2)
-    {
-        
         motors[0].set(speed0);
         motors[1].set(speed1);
         motors[2].set(speed2);
-        
     }
-    
-    /***
+
+    /**
+     * Sets the Output power of the 3 motors according to robot x, y, and z speed
+     * This will result in open loop control of the robot speed
+     * This is for appreciation only. No real use for this function.
+     * <p>
      * 
+     * @param x range -1 to 1 (0 stop)
+     * @param y range -1 to 1 (0 stop)
+     * @param z range -1 to 1 (0 stop)
+     */
+    public void setRobotSpeedXYW_Open(double x, double y, double z)
+    {
+        // M0 = [-sin(150) cos(150) R] * [x y w]'   //Left-front wheel
+        // M1 = [-sin(270) cos(270) R]              //Back wheel
+        // M2 = [-sin(30)  cos(30)  R]              //Right-front wheel
+
+    }
+
+    /***
+     * Sets the x, y & w speeds of the robot
+     * <p>   
      * @param x - x speed in m/s
      * @param y - y speed in m/s
      * @param w - rotational speed in rad/s
@@ -188,6 +191,12 @@ public class OmniDrive extends SubsystemBase
         pidInputs[1] = y;
         pidInputs[2] = w; 
     }
+    /***
+     * Sets one of the speeds of the robot
+     * <p>  
+     * @param type - 0, 1 or 2 for x, y or w speed
+     * @param speed - speed to set
+     */
     public void setRobotSpeedType(int type, double speed) {
         pidInputs[type] = speed; 
     }
@@ -199,7 +208,6 @@ public class OmniDrive extends SubsystemBase
         //First calculate wheel speed from encoder feedback
         double dcValue = 0.0;
         for (int i=0; i<Constants.MOTOR_NUM; i++) {
-            //vmx encoderDists[i] = encoders[i].getDistance();
             encoderDists[i] = encoders[i].getEncoderDistance();
             wheelSpeeds[i] = encoderSpeeds[i] = (encoderDists[i]-encoderDists_2[i])/pid_dT;
             encoderDists_2[i] = encoderDists[i];
@@ -220,19 +228,17 @@ public class OmniDrive extends SubsystemBase
         //See formula below
         double speedX = (-(wheelSpeeds[0] + wheelSpeeds[2]) + wheelSpeeds[1])/2;
         double speedY = (-wheelSpeeds[0] + wheelSpeeds[2])/(0.866025*2);
-        pidFBs[0] = speedX;
-        pidFBs[1] = speedX;
 
         //PID control for x and y speed
-        //Speed control + feedforward
-        pidOutputs[0] = pidControllers[0].calculate(speedX, pidInputs[0]) + pidInputs[0]*1.0;
-        pidOutputs[1] = pidControllers[1].calculate(speedY, pidInputs[1]) + pidInputs[1]*1.0;
+        //Speed control 
+        pidOutputs[0] = pidControllers[0].calculate(speedX, pidInputs[0]);
+        pidOutputs[1] = pidControllers[1].calculate(speedY, pidInputs[1]);
         
         //Translate x and y output to wheel outputs
         // The x and y speed are resolved into individual wheel speed
         // 3 wheel omni drive
         // R is distance of wheel from robot centre
-        // M0 = [-sin(150) cos(150) R] * [x y w]    //Left-front wheel
+        // M0 = [-sin(150) cos(150) R] * [x y w]'   //Left-front wheel
         // M1 = [-sin(270) cos(270) R]              //Back wheel
         // M2 = [-sin(30)  cos(30)  R]              //Right-front wheel
         motorOuts[0] = (-0.5*pidOutputs[0] - 0.866025*pidOutputs[1]);
@@ -249,10 +255,6 @@ public class OmniDrive extends SubsystemBase
         //Limit targetHeading to -Pi to +Pi
         if (targetHeading>Math.PI) targetHeading -= Math.PI*2;
         if (targetHeading<-Math.PI) targetHeading += Math.PI*2;
-        pidFBs[2] = targetHeading-curHeading;
-        if (pidFBs[2]>Math.PI) pidFBs[2] -= Math.PI*2;
-        if (pidFBs[2]<-Math.PI) pidFBs[2] += Math.PI*2;
-        pidFBs[2] /= pid_dT;
 
         pidOutputs[2] = pidControllers[2].calculate(curHeading, targetHeading);
 
@@ -265,6 +267,7 @@ public class OmniDrive extends SubsystemBase
 
         for (int i=0; i<Constants.MOTOR_NUM; i++) {
             motors[i].set(motorOuts[i]/max);
+            ///////////////////////////////////////////////////////////
             //motors[i].set(0);   //off motor to test encoders manually
         }   
         outDebug8.set(false);
@@ -276,7 +279,7 @@ public class OmniDrive extends SubsystemBase
     @Override
     public void periodic()
     {
-        System.out.print("obj");
+
         if (initCnt<1) {
             initCnt++;
             gyro.zeroYaw();
@@ -288,10 +291,8 @@ public class OmniDrive extends SubsystemBase
             doPID();
         }
         //Use PIDInputs
-        //m_odometry.update(pidFBs[0]*pid_dT, pidFBs[1]*pid_dT, pidFBs[2]*pid_dT);
         m_odometry.update(pidInputs[0]*pid_dT, pidInputs[1]*pid_dT, pidInputs[2]*pid_dT);
 
-        //Use feedback signal. Should be more accurate?
 
         /**
          * Updates for outputs to the shuffleboard
@@ -301,10 +302,7 @@ public class OmniDrive extends SubsystemBase
         D_curHeading.setDouble(curHeading*180/Math.PI);
         D_tgtHeading.setDouble(targetHeading*180/Math.PI);
         D_navYaw.setDouble(-gyro.getYaw());
-        //Vmx encoder
-        //vmx D_encoderDisp0.setDouble(encoders[0].getDistance());//encoderSpeeds[0]);
-        //vmx D_encoderDisp1.setDouble(encoders[1].getDistance());//encoderSpeeds[1]);
-        //vmx D_encoderDisp2.setDouble(encoders[2].getDistance());//encoderSpeeds[2]);
+
         //Titan encoder
         D_encoderDisp0.setDouble(encoderSpeeds[0]);//encoderSpeeds[0]);
         D_encoderDisp1.setDouble(encoderSpeeds[1]);//encoders[1].getEncoderDistance());//encoderSpeeds[1]);

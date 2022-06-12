@@ -29,7 +29,14 @@ public class MoveRobot extends CommandBase
     private final double _startSpeed;
 
     /**
-     * Constructor
+     * This command moves the robot a certain distance following a trapezoidal speed profile.
+     * <p>
+     * 
+     * @param type - 0, 1 or 2 for x, y, or w speed
+     * @param dist - distance to move
+     * @param startSpeed -  starting speed of robot
+     * @param endSpeed - ending speed og robot
+     * @param maxSpeed - max speed of robot
      */
     //This move the robot a certain distance following a trapezoidal speed profile.
     public MoveRobot(int type, double dist, double startSpeed, double endSpeed, double maxSpeed)
