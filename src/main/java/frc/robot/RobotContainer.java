@@ -15,6 +15,7 @@ import frc.robot.commands.gamepad.OI;
 import frc.robot.subsystems.Menu;
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Sensor;
+import frc.robot.subsystems.Arm;
 
 public class RobotContainer {
 
@@ -22,10 +23,11 @@ public class RobotContainer {
   public final static OI m_oi = new OI();
   public final static OmniDrive m_omnidrive = new OmniDrive();
   public final static Sensor m_sensor = new Sensor(); 
+  public final static Arm m_arm = new Arm();
   //user menu
   public final static Menu m_menu = new Menu(m_oi);
   //commands
-  public final static TeleCmd m_teleCmd = new TeleCmd(m_omnidrive, m_oi);
+  public final static TeleCmd m_teleCmd = new TeleCmd(m_omnidrive, m_oi, m_arm);
   public final static AutoMainCmd m_autoCmd = new AutoMainCmd();
 
 

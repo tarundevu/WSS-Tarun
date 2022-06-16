@@ -24,27 +24,36 @@ public class Sensor extends SubsystemBase
 
     // Sensors
     private final DigitalInput input10;
-
+    private final AnalogInput sharp22;
+    private final AnalogInput sharp23;
+    private int Cnt;
+    // private Servo servo;
+    // private double Servovalue;
+    
 
     // Good for debugging
     // Shuffleboard
     private final ShuffleboardTab tab = Shuffleboard.getTab("Sensors");
     private final NetworkTableEntry D_inputDisp = tab.add("inputDisp", 0).getEntry();
+    private final NetworkTableEntry D_Cnt = tab.add("Cnt", 0).getEntry();
+    private final NetworkTableEntry D_sharp22 = tab.add("IRsensor1", 0).getEntry();
+    private final NetworkTableEntry D_sharp23 = tab.add("IRsensor2", 0).getEntry();
+    //private final NetworkTableEntry D_servo = tab.add("Servo", 0).getEntry();
+
 
     //Subsystem for sensors
     //This is just an example.
     public Sensor() {
         
         input10 = new DigitalInput(10);
-
+        sharp22 = new AnalogInput(0);
+        sharp23 = new AnalogInput(1);
+        
     }
 
-    /**
-     * Sets the servo angle
-     * <p>
-     * 
-     * @param degrees degree to set the servo to, range 0° - 300°
-     */
+    
+    
+    
     public Boolean getSwitch() {
         return input10.get();
     }
@@ -69,7 +78,12 @@ public class Sensor extends SubsystemBase
      * @return value between 0 - 100 (valid data range is 10cm - 80cm)
      */
     public double getIRDistance() {
-        return 0;
+        return (Math.pow(sharp22.getAverageVoltage(), -1.2045)) * 27.726;
+        
+    }
+    public double getIRDistance2() {
+        return (Math.pow(sharp23.getAverageVoltage(), -1.2045)) * 27.726;
+        
     }
    
     /**
@@ -81,7 +95,12 @@ public class Sensor extends SubsystemBase
         //Display on shuffleboard
         //These display is good for debugging but may slow system down.
         //Good to remove unnecessary display during competition
+        Cnt++;
         D_inputDisp.setBoolean(getSwitch());
-
+        D_Cnt.setNumber(Cnt);
+        D_sharp22.setNumber(getIRDistance());
+        D_sharp23.setNumber(getIRDistance2());
+        //D_servo.setDouble(Servovalue);
+        
     }
 }

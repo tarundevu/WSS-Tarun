@@ -266,7 +266,7 @@ public class OmniDrive extends SubsystemBase
         }
 
         for (int i=0; i<Constants.MOTOR_NUM; i++) {
-            motors[i].set(motorOuts[i]/max);
+            //motors[i].set(motorOuts[i]/max);
             ///////////////////////////////////////////////////////////
             //motors[i].set(0);   //off motor to test encoders manually
         }   
