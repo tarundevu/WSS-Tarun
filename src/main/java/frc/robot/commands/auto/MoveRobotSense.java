@@ -28,7 +28,7 @@ public class MoveRobotSense extends MoveRobot
      */
     public MoveRobotSense(int type, double dist, double startSpeed, double endSpeed, double maxSpeed, end_func f)
     {
-        super(type, dist, startSpeed, endSpeed, maxSpeed);
+        super(type, dist, startSpeed, endSpeed, maxSpeed );
         f_ptr = f;
     }
 

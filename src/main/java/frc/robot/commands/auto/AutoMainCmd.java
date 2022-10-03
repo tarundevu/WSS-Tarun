@@ -1,21 +1,18 @@
 package frc.robot.commands.auto;
 
-import java.util.List;
+import java.util.Map;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
+import javax.lang.model.util.ElementScanner6;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
-// import the commands
-import frc.robot.commands.auto.MoveRobot;
-import frc.robot.commands.auto.RotateTest;
+import frc.robot.subsystems.Sensor;
+import frc.robot.commands.auto.MoveRobotSense;
+import frc.robot.commands.auto.LoopCmd;
+import frc.robot.commands.auto.DetectObstacle;
+
 
 /**
  * DriveMotor class
@@ -25,14 +22,34 @@ import frc.robot.commands.auto.RotateTest;
 public class AutoMainCmd extends SequentialCommandGroup
 {   
 
-	public AutoMainCmd()
+    
+	public AutoMainCmd() 
     {
         
         super(
-            new MoveRobot(2, -Math.PI/4, 0, 0, Math.PI),  
-            new MoveRobot(2, Math.PI/4, 0, 0, Math.PI),
-            new LoopCmd(new RotateTest()),
-            new MoveRobot(2, Math.PI/4, 0, 0, Math.PI)
-             );
+            new MoveRobotSense(1, 1, 0, 0, 0.5, ()->RobotContainer.m_sensor.getIRDistance()<=20),
+
+
+            //selectCmd123_B() // Didn't work
+
+            //Select one of two commands
+            //new ConditionalCommand( new MoveLeft(), new MoveRight(),  MoveTest::selectCmdA ),
+            
+            //Select one of many commands
+            //Selection command in selectCmd123
+            // new SelectCommand(
+            //     Map.ofEntries(
+            //         Map.entry(CommandSelector.ONE, new MoveRobot(2,-(Math.PI/2), 0, 0, Math.PI)),
+            //         Map.entry(CommandSelector.TWO, new MoveRobot(2, (Math.PI/2), 0, 0, Math.PI)),
+            //         Map.entry(CommandSelector.THREE, new MoveRobot(2, Math.PI/2, 0, 0, Math.PI)) ),
+            //     AutoMainCmd::selectCmd123
+            // ),
+            // new MoveRobot(2, Math.PI, 0, 0, Math.PI),
+            //new MoveRobot(1, -0.5, 0, 0, 0.4),
+            //new LoopCmd(new DetectObstacle(), ()->RobotContainer.m_sensor.getSwitch()==false),
+            // new MoveRobot(1, -0.5, 0, 0, 0.4)
+            new MoveServo(0, 20)
+
+              );
     }
 }

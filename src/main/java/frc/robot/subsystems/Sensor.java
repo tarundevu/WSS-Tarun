@@ -9,7 +9,8 @@ import com.studica.frc.Cobra;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Servo;
+//import edu.wpi.first.wpilibj.Servo;
+//import edu.wpi.first.wpilibj.Ultrasonic;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -26,6 +27,7 @@ public class Sensor extends SubsystemBase
     private final DigitalInput input10;
     private final AnalogInput sharp22;
     private final AnalogInput sharp23;
+    //private Ultrasonic sonar;
     private int Cnt;
     // private Servo servo;
     // private double Servovalue;
@@ -34,10 +36,11 @@ public class Sensor extends SubsystemBase
     // Good for debugging
     // Shuffleboard
     private final ShuffleboardTab tab = Shuffleboard.getTab("Sensors");
-    private final NetworkTableEntry D_inputDisp = tab.add("inputDisp", 0).getEntry();
+    private final NetworkTableEntry D_inputDisp = tab.add("inputDisp", false).getEntry();
     private final NetworkTableEntry D_Cnt = tab.add("Cnt", 0).getEntry();
     private final NetworkTableEntry D_sharp22 = tab.add("IRsensor1", 0).getEntry();
     private final NetworkTableEntry D_sharp23 = tab.add("IRsensor2", 0).getEntry();
+    //private final NetworkTableEntry D_sonar = tab.add("Ultrasonic", 0).getEntry();
     //private final NetworkTableEntry D_servo = tab.add("Servo", 0).getEntry();
 
 
@@ -45,9 +48,10 @@ public class Sensor extends SubsystemBase
     //This is just an example.
     public Sensor() {
         
-        input10 = new DigitalInput(10);
+        input10 = new DigitalInput(Constants.INPUT1);
         sharp22 = new AnalogInput(0);
         sharp23 = new AnalogInput(1);
+        //sonar = new Ultrasonic(Constants.SONIC_TRIGG, Constants.SONIC_ECHO);
         
     }
 
@@ -86,6 +90,10 @@ public class Sensor extends SubsystemBase
         
     }
    
+    // public double getUltrasonicDistance(){
+        
+    //     return sonar.getRangeMM();
+    // }
     /**
      * Code that runs once every robot loop
      */
@@ -100,7 +108,8 @@ public class Sensor extends SubsystemBase
         D_Cnt.setNumber(Cnt);
         D_sharp22.setNumber(getIRDistance());
         D_sharp23.setNumber(getIRDistance2());
-        //D_servo.setDouble(Servovalue);
+        //D_sonar.setNumber(getUltrasonicDistance());
+       
         
     }
 }

@@ -29,7 +29,12 @@ public class Arm extends SubsystemBase{
      */
     public void setServoAngle(final double degrees){
       Servovalue = degrees;
-      servo1.setAngle(degrees);
+      servo1.setAngle(Servovalue);
+    }
+
+    public double getServoAngle(){
+      return servo1.getAngle();
+      
     }
     
     /**
@@ -37,7 +42,9 @@ public class Arm extends SubsystemBase{
      */
     @Override
     public void periodic(){
-      D_armvalue.setDouble(Servovalue);
+      D_armvalue.setDouble(getServoAngle());
 
     }
+
+    
 }
