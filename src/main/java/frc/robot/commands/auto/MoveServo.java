@@ -42,8 +42,9 @@ public class MoveServo extends CommandBase
      * This command moves the robot a certain distance following a trapezoidal speed profile.
      * <p>
      * 
-     * @param position - 0, 1 or 2 for x, y, or w speed
+     * @param position - position of the
      * @param maxSpeed - distance to move
+     * 
      */
     //This move the robot a certain distance following a trapezoidal speed profile.
     public MoveServo(double position, double maxSpeed)
@@ -78,6 +79,7 @@ public class MoveServo extends CommandBase
         m_goal = new TrapezoidProfile.State(tgt_pos, 0);
         m_setpoint = new TrapezoidProfile.State(start_pos, 0);
         m_endFlag = false;
+        
     }
     /**
      * Condition to end speed profile

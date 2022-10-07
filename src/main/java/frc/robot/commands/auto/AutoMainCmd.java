@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.lang.model.util.ElementScanner6;
 
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -27,7 +28,7 @@ public class AutoMainCmd extends SequentialCommandGroup
     {
         
         super(
-            new MoveRobotSense(1, 1, 0, 0, 0.5, ()->RobotContainer.m_sensor.getIRDistance()<=20),
+            // new MoveRobotSense(1, 1, 0, 0, 0.5, ()->RobotContainer.m_sensor.getIRDistance()<=20)
 
 
             //selectCmd123_B() // Didn't work
@@ -48,8 +49,19 @@ public class AutoMainCmd extends SequentialCommandGroup
             //new MoveRobot(1, -0.5, 0, 0, 0.4),
             //new LoopCmd(new DetectObstacle(), ()->RobotContainer.m_sensor.getSwitch()==false),
             // new MoveRobot(1, -0.5, 0, 0, 0.4)
-            new MoveServo(0, 20)
-
+            // new MoveServo(0, 20),
+            // new MoveServo(90, 20)
+            new MoveArm(new Translation2d(0.2,0), 25)
+            // new MoveArm(0.2, 0.2,25),
+            // new MoveArm(0.2, 0.1,25),
+            // new MoveArm(0.3, 0.1, 25),
+            // new MoveArm(0.3, 0.2, 25)
               );
+            
+    }
+    @Override
+    public void initialize(){
+        RobotContainer.m_arm.initialize();
+        super.initialize();
     }
 }

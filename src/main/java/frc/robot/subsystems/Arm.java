@@ -6,6 +6,7 @@ import com.studica.frc.Servo;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.auto.MoveServo;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -20,10 +21,10 @@ public class Arm extends SubsystemBase{
     private double Servovalue2;
 
     private final double l1 = 0.24; 
-    private final double l2 = 0.32; 
+    private final double l2 = 0.335; 
     private double offset0 = 0;  
     private double offset1 = 0;
-    private double A,B;
+    private double A,B,_x,_y;
     
 
     private final ShuffleboardTab tab = Shuffleboard.getTab("Arm");
@@ -44,6 +45,12 @@ public class Arm extends SubsystemBase{
       
     }
     
+    public void initialize(){
+      _x= 0.2;
+      _y = 0;
+      setArmPos(_x, _y);
+
+    }
     /**
      * Sets the servo angle
      * <p>
@@ -102,7 +109,7 @@ public class Arm extends SubsystemBase{
         // When A is zero, arm-c is horizontal.
         // beta is servo1 angle wrt arm-c (BA)
         // When beta is zero, arm-c is closed  to arm-c
-      B = beta;    //Use B to designate beta. Different from diagram.
+      B = Math.PI - beta;    //Use B to designate beta. Different from diagram.
       A = alpha + Math.atan2(y,x);
 
         //servo0 and servo1 might be mounted clockwise or anti clockwise.
@@ -115,12 +122,80 @@ public class Arm extends SubsystemBase{
       //B=B*2;
       
 
-      B*=-2;
+      B*=2;
       A*=4;
       servo1.setAngle((Math.toDegrees(A) + offset0));
-      servo2.setAngle(((Math.toDegrees(B)) + offset1));
+      servo2.setAngle((Math.toDegrees(B) + offset1));
       
     }
+
+    public double[] getAngle(double x, double y){
+      
+      if ((x<0.05)&&(y<0.1)){
+        x = 0.05;
+              
+      }
+
+      double a = 0.24;
+      double c = 0.335;
+      double b = Math.sqrt(x*x+y*y);
+      double alpha = Math.acos( (b*b + c*c - a*a)/(2*b*c) );
+      double beta = Math.acos( (a*a + c*c - b*b)/(2*a*c) );
+
+      // A is servo0 angle wrt horizon
+      // When A is zero, arm-c is horizontal.
+      // beta is servo1 angle wrt arm-c (BA)
+      // When beta is zero, arm-c is closed  to arm-c
+      double B = Math.PI - beta;    //Use B to designate beta. Different from diagram.
+      double A = alpha + Math.atan2(y,x);
+
+      //servo0 and servo1 might be mounted clockwise or anti clockwise.
+      //offset0 and offset1 are used to adjust the zero the arm position.
+      //This makes it easier to mount and tune the arm.
+      A = Math.toDegrees(A)*4;
+      B = Math.toDegrees(B)*2;
+      A = A + -176;// offset
+      B = B + -30; // offset
+
+      double[] angles = new double[2];
+      angles[0] = A;
+      angles[1] = B;
+    
+      return angles;
+    }
+
+    // public double getAngleB(double x,double y){
+      
+    //   if ((x<0.05)&&(y<0.1)){
+    //     x = 0.05;
+              
+    //   }
+
+    // double a = 0.24;
+    // double c = 0.335;
+    // double b = Math.sqrt(x*x+y*y);
+    // double alpha = Math.acos( (b*b + c*c - a*a)/(2*b*c) );
+    // double beta = Math.acos( (a*a + c*c - b*b)/(2*a*c) );
+
+    // // A is servo0 angle wrt horizon
+    // // When A is zero, arm-c is horizontal.
+    // // beta is servo1 angle wrt arm-c (BA)
+    // // When beta is zero, arm-c is closed  to arm-c
+    // double B = Math.PI - beta;    //Use B to designate beta. Different from diagram.
+    // double A = alpha + Math.atan2(y,x);
+
+    // //servo0 and servo1 might be mounted clockwise or anti clockwise.
+    // //offset0 and offset1 are used to adjust the zero the arm position.
+    // //This makes it easier to mount and tune the arm.
+    // A *=4;
+    // B *=2;
+    // A = Math.toDegrees(A);
+    // B = Math.toDegrees(B);
+    // A = A + -176;// offset
+    // B = B + -30; // offset
+  
+    //     return B;
+    // }
 
     
     /**
