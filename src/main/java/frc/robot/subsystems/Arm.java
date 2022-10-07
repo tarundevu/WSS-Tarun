@@ -28,8 +28,8 @@ public class Arm extends SubsystemBase{
     
 
     private final ShuffleboardTab tab = Shuffleboard.getTab("Arm");
-    private final NetworkTableEntry D_armvalue = tab.add("Arm value", 0).getEntry();
-    private final NetworkTableEntry D_armvalue2 = tab.add("Arm value2", 0).getEntry();
+    private final NetworkTableEntry D_armvalue = tab.add("Servo1 angle", 0).getEntry();
+    private final NetworkTableEntry D_armvalue2 = tab.add("Servo2 angle", 0).getEntry();
     private final NetworkTableEntry D_armAngleA = tab.add("Arm angleA", 0).getEntry();
     private final NetworkTableEntry D_armAngleB = tab.add("Arm angleB", 0).getEntry();
     private final NetworkTableEntry D_offset0 = tab.addPersistent("offset0", 0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", -500, "max", +500)).getEntry();
@@ -51,20 +51,7 @@ public class Arm extends SubsystemBase{
       setArmPos(_x, _y);
 
     }
-    /**
-     * Sets the servo angle
-     * <p>
-     * 
-     * @param degrees degree to set the servo to, range 0° - 300°
-     */
-    public void setServoAngle(final double degrees){
-      Servovalue = degrees;
-      servo1.setAngle(Servovalue);
-    }
-    public void setServoAngle2(final double degrees){
-      Servovalue2 = degrees;
-      servo2.setAngle(Servovalue2);
-    }
+    
 
     public double getServoAngle(){
       return servo1.getAngle();
@@ -86,6 +73,22 @@ public class Arm extends SubsystemBase{
     {
       return D_sliderServo.getDouble(0);
     }
+
+    /**
+     * Sets the servo angle
+     * <p>
+     * 
+     * @param degrees degree to set the servo to, range 0° - 300°
+     */
+    public void setServoAngle(final double degrees){
+      Servovalue = degrees;
+      servo1.setAngle(Servovalue);
+    }
+    public void setServoAngle2(final double degrees){
+      Servovalue2 = degrees;
+      servo2.setAngle(Servovalue2);
+    }
+
     public void setArmPos(double _x, double _y){
     
       double x = _x;
@@ -132,8 +135,7 @@ public class Arm extends SubsystemBase{
     public double[] getAngle(double x, double y){
       
       if ((x<0.05)&&(y<0.1)){
-        x = 0.05;
-              
+        x = 0.05; 
       }
 
       double a = 0.24;

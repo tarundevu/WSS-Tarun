@@ -28,15 +28,14 @@ public class MoveArm extends CommandBase{
     /**
      * @param x - X coordinate
      * @param y - Y coordinate
+     * @param maxSpeed - Maximum speed
      */
     public MoveArm(Translation2d pos, double maxSpeed)
     {
         m_constraints = new TrapezoidProfile.Constraints(maxSpeed, maxSpeed);
         x = pos.getX();
         y = pos.getY();
-
-        
-        
+  
     }
     
     /**
@@ -46,8 +45,8 @@ public class MoveArm extends CommandBase{
     public void initialize()
     {   
         double[] tgt_angles = m_arm.getAngle(x, y);
-        tgt_pos1 = tgt_angles[0];
-        tgt_pos2 = tgt_angles[1];
+        tgt_pos1 = tgt_angles[0]; // A
+        tgt_pos2 = tgt_angles[1]; // B
 
         double start_pos1 = m_arm.getServoAngle();
         double start_pos2 = m_arm.getServoAngle2();
