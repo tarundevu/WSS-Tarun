@@ -24,6 +24,7 @@ public final class Constants
     public static final int MOTOR_NUM       = 3;
     public static final int SERVO           = 0;
     public static final int SERVO_2         = 1;
+    public static final int SERVO_3         = 2;
 
     /**
      * IO constants

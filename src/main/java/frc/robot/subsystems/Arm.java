@@ -17,6 +17,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 public class Arm extends SubsystemBase{
     private final Servo servo1;
     private final Servo servo2;
+    private final Servo gripper;
     private double Servovalue;
     private double Servovalue2;
 
@@ -24,7 +25,8 @@ public class Arm extends SubsystemBase{
     private final double l2 = 0.335; 
     private double offset0 = 0;  
     private double offset1 = 0;
-    private double A,B,_x,_y;
+    private double A,B, m_x, m_y;
+    private Translation2d m_pos;
     
 
     private final ShuffleboardTab tab = Shuffleboard.getTab("Arm");
@@ -32,6 +34,8 @@ public class Arm extends SubsystemBase{
     private final NetworkTableEntry D_armvalue2 = tab.add("Servo2 angle", 0).getEntry();
     private final NetworkTableEntry D_armAngleA = tab.add("Arm angleA", 0).getEntry();
     private final NetworkTableEntry D_armAngleB = tab.add("Arm angleB", 0).getEntry();
+    private final NetworkTableEntry D_X = tab.add("X", 0).getEntry();
+    private final NetworkTableEntry D_Y = tab.add("Y", 0).getEntry();
     private final NetworkTableEntry D_offset0 = tab.addPersistent("offset0", 0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", -500, "max", +500)).getEntry();
     private final NetworkTableEntry D_offset1 = tab.addPersistent("offset1", 0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", -500, "max", +500)).getEntry();
     private final NetworkTableEntry D_sliderX = tab.add("setX", 0.04).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0.05, "max", 0.4)) .getEntry();
@@ -42,13 +46,15 @@ public class Arm extends SubsystemBase{
     public Arm(){
       servo1 = new Servo(0);
       servo2 = new Servo(1);
+      gripper = new Servo(2);
       
     }
     
     public void initialize(){
-      _x= 0.2;
-      _y = 0;
-      setArmPos(_x, _y);
+      // _x= 0.2;
+      // _y = 0;
+      setArmPos(0.2, 0);
+      
 
     }
     
@@ -60,6 +66,9 @@ public class Arm extends SubsystemBase{
     public double getServoAngle2(){
       return servo2.getAngle();
       
+    }
+    public double getGripper(){
+      return gripper.getAngle();
     }
     public double getSliderX() {
       return D_sliderX.getDouble(0.04);
@@ -88,19 +97,19 @@ public class Arm extends SubsystemBase{
       Servovalue2 = degrees;
       servo2.setAngle(Servovalue2);
     }
-
-    public void setArmPos(double _x, double _y){
+    public void setGripper(final double degrees){
+      gripper.setAngle(degrees);
+    }
+    public void setArmPos(double x, double y){
     
-      double x = _x;
-      double y = _y;
+      m_x = x;
+      m_y = y;
 
-      if ((x<0.05)&&(y<0.1)){
-        x = 0.05;
+      if ((x<0.2)){
+        x = 0.2;
               
       }
-      // if ((x>0.3)&&(y>0.1)){
-
-      // }
+    
 
       double a = l2;
       double c = l1;
@@ -119,85 +128,23 @@ public class Arm extends SubsystemBase{
         //offset0 and offset1 are used to adjust the zero the arm position.
         //This makes it easier to mount and tune the arm.
 
-       //B = 300 - B;
-      // A = 300 -A;
-      //A = A*4;
-      //B=B*2;
-      
-
       B*=2;
       A*=4;
-      servo1.setAngle((Math.toDegrees(A) + offset0));
-      servo2.setAngle((Math.toDegrees(B) + offset1));
+      servo1.setAngle((Math.toDegrees(A) + -176));
+      servo2.setAngle((Math.toDegrees(B) + -30));
       
     }
-
-    public double[] getAngle(double x, double y){
-      
-      if ((x<0.05)&&(y<0.1)){
-        x = 0.05; 
-      }
-
-      double a = 0.24;
-      double c = 0.335;
-      double b = Math.sqrt(x*x+y*y);
-      double alpha = Math.acos( (b*b + c*c - a*a)/(2*b*c) );
-      double beta = Math.acos( (a*a + c*c - b*b)/(2*a*c) );
-
-      // A is servo0 angle wrt horizon
-      // When A is zero, arm-c is horizontal.
-      // beta is servo1 angle wrt arm-c (BA)
-      // When beta is zero, arm-c is closed  to arm-c
-      double B = Math.PI - beta;    //Use B to designate beta. Different from diagram.
-      double A = alpha + Math.atan2(y,x);
-
-      //servo0 and servo1 might be mounted clockwise or anti clockwise.
-      //offset0 and offset1 are used to adjust the zero the arm position.
-      //This makes it easier to mount and tune the arm.
-      A = Math.toDegrees(A)*4;
-      B = Math.toDegrees(B)*2;
-      A = A + -176;// offset
-      B = B + -30; // offset
-
-      double[] angles = new double[2];
-      angles[0] = A;
-      angles[1] = B;
+    public Translation2d getArmPos(){
+      Translation2d m_pos = new Translation2d(m_x, m_y);
+      return m_pos;
+    }
     
-      return angles;
+    public void DisplayValue(double get_X, double get_Y){
+       D_X.setDouble(get_X);
+       D_Y.setDouble(get_Y);
+
     }
-
-    // public double getAngleB(double x,double y){
-      
-    //   if ((x<0.05)&&(y<0.1)){
-    //     x = 0.05;
-              
-    //   }
-
-    // double a = 0.24;
-    // double c = 0.335;
-    // double b = Math.sqrt(x*x+y*y);
-    // double alpha = Math.acos( (b*b + c*c - a*a)/(2*b*c) );
-    // double beta = Math.acos( (a*a + c*c - b*b)/(2*a*c) );
-
-    // // A is servo0 angle wrt horizon
-    // // When A is zero, arm-c is horizontal.
-    // // beta is servo1 angle wrt arm-c (BA)
-    // // When beta is zero, arm-c is closed  to arm-c
-    // double B = Math.PI - beta;    //Use B to designate beta. Different from diagram.
-    // double A = alpha + Math.atan2(y,x);
-
-    // //servo0 and servo1 might be mounted clockwise or anti clockwise.
-    // //offset0 and offset1 are used to adjust the zero the arm position.
-    // //This makes it easier to mount and tune the arm.
-    // A *=4;
-    // B *=2;
-    // A = Math.toDegrees(A);
-    // B = Math.toDegrees(B);
-    // A = A + -176;// offset
-    // B = B + -30; // offset
-  
-    //     return B;
-    // }
+    
 
     
     /**
@@ -213,7 +160,14 @@ public class Arm extends SubsystemBase{
       // v2 = D_armvalue2.getDouble(0);
       D_armAngleA.setDouble(Math.toDegrees(A));
       D_armAngleB.setDouble(Math.toDegrees(B));
+      
     }
+
+    // public void Debug(double position) {
+    //   setpoint1.setDouble(position);
+    //   //_dx.setDouble(dist);
+    //   //tgt_dist.setDouble(tgt_dist);
+    // }
 
     
 }

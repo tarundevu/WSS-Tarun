@@ -27,8 +27,9 @@ public class Sensor extends SubsystemBase
     private final DigitalInput input10;
     private final AnalogInput sharp22;
     private final AnalogInput sharp23;
+    private Cobra cobra;
     //private Ultrasonic sonar;
-    private int Cnt;
+    private int m_cnt = 0;
     // private Servo servo;
     // private double Servovalue;
     
@@ -37,10 +38,13 @@ public class Sensor extends SubsystemBase
     // Shuffleboard
     private final ShuffleboardTab tab = Shuffleboard.getTab("Sensors");
     private final NetworkTableEntry D_inputDisp = tab.add("inputDisp", false).getEntry();
-    private final NetworkTableEntry D_Cnt = tab.add("Cnt", 0).getEntry();
+    public final NetworkTableEntry D_Cnt = tab.add("Cnt", 0).getEntry();
     private final NetworkTableEntry D_sharp22 = tab.add("IRsensor1", 0).getEntry();
     private final NetworkTableEntry D_sharp23 = tab.add("IRsensor2", 0).getEntry();
-    //private final NetworkTableEntry D_sonar = tab.add("Ultrasonic", 0).getEntry();
+    private final NetworkTableEntry D_Cobra_0 = tab.add("cobra 0", 0).getEntry();
+    private final NetworkTableEntry D_Cobra_1 = tab.add("cobra 1", 0).getEntry();
+    private final NetworkTableEntry D_Cobra_total = tab.add("cobra total", 0).getEntry();
+    
     //private final NetworkTableEntry D_servo = tab.add("Servo", 0).getEntry();
 
 
@@ -51,10 +55,17 @@ public class Sensor extends SubsystemBase
         input10 = new DigitalInput(Constants.INPUT1);
         sharp22 = new AnalogInput(0);
         sharp23 = new AnalogInput(1);
+        cobra = new Cobra();
         //sonar = new Ultrasonic(Constants.SONIC_TRIGG, Constants.SONIC_ECHO);
         
     }
-
+    public void setCount(int cnt){
+        m_cnt = cnt;
+    }
+    public int getCount()
+    {
+        return m_cnt;
+    }
     
     
     
@@ -71,7 +82,10 @@ public class Sensor extends SubsystemBase
      * @return value between 0 and 2047 (11-bit)
      */
     public int getCobraRawValue(final int channel) {
-        return 0;
+        return cobra.getRawValue(channel);
+    }
+    public int getCobraTotal(){
+        return (cobra.getRawValue(0)+cobra.getRawValue(1));
     }
 
 
@@ -89,7 +103,7 @@ public class Sensor extends SubsystemBase
         return (Math.pow(sharp23.getAverageVoltage(), -1.2045)) * 27.726;
         
     }
-   
+    
     // public double getUltrasonicDistance(){
         
     //     return sonar.getRangeMM();
@@ -103,11 +117,14 @@ public class Sensor extends SubsystemBase
         //Display on shuffleboard
         //These display is good for debugging but may slow system down.
         //Good to remove unnecessary display during competition
-        Cnt++;
+        //Cnt++;
         D_inputDisp.setBoolean(getSwitch());
-        D_Cnt.setNumber(Cnt);
+        
         D_sharp22.setNumber(getIRDistance());
         D_sharp23.setNumber(getIRDistance2());
+        D_Cobra_0.setNumber(getCobraRawValue(0));
+        D_Cobra_1.setNumber(getCobraRawValue(1));
+        D_Cobra_total.setNumber(getCobraTotal());
         //D_sonar.setNumber(getUltrasonicDistance());
        
         

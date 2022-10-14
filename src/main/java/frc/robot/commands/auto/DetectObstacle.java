@@ -24,9 +24,9 @@ public class DetectObstacle extends SequentialCommandGroup
     }
 
     static public CommandSelector selectCmd123() {
-        if (RobotContainer.m_sensor.getIRDistance()<=20)
+        if (RobotContainer.m_sensor.getIRDistance()>10)
             return CommandSelector.ONE;
-        else if (RobotContainer.m_sensor.getIRDistance()>20){
+        else if (RobotContainer.m_sensor.getIRDistance()<10){
             return CommandSelector.TWO;
         }
         else 
@@ -40,8 +40,10 @@ public class DetectObstacle extends SequentialCommandGroup
             
                 new SelectCommand(
                 Map.ofEntries(
-                    Map.entry(CommandSelector.ONE, new ReturnSensor()),
-                    Map.entry(CommandSelector.TWO, new ReturnNoObstacle())),
+                    //Map.entry(CommandSelector.ONE, new ReturnSensor()),
+                    //Map.entry(CommandSelector.ONE, new MoveRobot(1,(RobotContainer.m_sensor.getIRDistance()-15)/100,0,0,0.25)),
+                    Map.entry(CommandSelector.ONE, new MoveRobotSense(1,0.4,0,0,0.15,()->RobotContainer.m_sensor.getIRDistance()<=10)),
+                    Map.entry(CommandSelector.TWO, new MoveRobot(1,-((10-RobotContainer.m_sensor.getIRDistance())/100),0,0,0.15))),
                      
                 DetectObstacle::selectCmd123
             )

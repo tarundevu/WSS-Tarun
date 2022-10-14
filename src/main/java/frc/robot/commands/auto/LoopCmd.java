@@ -3,6 +3,7 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 //import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.RobotContainer;
 
 
 
@@ -19,6 +20,7 @@ public class LoopCmd extends CommandBase
     private boolean m_endFlag;
     private SequentialCommandGroup cmd;
     private final end_func fn_ptr;
+    
 
     // An interface is an abstract class. All methods are not defined.
     // This interface defines a method that check for the end condition to terminate this command
@@ -38,6 +40,7 @@ public class LoopCmd extends CommandBase
         fn_ptr = fn;
 
     }
+    
     @Override
     public void initialize()
     {
@@ -60,6 +63,8 @@ public class LoopCmd extends CommandBase
                 cmd.schedule(false);
             }
         }
+        
+        
 
     }
 
