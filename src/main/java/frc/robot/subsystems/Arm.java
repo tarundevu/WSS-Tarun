@@ -41,6 +41,7 @@ public class Arm extends SubsystemBase{
     private final NetworkTableEntry D_sliderX = tab.add("setX", 0.04).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0.05, "max", 0.4)) .getEntry();
     private final NetworkTableEntry D_sliderY = tab.add("setY", 0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0.0, "max", 0.4)) .getEntry();
     private final NetworkTableEntry D_sliderServo = tab.add("setServo", 0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 300)) .getEntry();
+    private final NetworkTableEntry D_Gripper = tab.add("Gripper angle", 0).getEntry();
     
 
     public Arm(){
@@ -54,6 +55,7 @@ public class Arm extends SubsystemBase{
       // _x= 0.2;
       // _y = 0;
       setArmPos(0.2, 0);
+      setGripper(210);
       
 
     }
@@ -130,8 +132,8 @@ public class Arm extends SubsystemBase{
 
       B*=2;
       A*=4;
-      servo1.setAngle((Math.toDegrees(A) + -176));
-      servo2.setAngle((Math.toDegrees(B) + -30));
+      servo1.setAngle((Math.toDegrees(A) + offset0));
+      servo2.setAngle((Math.toDegrees(B) + offset1));
       
     }
     public Translation2d getArmPos(){
@@ -142,7 +144,12 @@ public class Arm extends SubsystemBase{
     public void DisplayValue(double get_X, double get_Y){
        D_X.setDouble(get_X);
        D_Y.setDouble(get_Y);
+       
 
+    }
+   
+    public void DisplayGripperAngle(double angle){
+      D_Gripper.setDouble(angle);
     }
     
 

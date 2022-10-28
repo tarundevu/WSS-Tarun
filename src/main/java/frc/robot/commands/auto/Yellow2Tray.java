@@ -14,7 +14,7 @@ public class Yellow2Tray extends SequentialCommandGroup {
       new MoveRobotSense(0, 0.7, 0.25, 0, 0.25, ()->RobotContainer.m_sensor.getCobraTotal()>=4094), //moves right
       new MoveRobot(1, -0.05, 0, 0, 0.25),
       new DetectObstacle(), //moves forward
-      new Pick()
+      new PickUp()
   );
   }
 }

@@ -28,8 +28,9 @@ public class Sensor extends SubsystemBase
     private final AnalogInput sharp22;
     private final AnalogInput sharp23;
     private Cobra cobra;
+    private double y_value=0;
     //private Ultrasonic sonar;
-    private int m_cnt = 0;
+  
     // private Servo servo;
     // private double Servovalue;
     
@@ -44,6 +45,8 @@ public class Sensor extends SubsystemBase
     private final NetworkTableEntry D_Cobra_0 = tab.add("cobra 0", 0).getEntry();
     private final NetworkTableEntry D_Cobra_1 = tab.add("cobra 1", 0).getEntry();
     private final NetworkTableEntry D_Cobra_total = tab.add("cobra total", 0).getEntry();
+    private final NetworkTableEntry D_dist = tab.add("y coord", 0).getEntry();
+    
     
     //private final NetworkTableEntry D_servo = tab.add("Servo", 0).getEntry();
 
@@ -59,14 +62,7 @@ public class Sensor extends SubsystemBase
         //sonar = new Ultrasonic(Constants.SONIC_TRIGG, Constants.SONIC_ECHO);
         
     }
-    public void setCount(int cnt){
-        m_cnt = cnt;
-    }
-    public int getCount()
-    {
-        return m_cnt;
-    }
-    
+   
     
     
     public Boolean getSwitch() {
@@ -85,7 +81,7 @@ public class Sensor extends SubsystemBase
         return cobra.getRawValue(channel);
     }
     public int getCobraTotal(){
-        return (cobra.getRawValue(0)+cobra.getRawValue(1));
+        return (cobra.getRawValue(1)+cobra.getRawValue(2));
     }
 
 
@@ -103,6 +99,11 @@ public class Sensor extends SubsystemBase
         return (Math.pow(sharp23.getAverageVoltage(), -1.2045)) * 27.726;
         
     }
+    public double getYcoord(double you){
+        y_value = you;
+        
+        return y_value;
+    }
     
     // public double getUltrasonicDistance(){
         
@@ -118,12 +119,12 @@ public class Sensor extends SubsystemBase
         //These display is good for debugging but may slow system down.
         //Good to remove unnecessary display during competition
         //Cnt++;
-        D_inputDisp.setBoolean(getSwitch());
-        
+       // D_inputDisp.setBoolean(getSwitch());
+        D_dist.setDouble(y_value);
         D_sharp22.setNumber(getIRDistance());
         D_sharp23.setNumber(getIRDistance2());
-        D_Cobra_0.setNumber(getCobraRawValue(0));
-        D_Cobra_1.setNumber(getCobraRawValue(1));
+        // D_Cobra_0.setNumber(getCobraRawValue(0));
+        // D_Cobra_1.setNumber(getCobraRawValue(1));
         D_Cobra_total.setNumber(getCobraTotal());
         //D_sonar.setNumber(getUltrasonicDistance());
        

@@ -24,13 +24,17 @@ public class Gripper extends CommandBase{
     //private double tgt_dist, m_dx, m_dy;
     //private double x,y;
     /**
-     * @param pos - angle in degrees
+     * @param pos - 0, 1 for close and open respectively
      * @param maxSpeed - Maximum speed
      */
-    public Gripper(double pos, double maxSpeed)
+    public Gripper(int pos, double maxSpeed)
     {   
         m_constraints = new TrapezoidProfile.Constraints(maxSpeed, maxSpeed);
-        tgt_pos = pos;
+        if (pos==0)
+            tgt_pos = 300;
+        else if (pos==1)
+            tgt_pos = 230;
+        //tgt_pos = pos;
     }
     
     /**
@@ -65,10 +69,12 @@ public class Gripper extends CommandBase{
         m_setpoint = m_profile.calculate(dT);
       
         m_arm.setGripper(m_setpoint.position);
+        m_arm.DisplayGripperAngle(m_setpoint.position);
         if ((m_profile.isFinished(dT))) {
             //distance reached End the command
             
-            //m_arm.setArmPos(tgt_pos.getX(), tgt_pos.getY());
+            m_arm.setGripper(tgt_pos);
+            
             m_endFlag = true;
         }
     }

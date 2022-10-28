@@ -1,8 +1,5 @@
 package frc.robot.subsystems;
 
-
-//Java imports
-
 //Vendor imports
 import com.kauailabs.navx.frc.AHRS;
 import com.studica.frc.TitanQuad;
@@ -21,7 +18,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.OmniDriveOdometry;
+import frc.robot.Astar.Layout;
+import frc.robot.utils.OmniDriveOdometry;
 
 
 public class OmniDrive extends SubsystemBase
@@ -43,7 +41,7 @@ public class OmniDrive extends SubsystemBase
     private double[] wheelSpeeds;
     private double curHeading, targetHeading;
     private double[] motorOuts;
-    
+    private int initCnt;
     // Odometry class for tracking robot pose
     private final OmniDriveOdometry m_odometry;
     
@@ -72,7 +70,7 @@ public class OmniDrive extends SubsystemBase
     //Subsystem for omnidrive
     public OmniDrive() {
 
-        outDebug8 = new DigitalOutput(8);
+        outDebug8 = new DigitalOutput(Constants.DEBUG_PIN);
 
         //Omni drive motors
         motors = new TitanQuad[Constants.MOTOR_NUM];
@@ -98,8 +96,8 @@ public class OmniDrive extends SubsystemBase
         // x, y and w speed controler
         pidControllers = new PIDController[Constants.PID_NUM];
         //Speed control
-        pidControllers[0] = new PIDController(1.2,24.0,0.00, pid_dT);  //x
-        pidControllers[1] = new PIDController(1.2,24.0,0.00, pid_dT);  //y 2.0,32.0,0.02
+        pidControllers[0] = new PIDController(0.4,12.0,0.00, pid_dT);  //x
+        pidControllers[1] = new PIDController(0.4,12.0,0.00, pid_dT);  //y 2.0,32.0,0.02
         pidControllers[2] = new PIDController(2.0,0.0,0.1, pid_dT);    //w
         pidControllers[2].enableContinuousInput(-Math.PI, Math.PI);
 
@@ -112,7 +110,7 @@ public class OmniDrive extends SubsystemBase
         gyro.zeroYaw();
         curHeading = targetHeading = getYawRad();
 
-        m_odometry = new OmniDriveOdometry( new Pose2d(0.0, 0.0, new Rotation2d(0.0)));
+        m_odometry = new OmniDriveOdometry( Layout.Convert_mm_Pose2d(Layout.startPos));
 
     }
 
@@ -171,12 +169,15 @@ public class OmniDrive extends SubsystemBase
      * @param y range -1 to 1 (0 stop)
      * @param z range -1 to 1 (0 stop)
      */
-    public void setRobotSpeedXYW_Open(double x, double y, double z)
+    public void setRobotSpeedXYW_Open(double x, double y, double w)
     {
         // M0 = [-sin(150) cos(150) R] * [x y w]'   //Left-front wheel
         // M1 = [-sin(270) cos(270) R]              //Back wheel
         // M2 = [-sin(30)  cos(30)  R]              //Right-front wheel
-
+        double s0 = (-0.5*x - 0.866025*y + w);
+        double s1 = (     x + 0            + w   );
+        double s2 = (-0.5*x + 0.866025*y + w);
+        setMotorOut012(s0, s1, s2);
     }
 
     /***
@@ -272,20 +273,20 @@ public class OmniDrive extends SubsystemBase
         }   
         outDebug8.set(false);
    }
+
+   public void initialise(){
+        m_odometry.resetPosition(Layout.Convert_mm_Pose2d(Layout.startPos));
+        gyro.zeroYaw();
+        curHeading = targetHeading = getYawRad();
+   }
     /**
      * Code that runs once every robot loop
      */
-    int initCnt=0;
     @Override
     public void periodic()
     {
-
-        if (initCnt<1) {
-            initCnt++;
-            gyro.zeroYaw();
-            curHeading = targetHeading = getYawRad();
-            return;
-        }
+       // System.out.println("Omni");
+       initCnt++;
 
         if (!Constants.PID_THREAD ) {
             doPID();
@@ -296,6 +297,7 @@ public class OmniDrive extends SubsystemBase
 
         /**
          * Updates for outputs to the shuffleboard
+         * Unnecessary display should be removed during contest
          */
 
         //D_curHeading.setDouble(curHeading);

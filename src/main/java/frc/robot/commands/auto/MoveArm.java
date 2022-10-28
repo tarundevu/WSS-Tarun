@@ -23,7 +23,9 @@ public class MoveArm extends CommandBase{
     // private final double tgt_pos1;
     // private final double tgt_pos2;
     // private double start_pos1, start_pos2;
-    private Translation2d tgt_pos, cur_pos, start_pos;
+    private Translation2d tgt_pos;
+    private Translation2d cur_pos;
+    private Translation2d start_pos;
     private double tgt_dist, m_dx, m_dy;
     //private double x,y;
     /**
@@ -96,6 +98,7 @@ public class MoveArm extends CommandBase{
         // m_arm.setServoAngle(m_setpoint1.position);
         // m_arm.setServoAngle2(m_setpoint2.position);
         
+        
         m_profile1 = new TrapezoidProfile(m_constraints, m_goal1, m_setpoint1);
 
         m_setpoint1 = m_profile1.calculate(dT);
@@ -103,13 +106,23 @@ public class MoveArm extends CommandBase{
 
         m_arm.setArmPos(cur_pos.getX(), cur_pos.getY());
         m_arm.DisplayValue(cur_pos.getX(), cur_pos.getY());
-        if ((m_profile1.isFinished(dT))) {
+        if (m_profile1.isFinished(dT) || endCondition()) {
             //distance reached End the command
             
             m_arm.setArmPos(tgt_pos.getX(), tgt_pos.getY());
             m_endFlag = true;
         }
     }
+
+    /**
+     * Called when the command is told to end or is interrupted
+     */
+    @Override
+    public void end(boolean interrupted)
+    {
+        m_arm.setArmPos(cur_pos.getX(), cur_pos.getY());
+    }
+
     /**
      * Creates an isFinished condition if needed
      */

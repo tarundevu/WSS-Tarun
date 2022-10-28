@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Arm;
@@ -57,18 +58,19 @@ public class TeleCmd extends CommandBase
         //Get other buttons?
         double s = m_oi.getLeftDriveY();
         //Add code here to control servo motor etc.
-        // double s0, s1, s2;
-        // double speed_multiplier = 2;
-        // s0 = speed_multiplier * ((-0.498*x) + (-0.867*y)+(1*w));
-        // s1 = speed_multiplier * ((1*x) + (0*y)+(1*w));
-        // s2 = speed_multiplier * ((-0.5*x) + (0.865*y)+(1*w));
-        // m_omnidrive.setMotorOut012(s0,s1,s2);
-        // m_arm.setServoAngle(300);
-        // m_arm.setServoAngle2(0);
-        // m_arm.setServoAngle(m_arm.getSliderServo());
+        double s0, s1, s2;
+        double speed_multiplier = 2;
+        s0 = speed_multiplier * ((-0.498*x) + (-0.867*y)+(1*w));
+        s1 = speed_multiplier * ((1*x) + (0*y)+(1*w));
+        s2 = speed_multiplier * ((-0.5*x) + (0.865*y)+(1*w));
+        //m_omnidrive.setMotorOut012(x,y,w);
+        m_arm.setGripper(m_arm.getSliderServo());
+        //m_arm.setServoAngle(90);
+        //m_arm.setGripper(150);
         m_arm.setArmPos(m_arm.getSliderX(), m_arm.getSliderY());
-        //m_arm.setArmPos(0.32, 0);
-        //m_omnidrive.setRobotSpeedXYW(x*0.6, y*0.6, w*Math.PI);
+        //Translation2d pos = new Translation2d(m_arm.getSliderX(), m_arm.getSliderY());
+        //m_arm.setArmPos(pos);
+        m_omnidrive.setRobotSpeedXYW(x*0.6, y*0.6, w*Math.PI);
 
     }
 

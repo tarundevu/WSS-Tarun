@@ -22,7 +22,7 @@ public class ReturnNoObstacle extends SequentialCommandGroup
             
             
               
-              new MoveRobot(1, 0.5, 0, 0, 0.4),
+              //new MoveRobot(1, 0.5, 0, 0, 0.4),
               new MoveRobot(1, -0.5, 0, 0, 0.4) 
                 
             
