@@ -47,7 +47,7 @@ public class MovePivot extends CommandBase
      * @param maxSpeed - max speed of robot
      */
     //This move the robot a certain distance following a trapezoidal speed profile.
-    public MovePivot(double dia, double dist, double startSpeed, double endSpeed, double maxSpeed)
+    public MovePivot(double radius, double dist, double startSpeed, double endSpeed, double maxSpeed)
     {
         _startSpeed = startSpeed;
     
@@ -61,7 +61,7 @@ public class MovePivot extends CommandBase
 
         //Negative distance don't seem to work with the library function????
         //Easier to make distance positive and use m_dir to keep track of negative speed.
-        double distx = Math.PI*dia ,disty = 0, distz = dist;
+        double distx = Math.PI*(2*radius), disty = 0, distz = dist;
         m_dir1 = (distx>0)?1:-1;
         distx *= m_dir1;     
         
