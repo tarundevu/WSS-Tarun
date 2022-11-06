@@ -31,9 +31,9 @@ public class Gripper extends CommandBase{
     {   
         m_constraints = new TrapezoidProfile.Constraints(maxSpeed, maxSpeed);
         if (pos==0)
-            tgt_pos = 300;
+            tgt_pos = 0;
         else if (pos==1)
-            tgt_pos = 230;
+            tgt_pos = 150;
         //tgt_pos = pos;
     }
     

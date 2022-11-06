@@ -46,12 +46,11 @@ import java.util.function.Supplier;
 
 @SuppressWarnings({"PMD.TooManyFields", "MemberName"})
 public class OmniTrackTrajectoryCommand extends CommandBase {
-  private final Timer m_timer = new Timer();
+
   private final static OmniDrive m_drive = RobotContainer.m_omnidrive;
-  private ChassisSpeeds m_prevSpeeds;
-  private double m_prevTime;
   private Pose2d m_finalPose;
-  private double curTime;
+  private double curTime=0;
+  private double dT = 0.02;
 
   private final Supplier<Trajectory> m_trajectory;
   private final Supplier<Pose2d> m_pose;
@@ -116,12 +115,7 @@ public class OmniTrackTrajectoryCommand extends CommandBase {
     var initialYVelocity = initialState.velocityMetersPerSecond
         * initialState.poseMeters.getRotation().getSin();
 
-
-    m_prevSpeeds =  new ChassisSpeeds(initialXVelocity, initialYVelocity, 0.0);
-
-    m_timer.reset();
-    m_timer.start();
-    m_prevTime = curTime = 0;
+    curTime = 0;
 
   }
 
@@ -129,14 +123,12 @@ public class OmniTrackTrajectoryCommand extends CommandBase {
   @SuppressWarnings("LocalVariableName")
   public void execute() {
 
-    curTime = m_timer.get();
-
-    //Check dt... Maybe just use constant 0.02 ???????????????????????????????
-    double dt = curTime - m_prevTime;
+    curTime += dT;
 
     var desiredState = m_trajectory.get().sample(curTime);
     var desiredPose = desiredState.poseMeters;
 
+    //var poseError = desiredPose.relativeTo(m_prevPos);    
     var poseError = desiredPose.relativeTo(m_pose.get());
 
     double targetXVel = m_xController.calculate(
@@ -147,31 +139,31 @@ public class OmniTrackTrajectoryCommand extends CommandBase {
         m_pose.get().getTranslation().getY(),
         desiredPose.getTranslation().getY());
 
+    double vRef = desiredState.velocityMetersPerSecond;
+
+    // targetXVel += vRef * poseError.getRotation().getCos();
+    // targetYVel += vRef * poseError.getRotation().getSin();
+    targetXVel = vRef * poseError.getRotation().getCos();
+    targetYVel = vRef * poseError.getRotation().getSin();
+
     // The robot will go to the desired rotation of the final pose in the trajectory,
     // not following the poses at individual states.
     double targetAngularVel = m_thetaController.calculate(
         m_pose.get().getRotation().getRadians(),
         m_finalPose.getRotation().getRadians());
 
-    double vRef = desiredState.velocityMetersPerSecond;
-
-    //targetXVel += vRef * poseError.getRotation().getCos();
-    //targetYVel += vRef * poseError.getRotation().getSin();
-    targetXVel = vRef * poseError.getRotation().getCos();
-    targetYVel = vRef * poseError.getRotation().getSin();
 
     // System.out.printf("t:%5.2f, x:%5.2f, y:%5.2f, v:%5.2f\n", curTime, desiredPose.getTranslation().getX(), 
     // desiredPose.getTranslation().getY(), desiredState.velocityMetersPerSecond);
 
-    m_prevSpeeds = new ChassisSpeeds(targetXVel, targetYVel, 0);//targetAngularVel);
+    //m_prevSpeeds = new ChassisSpeeds(targetXVel, targetYVel, 0);//targetAngularVel);
     m_drive.setRobotSpeedXYW(targetXVel, targetYVel, 0);//targetAngularVel);
-    m_prevTime = curTime;
 
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_timer.stop();
+
     //Currently set Robot to stop.
     //Should be done outide?????????????????????????????
     m_drive.setRobotSpeedXYW(0,0,0);
@@ -179,8 +171,7 @@ public class OmniTrackTrajectoryCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return m_timer.hasElapsed(m_trajectory.get().getTotalTimeSeconds());
+//    return m_timer.hasElapsed(m_trajectory.get().getTotalTimeSeconds());
+    return curTime > m_trajectory.get().getTotalTimeSeconds();
   }
 }
-
-

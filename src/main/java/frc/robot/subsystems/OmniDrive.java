@@ -110,7 +110,7 @@ public class OmniDrive extends SubsystemBase
         gyro.zeroYaw();
         curHeading = targetHeading = getYawRad();
 
-        m_odometry = new OmniDriveOdometry( Layout.Convert_mm_Pose2d(Layout.startPos));
+        m_odometry = new OmniDriveOdometry(Layout.Convert_mm_Pose2d(Layout.startPos));
 
     }
 

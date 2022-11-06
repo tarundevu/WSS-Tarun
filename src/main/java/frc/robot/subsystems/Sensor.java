@@ -77,9 +77,9 @@ public class Sensor extends SubsystemBase
      * @param channel range 0 - 3 (matches what is on the adc)
      * @return value between 0 and 2047 (11-bit)
      */
-    public int getCobraRawValue(final int channel) {
-        return cobra.getRawValue(channel);
-    }
+    // public int getCobraRawValue(final int channel) {
+    //     return cobra.getRawValue(channel);
+    // }
     public int getCobraTotal(){
         return (cobra.getRawValue(1)+cobra.getRawValue(2));
     }
@@ -120,12 +120,12 @@ public class Sensor extends SubsystemBase
         //Good to remove unnecessary display during competition
         //Cnt++;
        // D_inputDisp.setBoolean(getSwitch());
-        D_dist.setDouble(y_value);
+        // D_dist.setDouble(y_value);
         D_sharp22.setNumber(getIRDistance());
         D_sharp23.setNumber(getIRDistance2());
         // D_Cobra_0.setNumber(getCobraRawValue(0));
         // D_Cobra_1.setNumber(getCobraRawValue(1));
-        D_Cobra_total.setNumber(getCobraTotal());
+        // D_Cobra_total.setNumber(getCobraTotal());
         //D_sonar.setNumber(getUltrasonicDistance());
        
         

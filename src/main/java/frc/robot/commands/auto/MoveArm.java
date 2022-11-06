@@ -120,7 +120,7 @@ public class MoveArm extends CommandBase{
     @Override
     public void end(boolean interrupted)
     {
-        m_arm.setArmPos(cur_pos.getX(), cur_pos.getY());
+        // m_arm.setArmPos(cur_pos.getX(), cur_pos.getY());
     }
 
     /**

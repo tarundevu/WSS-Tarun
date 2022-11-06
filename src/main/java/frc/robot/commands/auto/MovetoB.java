@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.wpilibj.trajectory.constraint.CentripetalAccelerationConstraint;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.Astar.Layout;
 import frc.robot.Astar.Node;
@@ -57,9 +58,9 @@ public class MovetoB extends SequentialCommandGroup
 
         //calculate error between real position and the tile center it is mapped to 
         //
-        double x_error, y_error;
-        x_error = 0;//curPose.getTranslation().getX() - start_x*Layout.tile_size_meter;
-        y_error = 0;//curPose.getTranslation().getY() - start_y*Layout.tile_size_meter;
+        double dx, dy;
+        dx = m_posB.getTranslation().getX() - curPose.getTranslation().getX();
+        dy = m_posB.getTranslation().getY() - curPose.getTranslation().getY();
 
         Tile nodeStart, nodeEnd;
         nodeStart = RobotContainer.m_Grid.find(start_x, start_y);
@@ -67,8 +68,12 @@ public class MovetoB extends SequentialCommandGroup
         //Improve accuracy by adding rounding error of start_x,y to end_x,y
         //Rounding error occurs when converting from real unit meter to cell unit
         //
-        int end_x = Layout.Convert_m_cell(m_posB.getTranslation().getX() + x_error);
-        int end_y = Layout.Convert_m_cell(m_posB.getTranslation().getY() + y_error);
+        // int end_x = Layout.Convert_m_cell(m_posB.getTranslation().getX());
+        // int end_y = Layout.Convert_m_cell(m_posB.getTranslation().getY());        
+        //Reduce quantised position error
+        int end_x = start_x + Layout.Convert_m_cell(dx);
+        int end_y = start_y + Layout.Convert_m_cell(dy);
+
         nodeEnd = RobotContainer.m_Grid.find(end_x, end_y);
 
         // Call A* to solve path from point A to point B
@@ -76,7 +81,8 @@ public class MovetoB extends SequentialCommandGroup
         RobotContainer.m_Astar.setStart(nodeEnd);
         RobotContainer.m_Astar.setEnd(nodeStart);
 
-        System.out.printf("start=%d,%d, end=%d,%d\n\n", start_x, start_y, end_x, end_y);
+        System.out.printf("start=%d,%d, end=%d,%d dxy=%d,%d dxy=%f,%f\n\n", 
+            start_x, start_y, end_x, end_y, Layout.Convert_m_cell(dx), Layout.Convert_m_cell(dy), dx,dy);
         RobotContainer.m_Astar.solve();
         
         // Get the path waypoints
@@ -99,8 +105,12 @@ public class MovetoB extends SequentialCommandGroup
                 }
             }
         }
+        else {
+            //How to handle no proper path situation?
+        }
 
         //generate trajectory based on A* output
+        //QuinticHermite works better
         m_Trajectory =
             //myGenerateTrajectory.generateTrajectoryClampedCubic(m_pathWayPoints, m_Config, 0.05);
             myGenerateTrajectory.generateTrajectoryQuinticHermite(m_pathWayPoints, m_Config, 0.1);
@@ -117,16 +127,17 @@ public class MovetoB extends SequentialCommandGroup
     {
         super (
             //Start with trajectory following
+            new WaitCommand(0.4),
             new OmniTrackTrajectoryCommand(
                 myGenerateTrajectory::getTrajectory,
                 RobotContainer.m_omnidrive::getPose,
                 // Position contollers
-                new PIDController(0.5, 0, 0),
-                new PIDController(0.5, 0, 0),
+                new PIDController(0.25, 0, 0),
+                new PIDController(0.25, 0, 0),
                 new ProfiledPIDController(1, 0, 0, new Constraints(Math.PI, Math.PI) ),
                 RobotContainer.m_omnidrive )
 
-            //End with rotation to the right heading.
+            //End with rotation to the target heading???
 
         );
         m_posB = posB;

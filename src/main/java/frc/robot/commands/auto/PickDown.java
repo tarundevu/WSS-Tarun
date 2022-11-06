@@ -29,15 +29,13 @@ public class PickDown extends SequentialCommandGroup
     {
       
       super(
-      //new MoveArm(new Translation2d(0.25,0.1),0.5),
-      //new Gripper(1, 100),
+     
       new MoveArm(new Translation2d(0.3,0.1),0.5),
       new MoveArm(new Translation2d(0.3,0), 0.5),
       
-      new Gripper(1,100),
+      new Gripper(0,150),
       new MoveArm(new Translation2d(0.3,0.1), 0.5)
-      //new MoveArm(new Translation2d(0.25,0.1),0.5)
-      //new Gripper(1, 100)
+      
       
       );
       

@@ -72,7 +72,7 @@ public class Layout {
     public static final int PickUpBinPos[][] = {
         //x, y, angle
         //Robot stops 250mm from stand. To be adjusted
-        {850, 950,       0}, //Room med cube stand. 
+        {850, 950,       90}, //Room med cube stand. 
         
     };
     //These are initial positions for robots to go to retrieve hazmat cube

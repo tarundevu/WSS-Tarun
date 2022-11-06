@@ -54,8 +54,8 @@ public class Arm extends SubsystemBase{
     public void initialize(){
       // _x= 0.2;
       // _y = 0;
-      setArmPos(0.2, 0);
-      setGripper(210);
+      setArmPos(0.2, 0.1);
+      setGripper(0);
       
 
     }
