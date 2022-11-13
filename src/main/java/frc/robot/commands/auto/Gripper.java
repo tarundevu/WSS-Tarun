@@ -21,9 +21,9 @@ public class Gripper extends CommandBase{
     private TrapezoidProfile m_profile;
     private double tgt_pos;
     private double start_pos;
-    //private double tgt_dist, m_dx, m_dy;
-    //private double x,y;
-    /**
+   
+    /** This class is used to control an end effector
+     * 
      * @param pos - 0, 1 for close and open respectively
      * @param maxSpeed - Maximum speed
      */

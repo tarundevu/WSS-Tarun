@@ -28,20 +28,14 @@ public class MoveArm extends CommandBase{
     private Translation2d start_pos;
     private double tgt_dist, m_dx, m_dy;
     //private double x,y;
-    /**
+
+    /** This class is used to control an arm with 2 degrees of freedom
      * @param x - X coordinate
      * @param y - Y coordinate
      * @param maxSpeed - Maximum speed
      */
     public MoveArm(Translation2d pos, double maxSpeed)
     {   
-        // x = pos.getX();
-        // y = pos.getY();
-        // m_constraints = new TrapezoidProfile.Constraints(maxSpeed, maxSpeed);
-        
-        // double[] tgt_angles = m_arm.getAngle(x, y);
-        // tgt_pos1 = tgt_angles[0]; // A
-        // tgt_pos2 = tgt_angles[1]; // B
         
         m_constraints = new TrapezoidProfile.Constraints(maxSpeed, maxSpeed);
         tgt_pos = pos;
@@ -54,15 +48,6 @@ public class MoveArm extends CommandBase{
     public void initialize()
     {   
         
- 
-        // start_pos1 = m_arm.getServoAngle();
-        // start_pos2 = m_arm.getServoAngle2();
-        
-        // m_goal1 = new TrapezoidProfile.State(tgt_pos1, 0);
-        // m_goal2 = new TrapezoidProfile.State(tgt_pos2, 0);
-
-        // m_setpoint1 = new TrapezoidProfile.State(start_pos1, 0);
-        // m_setpoint2 = new TrapezoidProfile.State(start_pos2, 0);
 
         start_pos = m_arm.getArmPos();
         tgt_dist = start_pos.getDistance(tgt_pos);
@@ -88,16 +73,6 @@ public class MoveArm extends CommandBase{
     public void execute()
     {
          
-        // m_profile1 = new TrapezoidProfile(m_constraints, m_goal1, m_setpoint1);
-        // m_profile2 = new TrapezoidProfile(m_constraints, m_goal2, m_setpoint2);
-
-        // m_setpoint1 = m_profile1.calculate(dT);
-        // m_setpoint2 = m_profile2.calculate(dT);
-
-        // //m_arm.setArmPos(m_setpoint1.position, m_setpoint2.position);
-        // m_arm.setServoAngle(m_setpoint1.position);
-        // m_arm.setServoAngle2(m_setpoint2.position);
-        
         
         m_profile1 = new TrapezoidProfile(m_constraints, m_goal1, m_setpoint1);
 

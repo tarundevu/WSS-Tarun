@@ -2,27 +2,16 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.RobotContainer;
 // import the commands
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 
 //WPI imports
 
 
-//RobotContainer import
-
-
-
-//Subsystem imports
-
-//import frc.robot.subsystems.Arm;
-
-
-
 /**
  * DriveMotor class
  * <p>
- * This class creates the inline auto command to drive the motor
+ * This class creates the inline auto command to pick up objects
  */
 public class PickUp extends SequentialCommandGroup
 {

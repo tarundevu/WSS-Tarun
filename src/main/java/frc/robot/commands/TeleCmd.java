@@ -55,6 +55,9 @@ public class TeleCmd extends CommandBase
         double y = -m_oi.getRightDriveY();//Down is positive. Need to negate
         double w = -m_oi.getLeftDriveX(); //X-positive is CW. Need to negate
         boolean A = m_oi.getDriveAButton();
+        boolean B = m_oi.getDriveBButton();
+        boolean pick = m_oi.getDriveXButton();
+        boolean place = m_oi.getDriveYButton();
 
         //Get other buttons?
         double s = m_oi.getLeftDriveY();
@@ -65,16 +68,24 @@ public class TeleCmd extends CommandBase
         s1 = speed_multiplier * ((1*x) + (0*y)+(1*w));
         s2 = speed_multiplier * ((-0.5*x) + (0.865*y)+(1*w));
         // m_omnidrive.setMotorOut012(x,y,w);
+
+        if ((pick == true)){
+            m_arm.setArmPos(0.3, 0.1);
+            m_arm.setArmPos(0.3, -0.07);
+        }
+        if ((place == true) && (pick == false)){
+            m_arm.setArmPos(0.3, 0.1);
+        }
         if (A==true){
             m_arm.setGripper(150);
         }
-        else{
+        if (B==true){
             m_arm.setGripper(0);
         }
 
-        m_arm.setArmPos(m_arm.getSliderX(), m_arm.getSliderY());
+        //m_arm.setArmPos(m_arm.getSliderX(), m_arm.getSliderY());
         //Translation2d pos = new Translation2d(m_arm.getSliderX(), m_arm.getSliderY());
-        // m_omnidrive.setRobotSpeedXYW(x*0.6, y*0.6, w*Math.PI);
+        m_omnidrive.setRobotSpeedXYW(x*0.6, y*0.6, w*Math.PI);
 
     }
 

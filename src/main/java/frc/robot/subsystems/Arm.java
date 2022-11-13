@@ -5,6 +5,7 @@ import java.util.Map;
 import com.studica.frc.Servo;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.auto.MoveServo;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -18,6 +19,7 @@ public class Arm extends SubsystemBase{
     private final Servo servo1;
     private final Servo servo2;
     private final Servo gripper;
+    private final Servo servoCam;
     private double Servovalue;
     private double Servovalue2;
 
@@ -48,14 +50,15 @@ public class Arm extends SubsystemBase{
       servo1 = new Servo(0);
       servo2 = new Servo(1);
       gripper = new Servo(2);
-      
-    }
+      servoCam = new Servo(3);
+;    }
     
     public void initialize(){
       // _x= 0.2;
       // _y = 0;
-      setArmPos(0.2, 0.1);
+      setArmPos(0.3, 0.1);
       setGripper(0);
+      new WaitCommand(0.5);
       
 
     }
@@ -71,6 +74,9 @@ public class Arm extends SubsystemBase{
     }
     public double getGripper(){
       return gripper.getAngle();
+    }
+    public double getServoAngle3(){
+      return servoCam.getAngle();
     }
     public double getSliderX() {
       return D_sliderX.getDouble(0.04);
@@ -101,6 +107,9 @@ public class Arm extends SubsystemBase{
     }
     public void setGripper(final double degrees){
       gripper.setAngle(degrees);
+    }
+    public void setServoAngle3(final double degrees){
+      servoCam.setAngle(degrees);
     }
     public void setArmPos(double x, double y){
     

@@ -18,6 +18,7 @@ import frc.robot.commands.gamepad.OI;
 import frc.robot.subsystems.Menu;
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Sensor;
+import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Arm;
 
 public class RobotContainer {
@@ -27,6 +28,7 @@ public class RobotContainer {
   public final static OmniDrive m_omnidrive = new OmniDrive();
   public final static Sensor m_sensor = new Sensor(); 
   public final static Arm m_arm = new Arm();
+  public final static Vision m_vision = new Vision();
   //user menu
   public final static Menu m_menu = new Menu(m_oi);
   //commands

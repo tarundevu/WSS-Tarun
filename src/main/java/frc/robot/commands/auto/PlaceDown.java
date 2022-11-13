@@ -20,12 +20,12 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 /**
  * DriveMotor class
  * <p>
- * This class creates the inline auto command to drive the motor
+ * This class creates the inline auto command to place objects down
  */
-public class PickDown extends SequentialCommandGroup
+public class PlaceDown extends SequentialCommandGroup
 {
     
-    public PickDown()
+    public PlaceDown()
     {
       
       super(

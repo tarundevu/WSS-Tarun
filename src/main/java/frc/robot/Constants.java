@@ -25,6 +25,7 @@ public final class Constants
     public static final int SERVO           = 0;
     public static final int SERVO_2         = 1;
     public static final int SERVO_3         = 2;
+    public static final int SERVO_4         = 3;
 
     /**
      * IO constants
