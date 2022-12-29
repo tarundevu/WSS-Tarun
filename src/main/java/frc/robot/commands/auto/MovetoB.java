@@ -40,7 +40,7 @@ public class MovetoB extends SequentialCommandGroup
     private List<Translation2d> m_pathWayPoints;
     //Set max velocity, acceleration and centripedal acceleration (turn speed)
     static private final CentripetalAccelerationConstraint m_CurveConstraint = new CentripetalAccelerationConstraint(0.5);
-    static private final TrajectoryConfig m_Config = new TrajectoryConfig(0.5, 0.5).addConstraint(m_CurveConstraint).setReversed(false);
+    static private final TrajectoryConfig m_Config = new TrajectoryConfig(0.45, 0.4).addConstraint(m_CurveConstraint).setReversed(false);
 
     private Pose2d m_posB;
   

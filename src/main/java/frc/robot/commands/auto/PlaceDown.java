@@ -1,6 +1,9 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Globals;
+import frc.robot.RobotContainer;
 // import the commands
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 
@@ -30,11 +33,12 @@ public class PlaceDown extends SequentialCommandGroup
       
       super(
      
-      new MoveArm(new Translation2d(0.3,0.1),0.5),
-      new MoveArm(new Translation2d(0.3,0), 0.5),
-      
-      new Gripper(0,150),
-      new MoveArm(new Translation2d(0.3,0.1), 0.5)
+      new ArmToMidBin(0.5),
+      new MoveArm(new Translation2d(0.35,0),0.5),
+      new Gripper(1,60),
+      new WaitCommand(1),
+      new MoveArm(new Translation2d(0.35,0),0.5)
+      //new Gripper(0,60)
       
       
       );

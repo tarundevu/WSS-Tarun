@@ -44,26 +44,7 @@ public class Layout {
         {115, 3250,  230,  320,  0 }, 
         {1140, 4390,  320, 230,  0 }, 
         // {1957, 2038-425,  150,  210,  0 }, 
-        // {3007, 2038-425,  150,  210,  0 }, 
-        // {1546, 115,       150,  210, 0}, //Room gurney
-        // {2546, 115,       150,  210, 0}, 
-        // {3546, 115,       150,  210, 0}, 
-        // {3546, 2038-115,  150,  210, 0}, 
-        // {2546, 2038-115,  150,  210, 0}, 
-
-        // //Room med cube obstacle are not really necessary but good for checking if positions are right
-        // {1546-185, 50,       60,  60, 0}, //Room med cube stand. 
-        // {2546-185, 50,       60,  60, 0}, 
-        // {3546-185, 50,       60,  60, 0}, 
-        // {3546+185, 2038-50,  60,  60, 0}, 
-        // {2546+185, 2038-50,  60,  60, 0}, 
-
-        // {1546+185, 50,       60,  60, 0}, //Room hazmat cube stand. 
-        // {2546+185, 50,       60,  60, 0}, 
-        // {3546+185, 50,       60,  60, 0}, 
-        // {3546-185, 2038-50,  60,  60, 0}, 
-        // {2546-185, 2038-50,  60,  60, 0}, 
-        // {525,  2038-50,   650,  100,  0 },  //Dispensary
+       
     };
 
     //These are initial positions for robots to go to place medicine cube
@@ -72,7 +53,7 @@ public class Layout {
     public static final int PickUpBinPos[][] = {
         //x, y, angle
         //Robot stops 250mm from stand. To be adjusted
-        {850, 950,       90}, //Room med cube stand. 
+        {700, 950, 90}, //Room med cube stand. 
         
     };
     //These are initial positions for robots to go to retrieve hazmat cube
@@ -97,7 +78,8 @@ public class Layout {
     public static final int HazMatBinPos[] = {500, 980, 180};
 
     // Robot start position. Also the cleaning position
-    public static final int startPos[] = {210, 210,  0}; //start position
+    //public static final int startPos[] = {210, 210,  0}; //start position
+    public static final int startPos[] = {960, 1100, -90}; //For open house
 
     private int walls[][];
     private int obs[][];

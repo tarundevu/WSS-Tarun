@@ -96,8 +96,8 @@ public class OmniDrive extends SubsystemBase
         // x, y and w speed controler
         pidControllers = new PIDController[Constants.PID_NUM];
         //Speed control
-        pidControllers[0] = new PIDController(0.4,12.0,0.00, pid_dT);  //x
-        pidControllers[1] = new PIDController(0.4,12.0,0.00, pid_dT);  //y 2.0,32.0,0.02
+        pidControllers[0] = new PIDController(1.2,12.0,0.00, pid_dT);  //x
+        pidControllers[1] = new PIDController(1.2,12.0,0.00, pid_dT);  //y 2.0,32.0,0.02
         pidControllers[2] = new PIDController(2.0,0.0,0.1, pid_dT);    //w
         pidControllers[2].enableContinuousInput(-Math.PI, Math.PI);
 
@@ -301,15 +301,15 @@ public class OmniDrive extends SubsystemBase
          */
 
         //D_curHeading.setDouble(curHeading);
-        D_curHeading.setDouble(curHeading*180/Math.PI);
-        D_tgtHeading.setDouble(targetHeading*180/Math.PI);
-        D_navYaw.setDouble(-gyro.getYaw());
+        // D_curHeading.setDouble(curHeading*180/Math.PI);
+        // D_tgtHeading.setDouble(targetHeading*180/Math.PI);
+        // D_navYaw.setDouble(-gyro.getYaw());
 
-        //Titan encoder
-        D_encoderDisp0.setDouble(encoderSpeeds[0]);//encoderSpeeds[0]);
-        D_encoderDisp1.setDouble(encoderSpeeds[1]);//encoders[1].getEncoderDistance());//encoderSpeeds[1]);
-        D_encoderDisp2.setDouble(encoderSpeeds[2]);//encoderSpeeds[2]);
-        D_inputW.setDouble(pidInputs[2]);
+        // //Titan encoder
+        // D_encoderDisp0.setDouble(encoderSpeeds[0]);//encoderSpeeds[0]);
+        // D_encoderDisp1.setDouble(encoderSpeeds[1]);//encoders[1].getEncoderDistance());//encoderSpeeds[1]);
+        // D_encoderDisp2.setDouble(encoderSpeeds[2]);//encoderSpeeds[2]);
+        // D_inputW.setDouble(pidInputs[2]);
         double [] value;
         value = new double[3];
         value[0] = m_odometry.getPose().getTranslation().getX();

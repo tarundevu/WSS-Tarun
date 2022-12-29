@@ -7,6 +7,8 @@ import frc.robot.subsystems.Arm;
 import frc.robot.commands.gamepad.OI;
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Sensor;
+import frc.robot.Globals;
+import frc.robot.subsystems.Vision;
 
 public class TeleCmd extends CommandBase
 {
@@ -17,7 +19,7 @@ public class TeleCmd extends CommandBase
     private final Sensor m_sensor;
     private final Arm m_arm;
     private final OI m_oi;
-
+    private final static Vision m_vision = RobotContainer.m_vision;
     /**
      * Constructor
      */
@@ -37,7 +39,8 @@ public class TeleCmd extends CommandBase
     @Override
     public void initialize()
     {
-
+        Globals.useTF = false;
+        m_vision.setUseTF();
     }
 
     /**
@@ -68,24 +71,28 @@ public class TeleCmd extends CommandBase
         s1 = speed_multiplier * ((1*x) + (0*y)+(1*w));
         s2 = speed_multiplier * ((-0.5*x) + (0.865*y)+(1*w));
         // m_omnidrive.setMotorOut012(x,y,w);
-
-        if ((pick == true)){
-            m_arm.setArmPos(0.3, 0.1);
-            m_arm.setArmPos(0.3, -0.07);
-        }
-        if ((place == true) && (pick == false)){
-            m_arm.setArmPos(0.3, 0.1);
-        }
+        //m_arm.setArmPos(0.328, 0.24);
+        m_arm.setServoAngle3(m_arm.getSliderServo());
+        //m_arm.set
+        // if ((pick == true)){
+        //     m_arm.setArmPos(0.328, 0.25);
+        //     m_arm.setArmPos(0.3, -0.07);
+        // }
+        // if ((place == true) && (pick == false)){
+        //     m_arm.setArmPos(0.328, 0.25);
+        // }
         if (A==true){
             m_arm.setGripper(150);
+           // m_arm.setServoAngle5(150);
         }
         if (B==true){
             m_arm.setGripper(0);
+            //m_arm.setServoAngle5(0);
         }
 
-        //m_arm.setArmPos(m_arm.getSliderX(), m_arm.getSliderY());
+        m_arm.setArmPos(m_arm.getSliderX(), m_arm.getSliderY());
         //Translation2d pos = new Translation2d(m_arm.getSliderX(), m_arm.getSliderY());
-        m_omnidrive.setRobotSpeedXYW(x*0.6, y*0.6, w*Math.PI);
+        m_omnidrive.setRobotSpeedXYW(x*0.5, y*0.5, w*Math.PI/4);
 
     }
 

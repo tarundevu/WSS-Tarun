@@ -9,10 +9,10 @@ public class Trolley extends SequentialCommandGroup{
   
   public Trolley(){
     super(
-      new MoveRobotSense(1, 0.5, 0, 0, 0.2, ()->RobotContainer.m_sensor.getIRDistance()<=10),
+      // new MoveRobotSense(1, 0.5, 0, 0, 0.2, ()->RobotContainer.m_sensor.getIRDistance()<=10),
+      new AlignRobot(100,110,"trolley"),
+      new MoveRobot(1, 0.07, 0, 0, 0.1)
       
-      new MoveRobot(1, 0.02, 0, 0, 0.1),
-      new WaitCommand(0.5)
     );
   }
 }

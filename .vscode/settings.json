@@ -13,5 +13,6 @@
     "**/.factorypath": true,
     "**/*~": true
   },
-  "editor.showUnused": false
+  "editor.showUnused": false,
+  "java.compile.nullAnalysis.mode": "automatic"
 }
