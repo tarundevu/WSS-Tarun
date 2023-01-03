@@ -60,6 +60,7 @@ public class PickItem extends SequentialCommandGroup
         new InstantCommand(() -> Globals.curItem = item),
         new WaitCommand(4),
         new AlignPicker(0.4),
+        new InstantCommand(()-> m_arm.setServoAngle3(240)),
         new PickUp(),
 
         new MoveArm(new Translation2d(0.33,0.24), 0.5)

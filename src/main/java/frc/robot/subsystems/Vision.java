@@ -1,6 +1,10 @@
 package frc.robot.subsystems;
 
+import java.util.function.Supplier;
+
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -10,7 +14,12 @@ import frc.robot.Globals;
 import frc.robot.RobotContainer;
 
 public class Vision extends SubsystemBase{
+    
     private final ShuffleboardTab tab = Shuffleboard.getTab("Vision");
+    private NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    private NetworkTable table = inst.getTable("Vision");
+    private final ShuffleboardTab tabsmart = Shuffleboard.getTab("SmartDashboard");
+    private final NetworkTableEntry D_area = tabsmart.add("area", 0).getEntry();
     private final NetworkTableEntry D_cW = tab.add("cW", 0).getEntry();
     private final NetworkTableEntry D_targetX = tab.add("TargetX", 0).getEntry();
     private final NetworkTableEntry D_itemcnt = tab.add("itemcnt1", 0).getEntry();
@@ -27,11 +36,10 @@ public class Vision extends SubsystemBase{
     private final NetworkTableEntry D_useTF = tab.add("useTF", 0).getEntry();
     private final NetworkTableEntry D_T1 = tab.add("T1_full", 0).getEntry();
     private final NetworkTableEntry D_T2 = tab.add("T2_full", 0).getEntry();
+    //private final NetworkTableEntry D_Array = tab.addDoubleArray("array", array1).get;
     public Vision(){
 
         m_arm.setServoAngle3(280); // Look down
-        //m_arm.setArmPos(0.328, 0.25);
-        //new WaitCommand(1);
     }
 
     public double [] getLine(){
@@ -118,47 +126,62 @@ public class Vision extends SubsystemBase{
         
         return itemCo[item];
     }
+    
+    public void getWOBItems(){
+      double[] defaultValue = new double[1];
+      // reads the array passed to the networktable
+      double[] Red = table.getEntry("Red").getDoubleArray(defaultValue);
+      double[] Green = table.getEntry("Green").getDoubleArray(defaultValue);
+      double[] Blue = table.getEntry("Blue").getDoubleArray(defaultValue);
+      // stores the data in Globals
+      int[][] Targets = new int[3][3];
+      for (int i = 0; i >= Red.length; i++){
+        Targets[0][i] = (int)(Red[i]);
+        Targets[1][i] = (int)(Green[i]);
+        Targets[2][i] = (int)(Blue[i]);
+      }
+      Globals.Targets = Targets;
+    }
 
-    public void TargetItem(){
+    public void ItemToPick(){
       /*
        * target 1 = one
        * target 2 = two
        * target 3 = three
        */
       // gets the item in the chosen column and assigns it to Globals.curItem
-      if (Globals.target1_full != true){
-        if (Globals.Targets[Globals.Itemcnt][0] != 8){
-          Globals.curItem = Globals.Targets[Globals.Itemcnt][0];
-          Globals.Itemcnt ++;
-        }
-        else{
-          Globals.target1_full = true;
-        }
+      int Jag = 0;
+      int Dettol = 0;
+      int Coke = 0;
+      int total = 0;
+      for (int i = 0; i <= Globals.Targets.length; i++){
+        if (i==0)
+        Jag = Globals.Targets[Globals.curTarget][i];
+        else if (i==1)
+        Dettol = Globals.Targets[Globals.curTarget][i];
+        else if (i==2)
+        Coke = Globals.Targets[Globals.curTarget][i];
       }
-
-      else if (Globals.target1_full == true && Globals.target2_full != true){
-        if (Globals.Targets[Globals.Itemcnt2][1] != 8){
-          Globals.curItem = Globals.Targets[Globals.Itemcnt2][0];
-          Globals.Itemcnt2 ++;
-        }
-        else{
-          Globals.target2_full = true;
-        }
+      total = Jag+Dettol+Coke;
+			int[] Task = new int[total];
+      // Appends the items into array Task[]
+      for (int i = 0; i<Jag; i++) {
+        Task[i] = 1;  
       }
-
-      else if (Globals.target2_full == true && Globals.target3_full != true){
-        if (Globals.Targets[Globals.Itemcnt3][2] != 8){
-          Globals.curItem = Globals.Targets[Globals.Itemcnt3][0];
-          Globals.Itemcnt3 ++;
-        }
-        else{
-          Globals.target3_full = true;
-        }
+      for (int i = Jag; i<(Jag+Dettol); i++) {
+        Task[i] = 0;
       }
-      
+      for (int i = Jag+Dettol; i<(Coke+Jag+Dettol); i++) {
+        Task[i] = 2;
+      }
+      Globals.curItem = Task[Globals.Itemcnt];
+      Globals.Itemcnt++;
+      if (Globals.Itemcnt >= total) {
+				Globals.curTarget++;
+				Globals.Itemcnt = 0;
+			}
     }
     
-
     @Override
     public void periodic()
     {
@@ -172,5 +195,10 @@ public class Vision extends SubsystemBase{
         //D_T1.setBoolean(Globals.target1_full);
         //D_T2.setBoolean(Globals.target2_full);
         D_itemcnt.setNumber(Globals.Itemcnt);
+        double[] defaultValue = new double[1];
+        double[] areas = table.getEntry("area").getDoubleArray(defaultValue);
+        // System.out.println(areas[0]);
+        // System.out.println(areas[1]);
+        // System.out.println(areas[2]);
     }
 }

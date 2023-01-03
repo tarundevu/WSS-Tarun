@@ -29,16 +29,18 @@ public class Globals
     public static double arm_offset_z = 0.25;
     public static double gripper_offset = 0.16;
     public static int curItem;
+    public static int curTarget;
     public static boolean useTF;
     public static int Itemcnt = 0, Itemcnt2 = 0, Itemcnt3 = 0;
     public static boolean target1_full = false;
     public static boolean target2_full = false;
     public static boolean target3_full = false;
-    public static int[][] Targets = new int[][] {  {0,1,2}, // 8 represents empty
-                                                   {1,0,8},
-                                                   {2,8,8},
-                                                   {8,8,8},
-                                                   {8,8,8},
-                                                   {8,8,8},
+    /*
+	 *                                               J|D|C              
+	 *                                            T1|x|x|x|
+	 *                                            T2|x|x|X|
+	 *                                            T3|x|x|x|
+	 */
+    public static int[][] Targets = new int[][] { 
                                                 }; 
 }
