@@ -35,7 +35,7 @@ public class MoveCamera extends CommandBase{
     public void initialize()
     {   
    
-        start_pos = m_arm.getServoAngle3();
+        start_pos = m_arm.getCameraAngle();
         m_goal = new TrapezoidProfile.State(tgt_pos, 0);
         m_setpoint = new TrapezoidProfile.State(start_pos, 0);
         m_endFlag = false;
@@ -59,12 +59,12 @@ public class MoveCamera extends CommandBase{
 
         m_setpoint = m_profile.calculate(dT);
       
-        m_arm.setServoAngle3(m_setpoint.position);
+        m_arm.setCameraAngle(m_setpoint.position);
         //m_arm.DisplayGripperAngle(m_setpoint.position);
         if ((m_profile.isFinished(dT))) {
             //distance reached End the command
             
-            m_arm.setServoAngle3(tgt_pos);
+            m_arm.setCameraAngle(tgt_pos);
             
             m_endFlag = true;
         }

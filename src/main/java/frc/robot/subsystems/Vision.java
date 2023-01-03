@@ -34,12 +34,12 @@ public class Vision extends SubsystemBase{
     private final NetworkTableEntry D_AddedArmX = tab.add("AddedArmX", 0).getEntry();
     private final NetworkTableEntry D_AddedRobotX = tab.add("AddedRobotX", 0).getEntry();
     private final NetworkTableEntry D_useTF = tab.add("useTF", 0).getEntry();
-    private final NetworkTableEntry D_T1 = tab.add("T1_full", 0).getEntry();
-    private final NetworkTableEntry D_T2 = tab.add("T2_full", 0).getEntry();
+    // private final NetworkTableEntry D_T1 = tab.add("T1_full", 0).getEntry();
+    // private final NetworkTableEntry D_T2 = tab.add("T2_full", 0).getEntry();
     //private final NetworkTableEntry D_Array = tab.addDoubleArray("array", array1).get;
     public Vision(){
 
-        m_arm.setServoAngle3(280); // Look down
+        m_arm.setCameraAngle(280); // Look down
     }
 
     public double [] getLine(){

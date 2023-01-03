@@ -72,7 +72,7 @@ public class TeleCmd extends CommandBase
         s2 = speed_multiplier * ((-0.5*x) + (0.865*y)+(1*w));
         // m_omnidrive.setMotorOut012(x,y,w);
         //m_arm.setArmPos(0.328, 0.24);
-        m_arm.setServoAngle3(m_arm.getSliderServo());
+        m_arm.setCameraAngle(m_arm.getSliderServo());
         //m_arm.set
         // if ((pick == true)){
         //     m_arm.setArmPos(0.328, 0.25);
@@ -83,11 +83,11 @@ public class TeleCmd extends CommandBase
         // }
         if (A==true){
             m_arm.setGripper(150);
-           // m_arm.setServoAngle5(150);
+           //m_arm.setTrolleyAngle(150);
         }
         if (B==true){
             m_arm.setGripper(0);
-            //m_arm.setServoAngle5(0);
+            //m_arm.setTrolleyAngle(0);
         }
 
         m_arm.setArmPos(m_arm.getSliderX(), m_arm.getSliderY());

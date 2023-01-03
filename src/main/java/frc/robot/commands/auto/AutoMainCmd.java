@@ -43,30 +43,35 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         
         super(
-                      
-        new PickItem(2),
 
-        new InstantCommand(()-> m_arm.setServoAngle3(280)),
-        new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
-        new PlaceDown(),
-        new MoveArm(new Translation2d(0.33,0.24), 0.5),
-        new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
+        // new CP1()
+        //new CP2()
+        // new CP3()
+        new CP4()
+        // Open House Code//            
+        // new PickItem(2),
 
-        new PickItem(0),
+        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
+        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
+        // new PlaceDown(),
+        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
+        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
 
-        new InstantCommand(()-> m_arm.setServoAngle3(280)),
-        new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
-        new PlaceDown(),
-        new MoveArm(new Translation2d(0.33,0.24), 0.5),
-        new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),  
+        // new PickItem(0),
+
+        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
+        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
+        // new PlaceDown(),
+        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
+        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),  
         
-        new PickItem(1),
+        // new PickItem(1),
 
-        new InstantCommand(()-> m_arm.setServoAngle3(280)),
-        new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
-        new PlaceDown(),
-        new MoveArm(new Translation2d(0.33,0.24), 0.5),
-        new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0)))  
+        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
+        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
+        // new PlaceDown(),
+        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
+        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0)))  
             //new LoopCmd(new ProcessSeq(), ()-> (++Globals.loopCnt)> 4) /// loop cmd
             
         

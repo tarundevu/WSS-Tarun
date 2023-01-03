@@ -53,14 +53,14 @@ public class PickItem extends SequentialCommandGroup
         //new ArmToMidBin(0.5),
         // object detetction position
         new MoveArm(new Translation2d(0.24,0.1), 0.5),
-        new InstantCommand(()-> m_arm.setServoAngle3(265)),
+        new InstantCommand(()-> m_arm.setCameraAngle(265)),
         //new WaitCommand(3),
         new InstantCommand(() -> Globals.useTF = true),
         new InstantCommand(m_vision::setUseTF),
         new InstantCommand(() -> Globals.curItem = item),
         new WaitCommand(4),
         new AlignPicker(0.4),
-        new InstantCommand(()-> m_arm.setServoAngle3(240)),
+        new InstantCommand(()-> m_arm.setCameraAngle(240)),
         new PickUp(),
 
         new MoveArm(new Translation2d(0.33,0.24), 0.5)

@@ -60,6 +60,7 @@ public class Arm extends SubsystemBase{
       // Sets the arm and gripper position when enabled //
       setArmPos(0.328, 0.25); 
       setGripper(1);
+      setTrolleyAngle(0);
       new WaitCommand(0.5);
       
     }
@@ -78,11 +79,11 @@ public class Arm extends SubsystemBase{
       return gripper.getAngle();
     }
     // returns the angle of camera servo
-    public double getServoAngle3(){
+    public double getCameraAngle(){
       return servoCam.getAngle();
     }
     // returns the angle of the trolley holder servo
-    public double getServoAngle5(){
+    public double getTrolleyAngle(){
       return servo5.getAngle();
     }
     // returns the slider X value
@@ -132,7 +133,7 @@ public class Arm extends SubsystemBase{
      * 
      * @param degrees degree to set the servo to, range 0° - 300°
      */
-    public void setServoAngle3(final double degrees){
+    public void setCameraAngle(final double degrees){
       servoCam.setAngle(degrees);
     }
     /**
@@ -141,7 +142,7 @@ public class Arm extends SubsystemBase{
      * 
      * @param degrees degree to set the servo to, range 0° - 300°
      */
-    public void setServoAngle5(final double degrees){
+    public void setTrolleyAngle(final double degrees){
       servo5.setAngle(degrees);
     }
     /**

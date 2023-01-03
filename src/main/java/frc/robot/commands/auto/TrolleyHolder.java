@@ -37,7 +37,7 @@ public class TrolleyHolder extends CommandBase{
     public void initialize()
     {   
    
-        start_pos = m_arm.getServoAngle5();
+        start_pos = m_arm.getTrolleyAngle();
         m_goal = new TrapezoidProfile.State(tgt_pos, 0);
         m_setpoint = new TrapezoidProfile.State(start_pos, 0);
         m_endFlag = false;
@@ -61,12 +61,12 @@ public class TrolleyHolder extends CommandBase{
 
         m_setpoint = m_profile.calculate(dT);
       
-        m_arm.setServoAngle5(m_setpoint.position);
+        m_arm.setTrolleyAngle(m_setpoint.position);
         //m_arm.DisplayGripperAngle(m_setpoint.position);
         if ((m_profile.isFinished(dT))) {
             //distance reached End the command
             
-            m_arm.setServoAngle5(tgt_pos);
+            m_arm.setTrolleyAngle(tgt_pos);
             
             m_endFlag = true;
         }
