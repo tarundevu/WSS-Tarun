@@ -10,7 +10,7 @@ import frc.robot.RobotContainer;
 public class ObjectDetection extends SequentialCommandGroup{
   public ObjectDetection(){
     super(
-      new InstantCommand(() -> RobotContainer.m_vision.TargetItem()),
+      new InstantCommand(() -> RobotContainer.m_vision.ItemToPick()),
       new WaitCommand(5),
       new AlignPicker(50),
       new PickUp(),
