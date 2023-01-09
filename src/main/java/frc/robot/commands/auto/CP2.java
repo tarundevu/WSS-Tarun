@@ -15,7 +15,7 @@ public class CP2 extends SequentialCommandGroup{
       new MovetoB(new Pose2d(1.5,2.66,new Rotation2d(0))),
       new MoveRobot(2, -Math.PI/2, 0, 0, 0.25),
       new Trolley(),
-      new TrolleyHolder(1,90)
+      new TrolleyHolder(1)
     );
   }
   

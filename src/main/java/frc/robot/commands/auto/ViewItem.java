@@ -30,7 +30,7 @@ import frc.robot.commands.auto.LoopCmd;
  * <p>
  * This class creates the inline auto command to drive the motor
  */
-public class PickItem extends SequentialCommandGroup
+public class ViewItem extends SequentialCommandGroup
 {   
     
     double temp;
@@ -38,18 +38,21 @@ public class PickItem extends SequentialCommandGroup
     private final static Vision m_vision = RobotContainer.m_vision;
     private final static Arm m_arm = RobotContainer.m_arm;
 
-	public PickItem() 
+	public ViewItem() 
     {
  
         
         super(
-            
-        new AlignPicker(),
-        new InstantCommand(()-> m_arm.setCameraAngle(240)),
-        new PickUp(),
-        new MoveArm(new Translation2d(0.33,0.24), 0.5)
+        
+        new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
+        new MoveArm(new Translation2d(0.24,0.1), 0.5),
+        new InstantCommand(()-> m_arm.setCameraAngle(275)),
+        new InstantCommand(() -> Globals.useTF = true),
+        new InstantCommand(m_vision::setUseTF),
+        new WaitCommand(3)
 
+        
         );
     }
-    
+   
 }

@@ -15,13 +15,14 @@ public class TrolleyHolder extends CommandBase{
     private TrapezoidProfile m_profile;
     private double tgt_pos;
     private double start_pos;
+    private double maxSpeed = 90;
    
     /** This class is used to control the trolley holder
      * 
      * @param pos - 0, 1 for close and open respectively
      * @param maxSpeed - Maximum speed
      */
-    public TrolleyHolder(int pos, double maxSpeed)
+    public TrolleyHolder(int pos)
     {   
         m_constraints = new TrapezoidProfile.Constraints(maxSpeed, maxSpeed);
         if (pos==0)
@@ -58,16 +59,11 @@ public class TrolleyHolder extends CommandBase{
     {
          
         m_profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
-
         m_setpoint = m_profile.calculate(dT);
-      
         m_arm.setTrolleyAngle(m_setpoint.position);
-        //m_arm.DisplayGripperAngle(m_setpoint.position);
         if ((m_profile.isFinished(dT))) {
             //distance reached End the command
-            
             m_arm.setTrolleyAngle(tgt_pos);
-            
             m_endFlag = true;
         }
     }

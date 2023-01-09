@@ -43,11 +43,15 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         
         super(
-
+            new ViewItem(),
+            new LoopCommands(new ProcessSeq())
         // new CP1()
-        //new CP2()
+        // new CP2()
         // new CP3()
-        new CP4()
+        // new CP4()
+        // new CP6()
+    
+        // new CP_Menu()
         // Open House Code//            
         // new PickItem(2),
 
@@ -76,7 +80,7 @@ public class AutoMainCmd extends SequentialCommandGroup
             
         
             // // ### code to pull trolley back ###//
-            // // new MoveRobotSense(1, 0.5, 0, 0, 0.2, ()->RobotContainer.m_sensor.getIRDistance()<=25),
+            // new MoveRobotSense(1, 0.5, 0, 0, 0.2, ()->RobotContainer.m_sensor.getIRDistance()<=25)
             // // new Gripper(0,150),
             // // new MoveArm(new Translation2d(0.3,0),0.5),
             // // new Gripper(1, 150),
@@ -91,7 +95,7 @@ public class AutoMainCmd extends SequentialCommandGroup
             // new Trolley(),
             // //### Grab Trolley ###//
             // new Gripper(0,150),
-            // new MoveArm(new Translation2d(0.4,0),0.5),
+            // new MoveArm(new Translation2d(0,0),0.5),
             // new Gripper(1, 150),
             // new MoveArm(new Translation2d(0.3,0),0.5),
 
@@ -104,18 +108,7 @@ public class AutoMainCmd extends SequentialCommandGroup
             //new MovetoB(new Pose2d(1.9, 1.1, new Rotation2d(0))) 
 
             // new LoopCmd(new ProcessSeq(), ()->(++Globals.loopCnt)>4 ), /// loop cmd
-            
-            
-          
-           
-
-    
-            
-
-            
-
-            
-            
+                
               );
             
     }

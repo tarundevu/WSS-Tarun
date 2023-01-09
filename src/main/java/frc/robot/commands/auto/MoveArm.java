@@ -17,7 +17,7 @@ public class MoveArm extends CommandBase{
     private TrapezoidProfile.State m_goal1;
     private TrapezoidProfile.State m_setpoint1;
     private TrapezoidProfile m_profile1;
-    private Translation2d tgt_pos;
+    protected Translation2d tgt_pos;
     private Translation2d cur_pos;
     private Translation2d start_pos;
     private double tgt_dist, m_dx, m_dy;
@@ -69,11 +69,11 @@ public class MoveArm extends CommandBase{
         m_setpoint1 = m_profile1.calculate(dT);
         cur_pos = start_pos.plus(new Translation2d((m_setpoint1.position*m_dx/tgt_dist),(m_setpoint1.position*m_dy/tgt_dist)));
 
-        m_arm.setArmPos(cur_pos.getX(), cur_pos.getY());
+        m_arm.setArmPos(cur_pos.getX(),cur_pos.getY());
         
         if (m_profile1.isFinished(dT) || endCondition()) {
             //distance reached End the command
-            m_arm.setArmPos(tgt_pos.getX(), tgt_pos.getY());
+            m_arm.setArmPos(tgt_pos.getX(),tgt_pos.getY());
             m_endFlag = true;
         }
     }

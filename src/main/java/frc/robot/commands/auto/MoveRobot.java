@@ -30,8 +30,8 @@ public class MoveRobot extends CommandBase
     private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
     private int m_dir;
 
-    private final double _startSpeed;
-
+    protected final double m_startSpeed, m_endSpeed;
+    protected double m_dist;
     /**
      * This command moves the robot a certain distance following a trapezoidal speed profile.
      * <p>
@@ -45,7 +45,8 @@ public class MoveRobot extends CommandBase
     //This move the robot a certain distance following a trapezoidal speed profile.
     public MoveRobot(int type, double dist, double startSpeed, double endSpeed, double maxSpeed)
     {
-        _startSpeed = startSpeed;
+        m_startSpeed = startSpeed;
+        m_endSpeed = endSpeed;
         m_profType = type;
         if (type==2){
             m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 2.0*Math.PI);
@@ -53,14 +54,8 @@ public class MoveRobot extends CommandBase
         else{
             m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 0.5);
         }
-        m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
+        m_setpoint = new TrapezoidProfile.State(0, m_startSpeed);
         
-        //Negative distance don't seem to work with the library function????
-        //Easier to make distance positive and use m_dir to keep track of negative speed.
-        m_dir = (dist>0)?1:-1;
-        dist *= m_dir;          
-        
-        m_goal = new TrapezoidProfile.State(dist, endSpeed);
 
         //addRequirements(m_drive); // Adds the subsystem to the command
      
@@ -74,8 +69,14 @@ public class MoveRobot extends CommandBase
     @Override
     public void initialize()
     {   
-        m_setpoint = new TrapezoidProfile.State(0, _startSpeed);
+        m_setpoint = new TrapezoidProfile.State(0, m_startSpeed);
         m_endFlag = false;
+        //Negative distance don't seem to work with the library function????
+        //Easier to make distance positive and use m_dir to keep track of negative speed.
+        m_dir = (m_dist>0)?1:-1;
+        m_dist *= m_dir;          
+        
+        m_goal = new TrapezoidProfile.State(m_dist, m_endSpeed);
     }
     /**
      * Condition to end speed profile

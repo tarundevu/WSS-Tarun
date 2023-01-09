@@ -18,11 +18,13 @@ public class Vision extends SubsystemBase{
     private final ShuffleboardTab tab = Shuffleboard.getTab("Vision");
     private NetworkTableInstance inst = NetworkTableInstance.getDefault();
     private NetworkTable table = inst.getTable("Vision");
-    private final ShuffleboardTab tabsmart = Shuffleboard.getTab("SmartDashboard");
-    private final NetworkTableEntry D_area = tabsmart.add("area", 0).getEntry();
     private final NetworkTableEntry D_cW = tab.add("cW", 0).getEntry();
     private final NetworkTableEntry D_targetX = tab.add("TargetX", 0).getEntry();
     private final NetworkTableEntry D_itemcnt = tab.add("itemcnt1", 0).getEntry();
+    private final NetworkTableEntry D_JagabeeCount = tab.add("JagCnt", 0).getEntry();
+    private final NetworkTableEntry D_DettolCount = tab.add("DettolCnt", 0).getEntry();
+    private final NetworkTableEntry D_CokeCount = tab.add("CokeCnt", 0).getEntry();
+
     public final NetworkTableEntry D_targetXArm = tab.add("targetXArm", 0).getEntry();
     private final static Arm m_arm = RobotContainer.m_arm;
     private final String[] items = {
@@ -31,9 +33,12 @@ public class Vision extends SubsystemBase{
       "Coke"
     };
     private final NetworkTableEntry D_currentItem = tab.add("CurrentItem", 0).getEntry();
+    private final NetworkTableEntry D_currentItemX = tab.add("CurrentItemX", 0).getEntry();
+    private final NetworkTableEntry D_currentItemY = tab.add("CurrentItemY", 0).getEntry();
     private final NetworkTableEntry D_AddedArmX = tab.add("AddedArmX", 0).getEntry();
     private final NetworkTableEntry D_AddedRobotX = tab.add("AddedRobotX", 0).getEntry();
     private final NetworkTableEntry D_useTF = tab.add("useTF", 0).getEntry();
+    private double[] defaultValue = new double[1];
     // private final NetworkTableEntry D_T1 = tab.add("T1_full", 0).getEntry();
     // private final NetworkTableEntry D_T2 = tab.add("T2_full", 0).getEntry();
     //private final NetworkTableEntry D_Array = tab.addDoubleArray("array", array1).get;
@@ -126,20 +131,20 @@ public class Vision extends SubsystemBase{
         
         return itemCo[item];
     }
-    
+    // gets the number of items in each target area from networktables
     public void getWOBItems(){
-      double[] defaultValue = new double[1];
+      //double[] defaultValue = new double[1];
       // reads the array passed to the networktable
-      double[] Red = table.getEntry("Red").getDoubleArray(defaultValue);
-      double[] Green = table.getEntry("Green").getDoubleArray(defaultValue);
-      double[] Blue = table.getEntry("Blue").getDoubleArray(defaultValue);
-      // stores the data in Globals
+      double[] WOB = table.getEntry("WOB").getDoubleArray(defaultValue);
+      // stores the data in Globals in a 2d array
       int[][] Targets = new int[3][3];
-      for (int i = 0; i >= Red.length; i++){
-        Targets[0][i] = (int)(Red[i]);
-        Targets[1][i] = (int)(Green[i]);
-        Targets[2][i] = (int)(Blue[i]);
-      }
+      int index = 0;
+		  for (int ROW = 0; ROW < 3; ROW++){
+		    for (int COL = 0; COL < 3; COL++) {
+		    Targets[ROW][COL] = (int) WOB[index];
+		    index++;
+		    }
+		  }
       Globals.Targets = Targets;
     }
 
@@ -149,12 +154,12 @@ public class Vision extends SubsystemBase{
        * target 2 = two
        * target 3 = three
        */
-      // gets the item in the chosen column and assigns it to Globals.curItem
+      // gets the item in the chosen column and assigns it to Globals.curItemType
       int Jag = 0;
       int Dettol = 0;
       int Coke = 0;
       int total = 0;
-      for (int i = 0; i <= Globals.Targets.length; i++){
+      for (int i = 0; i < 3; i++){
         if (i==0)
         Jag = Globals.Targets[Globals.curTarget][i];
         else if (i==1)
@@ -174,29 +179,52 @@ public class Vision extends SubsystemBase{
       for (int i = Jag+Dettol; i<(Coke+Jag+Dettol); i++) {
         Task[i] = 2;
       }
-      Globals.curItem = Task[Globals.Itemcnt];
+      Globals.curItemType = Task[Globals.Itemcnt]; // assigns current item
       Globals.Itemcnt++;
       if (Globals.Itemcnt >= total) {
-				Globals.curTarget++;
+				Globals.curTarget++; // changes the target
 				Globals.Itemcnt = 0;
 			}
     }
-    
+
+    public double[] getObjects(){
+      /*
+       * 0 - Dettol Count
+       * 1,2 - Dettol X,Y
+       * 3 - Jagabee Count
+       * 4,5 - Jagabee X,Y 
+       * 6 - Coke Count
+       * 7,8 - Coke X,Y 
+       */
+     
+      double[] objects = (SmartDashboard.getEntry("objects").getDoubleArray(defaultValue));
+      
+      return objects;
+  }
     @Override
     public void periodic()
     {
         //Globals.cW = getLine(2);
         //D_cW.setNumber(Globals.cW);
         //D_targetX.setNumber(getLine(0) - 345);
-        D_currentItem.setString(items[Globals.curItem]);
-        D_AddedRobotX.setNumber(((getItemX(Globals.curItem) -400) * Globals.convertPxToM));
-        D_AddedArmX.setNumber(-(getItemY(Globals.curItem) - 300) * Globals.convertPxToM + 0.012);
+        // D_currentItem.setNumber(Globals.curItemType);
+        // D_currentItemX.setNumber(Globals.curItemX);
+        // D_currentItemY.setNumber(Globals.curItemY);
+        D_currentItem.setNumber(Globals.curItemType);
+        D_currentItemX.setNumber(Globals.curItemX);
+        D_currentItemY.setNumber(Globals.curItemY);
+        D_AddedRobotX.setNumber(((Globals.curItemX -400) * Globals.convertPxToM));
+        D_AddedArmX.setNumber(m_arm.getArmPos().getX() + Globals.camera_offset - (Globals.curItemY - getResolution(1)/2) * Globals.convertPxToM);
         D_useTF.setBoolean(Globals.useTF);
         //D_T1.setBoolean(Globals.target1_full);
         //D_T2.setBoolean(Globals.target2_full);
         D_itemcnt.setNumber(Globals.Itemcnt);
-        double[] defaultValue = new double[1];
+        //double[] defaultValue = new double[1];
         double[] areas = table.getEntry("area").getDoubleArray(defaultValue);
+        // D_JagabeeCount.setNumber(getObjects()[0]);
+        // D_DettolCount.setNumber(getObjects()[3]);
+        // D_CokeCount.setNumber(getObjects()[6]);
+        // D_CurrentItem.setNumber(Globals.curItemType);
         // System.out.println(areas[0]);
         // System.out.println(areas[1]);
         // System.out.println(areas[2]);

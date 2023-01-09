@@ -36,10 +36,10 @@ public class CP1 extends SequentialCommandGroup{
       new InstantCommand(() -> Globals.useTF = true),
       new InstantCommand(RobotContainer.m_vision::setUseTF),
       // set item to be picked
-      new InstantCommand(() -> Globals.curItem = 1),
+      new InstantCommand(() -> Globals.curItemType = 1),
       new WaitCommand(4),
       // align robot to object
-      new AlignPicker(0.4),
+      new AlignPicker(),
       new InstantCommand(()-> m_arm.setCameraAngle(240)),
       new PickUp(),
       new MoveArm(new Translation2d(0.33,0.24), 0.5)

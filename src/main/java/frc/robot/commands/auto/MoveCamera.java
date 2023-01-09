@@ -16,7 +16,7 @@ public class MoveCamera extends CommandBase{
     private double tgt_pos;
     private double start_pos;
    
-    /** This class is used to control an end effector
+    /** This class is used to control the angle of the camera
      * 
      * @param pos - 0, 1 for close and open respectively
      * @param maxSpeed - Maximum speed

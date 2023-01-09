@@ -59,18 +59,18 @@ public class Arm extends SubsystemBase{
       // Code written here will run before execute //
       // Sets the arm and gripper position when enabled //
       setArmPos(0.328, 0.25); 
-      setGripper(1);
+      setGripper(0);
       setTrolleyAngle(0);
-      new WaitCommand(0.5);
+      //new WaitCommand(0.5);
       
     }
     // getters //
     
-    // returns the angle of servo 0
+    // returns the angle of servo 1
     public double getServoAngle(){
       return servo1.getAngle();  
     }
-    // returns the angle of servo 1
+    // returns the angle of servo 2
     public double getServoAngle2(){
       return servo2.getAngle();
     }
@@ -175,7 +175,7 @@ public class Arm extends SubsystemBase{
       B = Math.PI - beta;    //Use B to designate beta. Different from diagram.
       A = alpha + Math.atan2(y,x);
 
-        //servo0 and servo1 might be mounted clockwise or anti clockwise.
+        //servo1 and servo2 might be mounted clockwise or anti clockwise.
         //offset0 and offset1 are used to adjust the zero the arm position.
         //This makes it easier to mount and tune the arm.
         // offset values can be changed in shuffleboard
@@ -185,47 +185,47 @@ public class Arm extends SubsystemBase{
       servo2.setAngle((Math.toDegrees(B) + offset1));// offset 1 = -29.68
       
     }
-    // sets camera angle
-    public void setCameraPos(Translation2d pos) {
+    // sets camera pos (currently not being used)
+  //   public void setCameraPos(Translation2d pos) {
 
-      // Refer to https://www.alanzucconi.com/2018/05/02/ik-2d-1/
-      m_pos = pos;
-      double x = pos.getX();
-      double y = pos.getY();
-      // arm tip cannot be physically in the area around origin
-      if ((x < 0.05) && (y < 0.1)) {
-          x = 0.05;
-          m_pos = new Translation2d(x, y);
-      }
+  //     // Refer to https://www.alanzucconi.com/2018/05/02/ik-2d-1/
+  //     m_pos = pos;
+  //     double x = pos.getX();
+  //     double y = pos.getY();
+  //     // arm tip cannot be physically in the area around origin
+  //     if ((x < 0.05) && (y < 0.1)) {
+  //         x = 0.05;
+  //         m_pos = new Translation2d(x, y);
+  //     }
 
-      double a = cameraX;
-      double c = cameraY;
-      double b = Math.sqrt(x * x + y * y);
-      double alpha = Math.acos((b * b + c * c - a * a) / (2 * b * c));
-      double beta = Math.acos((a * a + c * c - b * b) / (2 * a * c));
+  //     double a = cameraX;
+  //     double c = cameraY;
+  //     double b = Math.sqrt(x * x + y * y);
+  //     double alpha = Math.acos((b * b + c * c - a * a) / (2 * b * c));
+  //     double beta = Math.acos((a * a + c * c - b * b) / (2 * a * c));
 
-      // A is servo0 angle wrt horizon
-      // When A is zero, arm-c is horizontal.
-      // beta is servo1 angle wrt arm-c (BA)
-      // When beta is zero, arm-c is closed to arm-c
-      double B = Math.PI - beta; // Use B to designate beta. Different from diagram.
-      double A = alpha + Math.atan2(y, x);
+  //     // A is servo0 angle wrt horizon
+  //     // When A is zero, arm-c is horizontal.
+  //     // beta is servo1 angle wrt arm-c (BA)
+  //     // When beta is zero, arm-c is closed to arm-c
+  //     double B = Math.PI - beta; // Use B to designate beta. Different from diagram.
+  //     double A = alpha + Math.atan2(y, x);
 
-      // servo0 and servo1 might be mounted clockwise or anti clockwise.
-      // offset0 and offset1 are used to adjust the zero the arm position.
-      // This makes it easier to mount and tune the arm.
-      A = Math.toDegrees(A) * 4;
-      B = Math.toDegrees(B) * 2;
+  //     // servo0 and servo1 might be mounted clockwise or anti clockwise.
+  //     // offset0 and offset1 are used to adjust the zero the arm position.
+  //     // This makes it easier to mount and tune the arm.
+  //     A = Math.toDegrees(A) * 4;
+  //     B = Math.toDegrees(B) * 2;
 
-      // Uncomment if servo direction needs to be flip.
-      // A = 300 - A;
+  //     // Uncomment if servo direction needs to be flip.
+  //     // A = 300 - A;
 
-      servo1.setAngle(A + offset0); // servo0 is -15 * shoulderRatio
-      servo2.setAngle(B + offset1); // servo1 is -15 degrees * elbowARatio
+  //     servo1.setAngle(A + offset0); // servo0 is -15 * shoulderRatio
+  //     servo2.setAngle(B + offset1); // servo1 is -15 degrees * elbowARatio
 
-      // D_debug1.setDouble(A);
-      // D_debug2.setDouble(B);
-  }
+  //     // D_debug1.setDouble(A);
+  //     // D_debug2.setDouble(B);
+  // }
     // returns the position of the arm
     public Translation2d getArmPos(){
       Translation2d m_pos = new Translation2d(m_x, m_y);

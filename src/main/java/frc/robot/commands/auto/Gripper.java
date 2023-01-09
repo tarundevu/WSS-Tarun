@@ -44,7 +44,7 @@ public class Gripper extends CommandBase{
     @Override
     public void initialize()
     {   
-        targetAngle = itemGripperSizes[Globals.curItem][isOpen];
+        targetAngle = itemGripperSizes[Globals.curItemType][isOpen];
         double start_pos = m_arm.getGripper();
         
         m_goal = new TrapezoidProfile.State(targetAngle, 0);
