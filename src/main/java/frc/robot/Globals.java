@@ -15,7 +15,6 @@ public class Globals
     public static double desOffsetY = 0.2;
     public static double[] cW = RobotContainer.m_vision.getLine();
     public static double convertPxToM = 0.000625; // 0.56/800 , 0.00058 good
-    public static double pickDistX = -(RobotContainer.m_vision.getDettol(1) - 300) * convertPxToM;
     public static double cameraAngle = 290;
     public static double armDefaultX = 0.20;
     public static double armDefaultY = 0.09;
@@ -31,9 +30,9 @@ public class Globals
     public static int curItemType = 0;
     public static double curItemX;
     public static double curItemY;
-    public static int curTarget;
+    public static int curTarget = 0;
     public static boolean useTF;
-    public static int Itemcnt = 0, Itemcnt2 = 0, Itemcnt3 = 0;
+    public static int Itemcnt = 0;
     public static boolean target1_full = false;
     public static boolean target2_full = false;
     public static boolean target3_full = false;

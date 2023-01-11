@@ -227,7 +227,8 @@ public class OmniDrive extends SubsystemBase
 
         //Estimates x and y speed from individual wheel speeds
         //See formula below
-        double speedX = (-(wheelSpeeds[0] + wheelSpeeds[2]) + wheelSpeeds[1])/2;
+        double xratio = 3.88/4.0;
+        double speedX = xratio * (-(wheelSpeeds[0] + wheelSpeeds[2]) + wheelSpeeds[1])/2;
         double speedY = (-wheelSpeeds[0] + wheelSpeeds[2])/(0.866025*2);
 
         //PID control for x and y speed
@@ -275,6 +276,7 @@ public class OmniDrive extends SubsystemBase
    }
 
    public void initialise(){
+        setRobotSpeedXYW(0,0,0);
         m_odometry.resetPosition(Layout.Convert_mm_Pose2d(Layout.startPos));
         gyro.zeroYaw();
         curHeading = targetHeading = getYawRad();

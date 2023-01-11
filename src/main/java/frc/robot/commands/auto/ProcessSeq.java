@@ -18,12 +18,12 @@ public class ProcessSeq extends SequentialCommandGroup {
     super(  
       
         new PickItem(),
-        new InstantCommand(()-> m_arm.setCameraAngle(280)),
-        new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
-        new PlaceDown(),
-        new MoveArm(new Translation2d(0.33,0.24), 0.5),
-        new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
-        new ViewItem()
+        new InstantCommand(()-> m_arm.setCameraAngle(280))
+        //new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
+        // new PlaceDown(),
+        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
+        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
+        // new ViewItem()
     );
   }
 }

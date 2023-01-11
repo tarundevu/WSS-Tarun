@@ -9,15 +9,30 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 
 public class CP6 extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
+  private static double trolley_x = 1.45,
+                        trolley_y = 4.35;
+  private static double target_x = 0.15,
+                        target_y = 2.9;   
+  
   public CP6(){
     super(
       new InstantCommand(()-> m_arm.setCameraAngle(280)),
-      new MoveRobot(1, 1, 0, 0, 0.5),
-      new MovetoB(new Pose2d(1.5,2.66,new Rotation2d(0))),
-      new MoveRobot(2, -Math.PI/2, 0, 0, 0.25),
-      new Trolley(),
-      new TrolleyHolder(1),
-      new MovetoB(new Pose2d(0.6,3.5,new Rotation2d(0)))// in front of target area
+      // for trolley on front //
+      // new MovetoB(new Pose2d(trolley_x-0.4     ,trolley_y,new Rotation2d(0))),
+      // for trolley on right side //
+      new MovetoB(new Pose2d(trolley_x,trolley_y-0.4,new Rotation2d(0))),
+      new MoveRobot(2, Math.PI/2, 0, 0, 0.3),
+      // for trolley on back //
+      // new MovetoB(new Pose2d(trolley_x,trolley_y+0.4,new Rotation2d(0))),
+      // new MoveRobot(2, Math.PI, 0, 0, 0.3),
+
+      //new Trolley(),
+      //new TrolleyHolder(1),
+      // target at back
+      new MovetoB(new Pose2d(target_x+0.39,target_y,new Rotation2d(0))),// in front of target area
+      new MoveRobot(2, Math.PI/2, 0, 0, 0.3)
+      // new MoveRobot(2, Math.PI, 0, 0, 0.3),
+      // new MoveRobot(2, -Math.PI/2, 0, 0, 0.3)
     );
   }
 }

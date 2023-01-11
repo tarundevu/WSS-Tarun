@@ -43,15 +43,12 @@ public class ViewItem extends SequentialCommandGroup
  
         
         super(
-        
-        new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
+        //new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
         new MoveArm(new Translation2d(0.24,0.1), 0.5),
-        new InstantCommand(()-> m_arm.setCameraAngle(275)),
+        new InstantCommand(()-> m_arm.setCameraAngle(265)),
         new InstantCommand(() -> Globals.useTF = true),
         new InstantCommand(m_vision::setUseTF),
         new WaitCommand(3)
-
-        
         );
     }
    

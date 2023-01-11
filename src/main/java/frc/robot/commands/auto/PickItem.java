@@ -42,13 +42,11 @@ public class PickItem extends SequentialCommandGroup
     {
  
         
-        super(
-            
+        super(   
         new AlignPicker(),
         new InstantCommand(()-> m_arm.setCameraAngle(240)),
         new PickUp(),
         new MoveArm(new Translation2d(0.33,0.24), 0.5)
-
         );
     }
     

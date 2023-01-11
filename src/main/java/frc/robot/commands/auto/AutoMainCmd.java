@@ -21,7 +21,7 @@ import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.Vision;
 import frc.robot.commands.auto.MoveRobotSense;
 import frc.robot.commands.auto.LoopCmd;
-import frc.robot.commands.auto.DetectObstacle;
+
 
 
 
@@ -43,69 +43,69 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         
         super(
-            new ViewItem(),
-            new LoopCommands(new ProcessSeq())
-        // new CP1()
-        // new CP2()
-        // new CP3()
-        // new CP4()
-        // new CP6()
-    
-        // new CP_Menu()
-        // Open House Code//            
-        // new PickItem(2),
-
+        //new MoveRobot(  0, 4, 0, 0, 0.4)
+        // new InstantCommand(()-> m_vision.getWOBItems()),
+        // new ViewItem(),
+        // new InstantCommand(()-> m_vision.ItemToPick()),
+        // // new WaitCommand(4),
+        // new PickItem(),
+        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
+        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
+        // new PlaceDown(),
+        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
+        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
+        // new ViewItem(),
+        // new InstantCommand(()-> m_vision.ItemToPick()),
+        // new PickItem(),
         // new InstantCommand(()-> m_arm.setCameraAngle(280)),
         // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
         // new PlaceDown(),
         // new MoveArm(new Translation2d(0.33,0.24), 0.5),
         // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
 
-        // new PickItem(0),
-
+        // new ViewItem(),
+        // new InstantCommand(()-> m_vision.ItemToPick()),
+        // new PickItem(),
         // new InstantCommand(()-> m_arm.setCameraAngle(280)),
         // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
         // new PlaceDown(),
         // new MoveArm(new Translation2d(0.33,0.24), 0.5),
-        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),  
+        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
+
+        // new ViewItem(),
+        // new InstantCommand(()-> m_vision.ItemToPick()),
+        // new PickItem(),
+        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
+        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
+        // new PlaceDown(),
+        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
+        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
+
+        // new ViewItem(),
+        // new InstantCommand(()-> m_vision.ItemToPick()),
+        // new PickItem(),
+        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
+        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
+        // new PlaceDown(),
+        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
+        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0)))
+            // new ViewItem(),
+            // new LoopCommands(new ProcessSeq())
+        //new CP3()
+        // new CP2()
+        // new CP3()
+        // new CP4()
+        // new CP6()
         
-        // new PickItem(1),
+        //new CP_Menu()
+        // Open House Code//            
+        // new PickItem(2),
 
-        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
-        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
-        // new PlaceDown(),
-        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
-        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0)))  
+        
             //new LoopCmd(new ProcessSeq(), ()-> (++Globals.loopCnt)> 4) /// loop cmd
             
         
-            // // ### code to pull trolley back ###//
-            // new MoveRobotSense(1, 0.5, 0, 0, 0.2, ()->RobotContainer.m_sensor.getIRDistance()<=25)
-            // // new Gripper(0,150),
-            // // new MoveArm(new Translation2d(0.3,0),0.5),
-            // // new Gripper(1, 150),
-            // // new MoveArm(new Translation2d(0.2,0),0.5),
-            // // new MoveRobot(1, -0.20, 0, 0, 0.25),
-            // // new Gripper(0,150),
-            // // /////////////////
-           // Trolley Code // 
-            // new MoveRobot(1, 1, 0, 0, 0.4),
-            // new MovetoB(new Pose2d(1.4, 2.66, new Rotation2d(0))),  
-            // new MoveRobot(2, -Math.PI/2, 0, 0, 0.4),
-            // new Trolley(),
-            // //### Grab Trolley ###//
-            // new Gripper(0,150),
-            // new MoveArm(new Translation2d(0,0),0.5),
-            // new Gripper(1, 150),
-            // new MoveArm(new Translation2d(0.3,0),0.5),
-
-            // new MoveRobot(1, -0.5, 0, 0, 0.4),
-            // new MovePivot(0.39, Math.PI/2,0, 0, 0.6),
-            // new MovetoB(new Pose2d(1.0, 3.8, new Rotation2d(0))),
-            // //### Release Trolley ###//        
-            // new MoveArm(new Translation2d(0.4,0),0.5),
-            // new Gripper(0,150)
-            //new MovetoB(new Pose2d(1.9, 1.1, new Rotation2d(0))) 
+         
 
             // new LoopCmd(new ProcessSeq(), ()->(++Globals.loopCnt)>4 ), /// loop cmd
                 

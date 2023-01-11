@@ -19,7 +19,7 @@ public class TrolleyHolder extends CommandBase{
    
     /** This class is used to control the trolley holder
      * 
-     * @param pos - 0, 1 for close and open respectively
+     * @param pos - 0, 1 for open and close respectively
      * @param maxSpeed - Maximum speed
      */
     public TrolleyHolder(int pos)

@@ -82,7 +82,7 @@ public class TeleCmd extends CommandBase
         //     m_arm.setArmPos(0.328, 0.25);
         // }
         if (A==true){
-            m_arm.setGripper(150);
+            m_arm.setGripper(300);
            //m_arm.setTrolleyAngle(150);
         }
         if (B==true){

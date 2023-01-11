@@ -17,7 +17,7 @@ public class Vision extends SubsystemBase{
     
     private final ShuffleboardTab tab = Shuffleboard.getTab("Vision");
     private NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    private NetworkTable table = inst.getTable("Vision");
+    private NetworkTable table = inst.getTable("SmartDashboard");
     private final NetworkTableEntry D_cW = tab.add("cW", 0).getEntry();
     private final NetworkTableEntry D_targetX = tab.add("TargetX", 0).getEntry();
     private final NetworkTableEntry D_itemcnt = tab.add("itemcnt1", 0).getEntry();
@@ -45,6 +45,7 @@ public class Vision extends SubsystemBase{
     public Vision(){
 
         m_arm.setCameraAngle(280); // Look down
+       
     }
 
     public double [] getLine(){
@@ -56,30 +57,6 @@ public class Vision extends SubsystemBase{
       return line;
     }
     
-    public double getJagabee(int xy){
-      double[] position = new double[2];
-
-      position[0] = (SmartDashboard.getNumber("JagabeeX",0));
-      position[1] = (SmartDashboard.getNumber("JagabeeY",0));
-      return position[xy];
-    }
-
-    public double getDettol(int xy){
-        double[] position = new double[2];
-
-        position[0] = (SmartDashboard.getNumber("DettolX",0));
-        position[1] = (SmartDashboard.getNumber("DettolY",0));
-        return position[xy];
-    }
-
-    public double getCoke(int xy){
-        double[] position = new double[2];
-
-        position[0] = (SmartDashboard.getNumber("CokeX",0));
-        position[1] = (SmartDashboard.getNumber("CokeY",0));
-        return position[xy];
-    }
-
     public double getVerticalLine(){
       return SmartDashboard.getNumber("VerticalLine",0);
     }
@@ -100,37 +77,7 @@ public class Vision extends SubsystemBase{
       SmartDashboard.putBoolean("UseTF", Globals.useTF);
     }
 
-    public double getItemX(int item) {
-        /*
-        * 1 - Dettol
-        * 2 - Jagabee
-        * 3 - Coke
-        */
-        //gets item type to pick and returns item coordinate
-        double[] itemCo = new double[3];
-
-        itemCo[0] = getDettol(0);
-        itemCo[1] = getJagabee(0);
-        itemCo[2] = getCoke(0);
-        
-        return itemCo[item];
-    }
-
-    public double getItemY(int item) {
-        /*
-        * 0 - Dettol
-        * 1 - Jagabee
-        * 2 - Coke
-        */
-        //gets item type to pick and returns item coordinate
-        double[] itemCo = new double[3];
-
-        itemCo[0] = getDettol(1);
-        itemCo[1] = getJagabee(1);
-        itemCo[2] = getCoke(1);
-        
-        return itemCo[item];
-    }
+    
     // gets the number of items in each target area from networktables
     public void getWOBItems(){
       //double[] defaultValue = new double[1];
@@ -167,24 +114,15 @@ public class Vision extends SubsystemBase{
         else if (i==2)
         Coke = Globals.Targets[Globals.curTarget][i];
       }
-      total = Jag+Dettol+Coke;
-			int[] Task = new int[total];
-      // Appends the items into array Task[]
-      for (int i = 0; i<Jag; i++) {
-        Task[i] = 1;  
-      }
-      for (int i = Jag; i<(Jag+Dettol); i++) {
-        Task[i] = 0;
-      }
-      for (int i = Jag+Dettol; i<(Coke+Jag+Dettol); i++) {
-        Task[i] = 2;
-      }
-      Globals.curItemType = Task[Globals.Itemcnt]; // assigns current item
-      Globals.Itemcnt++;
-      if (Globals.Itemcnt >= total) {
-				Globals.curTarget++; // changes the target
-				Globals.Itemcnt = 0;
-			}
+    }
+
+    public void ChangeItem(){
+        if (Globals.Targets[Globals.curTarget][2]==0) // changes target area
+          Globals.curTarget++;
+        if (Globals.curItemType >= 2) // changes item, once coke is finished, will move back to jagabee
+          Globals.curItemType = 0;
+        else
+          Globals.curItemType++;     
     }
 
     public double[] getObjects(){
