@@ -24,29 +24,18 @@ public class Layout {
         {0,     y_size_mm,  x_size_mm,     y_size_mm   }, 
         {x_size_mm,  y_size_mm,  x_size_mm,     0}, 
         
-
-        //Bottom
-        // {0,     680,   340,   680}, 
-        // {1013,  0,     1013,  680}, 
-        // {2023,  0,     2023,  680}, 
-        // {3033,  0,     3033,  680}, 
-        // //Top
-        // {1787,  2038,  1787,  2038-450}, 
-        // {3007,  2038,  3007,  2038-300}, 
     };
-
 
     //List all fixed rectangular obstacles in layout here
     public static final int obs_mm[][] = {
         //(x0,y0) - centre of box
         //x0   y0    xSize ySize Angle
         {1400, 1100,  300,  420, 0 },   //Pick Up bin 1
-        {115, 3250,  230,  320,  0 }, 
-        {1140, 4390,  320, 230,  0 }, 
+        // {115, 3250,  230,  320,  0 }, 
+        // {1140, 4390,  320, 230,  0 }, 
         // {1957, 2038-425,  150,  210,  0 }, 
        
     };
-
 
     //Robot needs to make final adjustment to align with stand
     public static final int PickUpBinPos[][] = {
@@ -60,19 +49,17 @@ public class Layout {
         //x, y, angle
         {0, 0, 0}
     };
-
     //These are coordinates of the green colored target area
     public static final int GreenPos[][] = {
         //x, y, angle
         {0, 0, 0}
     };
-
-    // Initial Position for robot to go to for dispensary
-    public static final int dispensaryPos[][] = {
+    //These are coordinates of the blue colored target area
+    public static final int BluePos[][] = {
         //x, y, angle
         {0, 0, 0}
-    };  
-
+    };
+ 
     // Position for robot to go to for reading work order
     public static final int workOrderPos[] = {950, 2038-500, 90};
 

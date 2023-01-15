@@ -14,28 +14,15 @@ public class AlignPicker extends MoveRobot {
     //Grab the subsystem instance from RobotContainer
     private final static OmniDrive m_drive = RobotContainer.m_omnidrive;
     private final static Vision m_vision = RobotContainer.m_vision;
-
     // private static double convertPxToMM = 0.1/50;
-    private double dT = 0.02;
-    private double time = 0;
-    private double targetXDistance;
-    private double targetYDistance;
-    private TrapezoidProfile.Constraints m_constraints;
-
-    private TrapezoidProfile.State m_goal_x;
-    private TrapezoidProfile.State m_setpoint_x;
-    private TrapezoidProfile m_profile_x;
-
-    private TrapezoidProfile.State m_goal_y;
-    private TrapezoidProfile.State m_setpoint_y;
-    private TrapezoidProfile m_profile_y;
-    
-    private boolean m_endFlag = false;
     private final double _startSpeed;
     private double camera_offset_pixels = 25;
+    /**
+     * This command is used to align the robot to the object that is to be picked
+     */
     public AlignPicker(){
         super(0, 0, 0, 0, 0.4 );
-        _startSpeed= 0;  
+        _startSpeed = 0;  
     }
      /**
      * Runs before execute

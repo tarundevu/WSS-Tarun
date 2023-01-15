@@ -29,17 +29,16 @@ public class AlignRobot extends CommandBase{
      * @param x - target X position
      * @param y - target Y position
      */
-    
-
-    public AlignRobot(double x, double y, String object){
+    public AlignRobot(String object){
         useW = object == "trolley"? false:true;
-        centerX = x;
-        centerY = y;
+        centerX = 100;
+        centerY = 110;
         // targetW = -m_vision.getLine(2);
         double[] line = m_vision.getLine();
         targetX = (line[0] - centerX);
         targetY = -(line[1] - centerY);
     }
+
     public AlignRobot(){
         // When Width = 300
         // centerX = 155.0;

@@ -43,69 +43,24 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         
         super(
-        //new MoveRobot(  0, 4, 0, 0, 0.4)
+        
+        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
         // new InstantCommand(()-> m_vision.getWOBItems()),
         // new ViewItem(),
-        // new InstantCommand(()-> m_vision.ItemToPick()),
-        // // new WaitCommand(4),
-        // new PickItem(),
-        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
-        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
-        // new PlaceDown(),
-        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
-        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
-        // new ViewItem(),
-        // new InstantCommand(()-> m_vision.ItemToPick()),
-        // new PickItem(),
-        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
-        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
-        // new PlaceDown(),
-        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
-        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
-
-        // new ViewItem(),
-        // new InstantCommand(()-> m_vision.ItemToPick()),
-        // new PickItem(),
-        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
-        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
-        // new PlaceDown(),
-        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
-        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
-
-        // new ViewItem(),
-        // new InstantCommand(()-> m_vision.ItemToPick()),
-        // new PickItem(),
-        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
-        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
-        // new PlaceDown(),
-        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
-        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
-
-        // new ViewItem(),
-        // new InstantCommand(()-> m_vision.ItemToPick()),
-        // new PickItem(),
-        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
-        // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
-        // new PlaceDown(),
-        // new MoveArm(new Translation2d(0.33,0.24), 0.5),
-        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0)))
+        new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),
+        // new MoveRobot(1,-0.1, 0, 0, 0.25)
+        new InstantCommand(()-> m_arm.setCameraAngle(280)),
+        new WaitCommand(2),
+        new InstantCommand(()-> Globals.cvMode=2),
+        new InstantCommand(m_vision::setcvMode)
+        //new AlignRobot()
             // new ViewItem(),
-            // new LoopCommands(new ProcessSeq())
+            // new LoopCommands(new WOB())
         //new CP3()
         // new CP2()
         // new CP3()
         // new CP4()
         // new CP6()
-        
-        //new CP_Menu()
-        // Open House Code//            
-        // new PickItem(2),
-
-        
-            //new LoopCmd(new ProcessSeq(), ()-> (++Globals.loopCnt)> 4) /// loop cmd
-            
-        
-         
 
             // new LoopCmd(new ProcessSeq(), ()->(++Globals.loopCnt)>4 ), /// loop cmd
                 

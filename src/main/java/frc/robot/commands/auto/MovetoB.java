@@ -134,8 +134,8 @@ public class MovetoB extends SequentialCommandGroup
                 // Position contollers
                 new PIDController(0.25, 0, 0),
                 new PIDController(0.25, 0, 0),
-                new ProfiledPIDController(1, 0, 0, new Constraints(Math.PI, Math.PI) ),
-                RobotContainer.m_omnidrive )
+                new ProfiledPIDController(1, 0, 0, new Constraints(Math.PI, Math.PI) ))
+                // RobotContainer.m_omnidrive )
 
             //End with rotation to the target heading???
 

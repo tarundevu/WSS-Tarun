@@ -7,13 +7,12 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
 
-public class Trolley extends SequentialCommandGroup{
+public class Align2Trolley extends SequentialCommandGroup{
   
-  public Trolley(){
+  public Align2Trolley(){
     super(
-      new InstantCommand(() -> Globals.useTF = false),
-      new InstantCommand(RobotContainer.m_vision::setUseTF),
-      new AlignRobot(100,110,"trolley"),
+      new InstantCommand(()-> Globals.cvMode = 0),
+      new AlignRobot("trolley"),
       new MoveRobot(1, 0.12, 0, 0, 0.1)
       
     );

@@ -30,10 +30,6 @@ public class Sensor extends SubsystemBase
     private Cobra cobra;
     private double y_value=0;
     //private Ultrasonic sonar;
-  
-    // private Servo servo;
-    // private double Servovalue;
-    
 
     // Good for debugging
     // Shuffleboard
@@ -45,11 +41,6 @@ public class Sensor extends SubsystemBase
     private final NetworkTableEntry D_Cobra_0 = tab.add("cobra 0", 0).getEntry();
     private final NetworkTableEntry D_Cobra_1 = tab.add("cobra 1", 0).getEntry();
     private final NetworkTableEntry D_Cobra_total = tab.add("cobra total", 0).getEntry();
-   
-    
-    
-    //private final NetworkTableEntry D_servo = tab.add("Servo", 0).getEntry();
-
 
     //Subsystem for sensors
     //This is just an example.

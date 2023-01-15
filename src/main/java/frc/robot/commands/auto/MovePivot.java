@@ -11,8 +11,6 @@ import frc.robot.RobotContainer;
 //Subsystem imports
 import frc.robot.subsystems.OmniDrive;
 
-
-
 /**
  * SimpleDrive class
  * <p>

@@ -22,15 +22,12 @@ import frc.robot.subsystems.Vision;
 import frc.robot.commands.auto.MoveRobotSense;
 import frc.robot.commands.auto.LoopCmd;
 
-
-
-
 /**
  * DriveMotor class
  * <p>
  * This class creates the inline auto command to drive the motor
  */
-public class PickItem extends SequentialCommandGroup
+public class PickItemfromBin extends SequentialCommandGroup
 {   
     
     double temp;
@@ -38,10 +35,8 @@ public class PickItem extends SequentialCommandGroup
     private final static Vision m_vision = RobotContainer.m_vision;
     private final static Arm m_arm = RobotContainer.m_arm;
 
-	public PickItem() 
+	public PickItemfromBin() 
     {
- 
-        
         super(   
         new AlignPicker(),
         new InstantCommand(()-> m_arm.setCameraAngle(240)),

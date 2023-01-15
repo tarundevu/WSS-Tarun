@@ -6,7 +6,6 @@ import frc.robot.Globals;
 //RobotContainer import
 import frc.robot.RobotContainer;
 
-
 //Subsystem imports
 //import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Arm;
@@ -22,12 +21,11 @@ public class Gripper extends CommandBase{
     private int isOpen;
     private double targetAngle;
     private int[][] itemGripperSizes = {
-        {125,60}, // Dettol
-        {125,50}, // Jagabee
-        {125,60}, // Coke
+        {200,0}, // Jagabee
+        {200,0}, // Dettol
+        {210,0}, // Coke
     };
-    //private double start_pos;
-   
+ 
     /** This class is used to control an end effector
      * 
      * @param pos - 1 for open or 0 for close

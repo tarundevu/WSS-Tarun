@@ -19,8 +19,11 @@ public class ArmPickX extends MoveArm {
     private final static Arm m_arm = RobotContainer.m_arm;
     private final static Sensor m_sensor = RobotContainer.m_sensor;
 
-    private double pickUpHeight = 0.00;
+    private double pickUpHeight = 0.03;
     private int m_type;
+    /**
+     * This command extends the arm towards the object to be picked up
+     */
     public ArmPickX(int type){
         super(new Translation2d(0,0), 0.2);
         m_type = type;
