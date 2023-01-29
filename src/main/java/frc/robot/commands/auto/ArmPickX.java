@@ -39,8 +39,12 @@ public class ArmPickX extends MoveArm {
             double x = m_arm.getArmPos().getX() + Globals.camera_offset - (Globals.curItemY - m_vision.getResolution(1)/2) * Globals.convertPxToM;
             pos = new Translation2d(x, m_arm.getArmPos().getY());
         }
-        else {
+        else if (m_type==1){
             double y = pickUpHeight - Globals.arm_offset_z+ Globals.gripper_offset;
+            pos = new Translation2d(m_arm.getArmPos().getX(), y);   
+        }
+        else {
+            double y = (pickUpHeight + 0.05) - Globals.arm_offset_z+ Globals.gripper_offset;
             pos = new Translation2d(m_arm.getArmPos().getX(), y);   
         }
             

@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Globals;
 import frc.robot.Astar.Layout;
 import frc.robot.utils.OmniDriveOdometry;
 
@@ -113,7 +114,10 @@ public class OmniDrive extends SubsystemBase
         m_odometry = new OmniDriveOdometry(Layout.Convert_mm_Pose2d(Layout.startPos));
 
     }
-
+    public double curDir(){
+        Globals.curDir = m_odometry.getPose().getRotation().getDegrees();
+        return m_odometry.getPose().getRotation().getDegrees();
+    }
     public Pose2d getPose() {
         return m_odometry.getPose();
     }

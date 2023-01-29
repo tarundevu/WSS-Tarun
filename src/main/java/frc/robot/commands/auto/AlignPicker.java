@@ -30,7 +30,7 @@ public class AlignPicker extends MoveRobot {
     @Override
     public void initialize()
     {   
-        super.m_dist = ((Globals.curItemX -400 - camera_offset_pixels) * Globals.convertPxToM);
+        super.m_dist = ((Globals.curItemX -400 ) * Globals.convertPxToM - 0.01);
        
         super.initialize();
     }

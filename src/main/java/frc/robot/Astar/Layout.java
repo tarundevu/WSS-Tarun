@@ -45,21 +45,14 @@ public class Layout {
         
     };
     //These are coordinates of the red colored target area
-    public static final int RedPos[][] = {
-        //x, y, angle
-        {0, 0, 0}
-    };
+    public static final int RedPos[] = {1900,3469,0};
+  
     //These are coordinates of the green colored target area
-    public static final int GreenPos[][] = {
-        //x, y, angle
-        {0, 0, 0}
-    };
+    public static final int GreenPos[] = {175,2660,0};
+
     //These are coordinates of the blue colored target area
-    public static final int BluePos[][] = {
-        //x, y, angle
-        {0, 0, 0}
-    };
- 
+    public static final int BluePos[] = {1400,1800,0};
+
     // Position for robot to go to for reading work order
     public static final int workOrderPos[] = {950, 2038-500, 90};
 

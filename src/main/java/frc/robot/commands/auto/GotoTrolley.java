@@ -4,9 +4,12 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import java.util.Map;
 
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -14,9 +17,12 @@ import frc.robot.Globals;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Vision;
+import frc.robot.utils.OmniDriveOdometry;
 
-public class GotoTrolley extends SequentialCommandGroup{
-  private static double m_x,m_y;
+public class GotoTrolley extends SequentialCommandGroup {
+  private final static OmniDriveOdometry m_odometry = RobotContainer.m_od;
+  private static double m_x, m_y;
+  private static double angle;
   private enum CommandSelector {
     Top, Left, Right, Bottom, TL, TR, BL
   }
@@ -39,17 +45,7 @@ public class GotoTrolley extends SequentialCommandGroup{
         return CommandSelector.Top;
   }
 
-  static public CommandSelector Rotate() {
-  
-    if (m_y > 4.92 && m_x > 0.21 && m_x < 2.04)
-        return CommandSelector.Left;
-    else if (m_y < 0.21 && m_x > 0.21 && m_x < 2.04)
-        return CommandSelector.Right;
-    else if (m_x < 0.75 && m_y > 0.21 && m_y < 4.92)
-        return CommandSelector.Bottom;
-    else 
-        return null;
-  }
+ 
   public GotoTrolley(double x, double y) {
     super(
       new SelectCommand(
@@ -64,22 +60,26 @@ public class GotoTrolley extends SequentialCommandGroup{
             ), 
         GotoTrolley::Move
       ),
-      new SelectCommand(
-        Map.ofEntries(
-            Map.entry(CommandSelector.Left, new MoveRobot(2, Math.PI/2, 0, 0, 0.3)),
-            Map.entry(CommandSelector.Right, new MoveRobot(2, -Math.PI/2, 0, 0, 0.3)),
-            Map.entry(CommandSelector.Bottom, new MoveRobot(2, 3*(Math.PI/4), 0, 0, 0.3)),
-            Map.entry(CommandSelector.TL, new MoveRobot(2, Math.PI/4, 0, 0, 0.3)),
-            Map.entry(CommandSelector.TR, new MoveRobot(2, -Math.PI/4, 0, 0, 0.3)),
-            Map.entry(CommandSelector.BL, new MovetoB(new Pose2d(x+0.35, y-0.35, new Rotation2d(0))))
-            ), 
-        GotoTrolley::Rotate
-      ),
-      new Align2Trolley(),
-      new TrolleyHolder(1)
+      new RotatetoOrientation(angle),
+      new Align2Trolley()
+      
     );
     m_x = x;
     m_y = y;
+    if (x - m_odometry.getPose().getTranslation().getX() > 0.1 || x - m_odometry.getPose().getTranslation().getX() < 0.1){
+      if(y - m_odometry.getPose().getTranslation().getY()>0)
+        angle = 0;
+      else 
+        angle = 180;
+    }
+    else if (y - m_odometry.getPose().getTranslation().getY() > 0.1 || y - m_odometry.getPose().getTranslation().getY() < 0.1){
+      if(x - m_odometry.getPose().getTranslation().getX()>0)
+        angle = -90; 
+      else 
+        angle = 90;
+    }
+    else
+      angle = -Math.atan2(y - m_odometry.getPose().getTranslation().getY(),x - m_odometry.getPose().getTranslation().getX());
   }
   
 }
