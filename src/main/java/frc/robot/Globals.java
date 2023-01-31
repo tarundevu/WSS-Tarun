@@ -61,7 +61,7 @@ public class Globals
         // IF curItem is not any of the cokes
         if(Globals.curItemType==0 || Globals.curItemType==1){
           // while array is not empty
-          while (Globals.Targets[Globals.curTarget][Globals.curItemType]>0) { 
+          while (Globals.Targets[Globals.curTarget][0]>0) { 
               // check if box contains item
             if(RobotContainer.m_vision.getObjects()[Globals.curItemType*3]>0){ 
               // when last object is picked up, move on to 2nd pick up bin

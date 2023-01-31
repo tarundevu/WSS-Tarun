@@ -22,7 +22,7 @@ public class Gripper extends CommandBase{
     private int isOpen;
     private double targetAngle;
     private int[][] itemGripperSizes = {
-        {210,0}, // CokeUp
+        {210,90}, // CokeUp
         {210,0}, // Coke
         {210,0}, // Dettol
         {220,0} // Jagabee

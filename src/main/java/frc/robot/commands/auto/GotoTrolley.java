@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import java.util.Map;
 
-import javax.lang.model.util.ElementScanner6;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -16,33 +15,49 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Vision;
 import frc.robot.utils.OmniDriveOdometry;
 
 public class GotoTrolley extends SequentialCommandGroup {
-  private final static OmniDriveOdometry m_odometry = RobotContainer.m_od;
+  private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
   private static double m_x, m_y;
   private static double angle;
+  private static double[] diff = m_omnidrive.CalcXYDiff(m_x, m_y);
   private enum CommandSelector {
     Top, Left, Right, Bottom, TL, TR, BL
   }
 
   static public CommandSelector Move() {
   
-    if (m_y > 4.92 && m_x > 0.21 && m_x < 2.04)
+    if (m_y > 4.29 && m_x > 0.21 && m_x < 2.04)
         return CommandSelector.Left;
     else if (m_y < 0.21 && m_x > 0.21 && m_x < 2.04)
         return CommandSelector.Right;
-    else if (m_x < 0.75 && m_y > 0.21 && m_y < 4.92)
+    else if (m_x < 0.75 && m_y > 0.21 && m_y < 4.29)
         return CommandSelector.Bottom;
-    else if (m_x > 2.04 && m_y > 4.92)
+    else if (m_x > 2.04 && m_y > 4.29)
         return CommandSelector.TL;
     else if (m_x > 2.04 && m_y < 0.21)
         return CommandSelector.TR;
-    else if (m_x < 0.21 && m_y > 4.92)
+    else if (m_x < 0.21 && m_y > 4.29)
         return CommandSelector.BL;
     else 
         return CommandSelector.Top;
+    // if (diff[1]>0)
+    //     return CommandSelector.Left;
+    // else if (diff[1]<0)
+    //     return CommandSelector.Right;
+    // else if (diff[0]<0)
+    //     return CommandSelector.Bottom;
+    // else if (m_x > 2.04 && m_y > 4.92)
+    //     return CommandSelector.TL;
+    // else if (m_x > 2.04 && m_y < 0.21)
+    //     return CommandSelector.TR;
+    // else if (m_x < 0.21 && m_y > 4.92)
+    //     return CommandSelector.BL;
+    // else 
+    //     return CommandSelector.Top;
   }
 
  
@@ -60,26 +75,11 @@ public class GotoTrolley extends SequentialCommandGroup {
             ), 
         GotoTrolley::Move
       ),
-      new RotatetoOrientation(angle),
-      new Align2Trolley()
+      new RotatetoOrientation(m_omnidrive.Rotate2Obj(x, y))
+      // new Align2Trolley()
       
     );
     m_x = x;
     m_y = y;
-    if (x - m_odometry.getPose().getTranslation().getX() > 0.1 || x - m_odometry.getPose().getTranslation().getX() < 0.1){
-      if(y - m_odometry.getPose().getTranslation().getY()>0)
-        angle = 0;
-      else 
-        angle = 180;
-    }
-    else if (y - m_odometry.getPose().getTranslation().getY() > 0.1 || y - m_odometry.getPose().getTranslation().getY() < 0.1){
-      if(x - m_odometry.getPose().getTranslation().getX()>0)
-        angle = -90; 
-      else 
-        angle = 90;
-    }
-    else
-      angle = -Math.atan2(y - m_odometry.getPose().getTranslation().getY(),x - m_odometry.getPose().getTranslation().getX());
   }
-  
 }

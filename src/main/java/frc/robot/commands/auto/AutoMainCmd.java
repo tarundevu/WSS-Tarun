@@ -44,24 +44,24 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         super(
         
-        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
+        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0)))
         // new InstantCommand(()-> m_vision.getWOBItems()),
         // new ViewItem(),
-        new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),
-        // new MoveRobot(1,-0.1, 0, 0, 0.25)
-        new InstantCommand(()-> m_arm.setCameraAngle(280)),
-        new WaitCommand(2),
-        new InstantCommand(()-> Globals.cvMode=2),
-        new InstantCommand(m_vision::setcvMode)
-        //new AlignRobot()
-            // new ViewItem(),
+        // new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),
+        new MoveRobot(1,-0.1, 0, 0, 0.25)
+        // new InstantCommand(()-> m_arm.setCameraAngle(280)),
+        // new WaitCommand(2),
+        // new InstantCommand(()-> Globals.cvMode=2),
+        // new InstantCommand(m_vision::setcvMode)
+        // new AlignRobot()
+            // new ViewItem()
             // new LoopCommands(new WOB())
         //new CP3()
         // new CP2()
         // new CP3()
         // new CP4()
         // new CP6()
-
+        // new GotoTrolley(0.15,4.35)
             // new LoopCmd(new ProcessSeq(), ()->(++Globals.loopCnt)>4 ), /// loop cmd
                 
               );

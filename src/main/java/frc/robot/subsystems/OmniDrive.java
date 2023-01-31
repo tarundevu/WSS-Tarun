@@ -114,9 +114,46 @@ public class OmniDrive extends SubsystemBase
         m_odometry = new OmniDriveOdometry(Layout.Convert_mm_Pose2d(Layout.startPos));
 
     }
-    public double curDir(){
+    public double getDir(){
         Globals.curDir = m_odometry.getPose().getRotation().getDegrees();
         return m_odometry.getPose().getRotation().getDegrees();
+    }
+    public double Rotate2Obj(double x, double y){
+        double robot_x = m_odometry.getPose().getTranslation().getX(),
+               robot_y = m_odometry.getPose().getTranslation().getY();
+       double m_x = x;
+       double m_y = y;
+       double angle = 0;
+       if (m_x - robot_x<0.1 || m_x - robot_x>0.1){
+         if (m_y-robot_y>0){
+             angle = 0;
+         }
+         else
+             angle = 180;
+       }
+       else if (m_y - robot_y<0.1 || m_y - robot_y>0.1){
+         if (m_x-robot_x>0){
+             angle = -90;
+         }
+         else
+             angle = 90;
+       }
+       else 
+         angle = Math.atan2(m_y - robot_y, m_x - robot_x)*180/Math.PI;
+         angle *= -1;
+         //m_angle = angle;
+       return angle;
+     }
+     /**
+      *  returns the difference between robot xy and trolley xy
+      * @param x = X coordinate of color/trolley
+      * @param y = Y coordinate of color/trolley
+      */
+    public double[] CalcXYDiff(double x, double y){
+        double[] XYDiff = new double[2];
+        XYDiff[0] = x - m_odometry.getPose().getTranslation().getX();
+        XYDiff[1] = y - m_odometry.getPose().getTranslation().getY();
+        return XYDiff;
     }
     public Pose2d getPose() {
         return m_odometry.getPose();

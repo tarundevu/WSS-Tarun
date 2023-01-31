@@ -31,19 +31,15 @@ public class Layout {
         //(x0,y0) - centre of box
         //x0   y0    xSize ySize Angle
         {1400, 1100,  300,  420, 0 },   //Pick Up bin 1
-        // {115, 3250,  230,  320,  0 }, 
+        {1400, 2450,  300,  420, 0 }, 
         // {1140, 4390,  320, 230,  0 }, 
         // {1957, 2038-425,  150,  210,  0 }, 
        
     };
 
     //Robot needs to make final adjustment to align with stand
-    public static final int PickUpBinPos[][] = {
-        //x, y, angle
-        //Robot stops 250mm from stand. To be adjusted
-        {700, 950, 90} //before pick up bin 
-        
-    };
+    public static final int PickUpBinPos[] = {700,1100,0};
+    public static final int PickUpBin2Pos[] = {700,2450,0};
     //These are coordinates of the red colored target area
     public static final int RedPos[] = {1900,3469,0};
   
@@ -54,7 +50,7 @@ public class Layout {
     public static final int BluePos[] = {1400,1800,0};
 
     // Position for robot to go to for reading work order
-    public static final int workOrderPos[] = {950, 2038-500, 90};
+    public static final int workOrderPos[] = {350, 1200, 90};
 
     // Initial Position for robot to go to for disposing hazmat
     public static final int HazMatBinPos[] = {500, 980, 180};
