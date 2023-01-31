@@ -22,9 +22,10 @@ public class Gripper extends CommandBase{
     private int isOpen;
     private double targetAngle;
     private int[][] itemGripperSizes = {
-        {200,0}, // Jagabee
-        {200,0}, // Dettol
+        {210,0}, // CokeUp
         {210,0}, // Coke
+        {210,0}, // Dettol
+        {220,0} // Jagabee
     };
  
     /** This class is used to control an end effector

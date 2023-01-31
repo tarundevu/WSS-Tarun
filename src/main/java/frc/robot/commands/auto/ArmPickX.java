@@ -40,12 +40,24 @@ public class ArmPickX extends MoveArm {
             pos = new Translation2d(x, m_arm.getArmPos().getY());
         }
         else if (m_type==1){
-            double y = pickUpHeight - Globals.arm_offset_z+ Globals.gripper_offset;
-            pos = new Translation2d(m_arm.getArmPos().getX(), y);   
+            if (Globals.curItemType==0){// for cokeU
+                double y = (pickUpHeight + 0.04) - Globals.arm_offset_z+ Globals.gripper_offset;
+                pos = new Translation2d(m_arm.getArmPos().getX(), y);   
+            }
+            else{
+                double y = (pickUpHeight) - Globals.arm_offset_z+ Globals.gripper_offset;
+                pos = new Translation2d(m_arm.getArmPos().getX(), y);
+            }
         }
-        else {
-            double y = (pickUpHeight + 0.05) - Globals.arm_offset_z+ Globals.gripper_offset;
-            pos = new Translation2d(m_arm.getArmPos().getX(), y);   
+        else { 
+            if (Globals.curItemType==0){// for cokeU
+                double y = (pickUpHeight + 0.1) - Globals.arm_offset_z+ Globals.gripper_offset;
+                pos = new Translation2d(m_arm.getArmPos().getX(), y);   
+            }
+            else{
+                double y = (pickUpHeight + 0.05) - Globals.arm_offset_z+ Globals.gripper_offset;
+                pos = new Translation2d(m_arm.getArmPos().getX(), y);
+            }
         }
             
         super.tgt_pos = pos;

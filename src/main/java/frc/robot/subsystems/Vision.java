@@ -83,12 +83,14 @@ public class Vision extends SubsystemBase{
 
     public double[] getObjects(){
       /*
-       * 0 - Dettol Count
-       * 1,2 - Dettol X,Y
-       * 3 - Jagabee Count
-       * 4,5 - Jagabee X,Y 
-       * 6 - Coke Count
-       * 7,8 - Coke X,Y 
+       * 0 - CokeU Count
+       * 1,2 - Coke X,Y
+       * 3 - Coke Count
+       * 4,5 - Coke X,Y 
+       * 6 - Dettol Count
+       * 7,8 - Dettol X,Y 
+       * 9 - Jagabee Count
+       * 10,11 - Jagabee X,Y
        */
      
       double[] objects = (SmartDashboard.getEntry("objects").getDoubleArray(defaultValue));

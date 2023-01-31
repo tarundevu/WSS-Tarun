@@ -39,7 +39,7 @@ public class TeleCmd extends CommandBase
     @Override
     public void initialize()
     {
-        Globals.cvMode=2;
+        //Globals.cvMode=2;
         //m_vision.setcvMode();
     }
 
