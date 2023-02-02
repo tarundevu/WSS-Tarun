@@ -9,6 +9,7 @@ import frc.robot.subsystems.Arm;
 
 public class CP5 extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
+  // Move to target area, coordinates unknown
   public CP5(){
     super(
       // new InstantCommand(()-> m_arm.setCameraAngle(280)),

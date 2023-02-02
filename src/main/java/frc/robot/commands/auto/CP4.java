@@ -10,6 +10,7 @@ import frc.robot.subsystems.Arm;
 
 public class CP4 extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
+  // Move to target area
   public CP4(){
     super(
       new InstantCommand(()-> m_arm.setCameraAngle(280)),

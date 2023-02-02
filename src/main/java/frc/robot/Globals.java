@@ -9,12 +9,14 @@ public class Globals
     static public int debug[] = new int[DNUM];
     static public String[] debugNames = new String[] {"debug0", "debug1", "debug2", "debug3"};
     public static double curDir = 0;
-    public static double convertPxToM = 0.0006075; // 0.56/800 , 0.00058 good // Resolution
+    public static double convertPxToM = 0.000590;//0.0006075 // 0.56/800 , 0.00058 good // Resolution
     public static double camera_offset = 0.09;
     // public static double camera_mount_offset = 0.015; // currently not used
     public static double arm_offset_y = 0.13; // 0.125
     public static double arm_offset_z = 0.25;
     public static double gripper_offset = 0.16;
+    public static double CokeRatio = 0.85;
+    public static int LoopCnt = 0; // use as counter for loops
     /*
      *  CokeU = 0
      *  Coke  = 1
@@ -35,7 +37,8 @@ public class Globals
      *  Bin2 = 1
      */
     public static int curBin = 0;
-    /*
+    /*  
+     *  Idle = -1 (does nothing, use to turn off the other modes)
      *  Line detection = 0
      *  Object Detection = 1
      *  Work Order Board = 2

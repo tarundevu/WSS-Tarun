@@ -144,17 +144,7 @@ public class OmniDrive extends SubsystemBase
          //m_angle = angle;
        return angle;
      }
-     /**
-      *  returns the difference between robot xy and trolley xy
-      * @param x = X coordinate of color/trolley
-      * @param y = Y coordinate of color/trolley
-      */
-    public double[] CalcXYDiff(double x, double y){
-        double[] XYDiff = new double[2];
-        XYDiff[0] = x - m_odometry.getPose().getTranslation().getX();
-        XYDiff[1] = y - m_odometry.getPose().getTranslation().getY();
-        return XYDiff;
-    }
+     
     public Pose2d getPose() {
         return m_odometry.getPose();
     }
@@ -268,7 +258,7 @@ public class OmniDrive extends SubsystemBase
 
         //Estimates x and y speed from individual wheel speeds
         //See formula below
-        double xratio = 3.88/4.0;
+        double xratio = 1;//3.88/4.0;
         double speedX = xratio * (-(wheelSpeeds[0] + wheelSpeeds[2]) + wheelSpeeds[1])/2;
         double speedY = (-wheelSpeeds[0] + wheelSpeeds[2])/(0.866025*2);
 

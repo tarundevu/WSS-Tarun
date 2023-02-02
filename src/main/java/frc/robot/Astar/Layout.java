@@ -31,31 +31,35 @@ public class Layout {
         //(x0,y0) - centre of box
         //x0   y0    xSize ySize Angle
         {1400, 1100,  300,  420, 0 },   //Pick Up bin 1
-        {1400, 2450,  300,  420, 0 }, 
+        {1400, 2450,  300,  420, 0 },   //Pick Up bin 2
         // {1140, 4390,  320, 230,  0 }, 
         // {1957, 2038-425,  150,  210,  0 }, 
        
     };
 
-    //Robot needs to make final adjustment to align with stand
+    //Coordinates of PickUp bin
     public static final int PickUpBinPos[] = {700,1100,0};
     public static final int PickUpBin2Pos[] = {700,2450,0};
-    //These are coordinates of the red colored target area
-    public static final int RedPos[] = {1900,3469,0};
+    //These are coordinates of the red colored target area (NOTE: indicate the angle of orientation)
+    public static final int RedPos[] = {1900,3469, 0};
   
     //These are coordinates of the green colored target area
-    public static final int GreenPos[] = {175,2660,0};
+    public static final int GreenPos[] = {175,2660, 0};
 
     //These are coordinates of the blue colored target area
-    public static final int BluePos[] = {1400,1800,0};
+    public static final int BluePos[] = {1400,1800, 0};
+
+    //These are coordinates of the trolleys (NOTE: indicate the angle of orientation)
+    public static final int T1Pos[] = {150,4350, 45};
+  
+    public static final int T2Pos[] = {830,4350, 0};
+
+    public static final int T3Pos[] = {1400,4350, -90};
 
     // Position for robot to go to for reading work order
-    public static final int workOrderPos[] = {350, 1200, 90};
+    public static final int workOrderPos[] = {350, 1200, -90};
 
-    // Initial Position for robot to go to for disposing hazmat
-    public static final int HazMatBinPos[] = {500, 980, 180};
-
-    // Robot start position. Also the cleaning position
+    // Robot start position.
     public static final int startPos[] = {210, 210, -90}; //start position
     // public static final int startPos[] = {960, 1100, -90}; //For open house
 

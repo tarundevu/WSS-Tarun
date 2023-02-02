@@ -2,7 +2,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-// this class is used for the previous gripper
+// this class is used for the previous gripper (NOT IN USE)
 public class ReleaseTrolley extends SequentialCommandGroup {
   public ReleaseTrolley(){
     super(
