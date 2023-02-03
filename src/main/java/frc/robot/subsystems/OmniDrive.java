@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //WPI imports
@@ -118,33 +118,91 @@ public class OmniDrive extends SubsystemBase
         Globals.curDir = m_odometry.getPose().getRotation().getDegrees();
         return m_odometry.getPose().getRotation().getDegrees();
     }
-    public double Rotate2Obj(double x, double y){
-        double robot_x = m_odometry.getPose().getTranslation().getX(),
-               robot_y = m_odometry.getPose().getTranslation().getY();
-       double m_x = x;
-       double m_y = y;
-       double angle = 0;
-       if (m_x - robot_x<0.1 || m_x - robot_x>0.1){
-         if (m_y-robot_y>0){
-             angle = 0;
+    public double[] getTCoord(Translation2d XY){
+        double[] coord = new double[2];
+        double x = XY.getX(),
+               y = XY.getY();
+
+        if (y > 4.29 && x > 0.21 && x < 2.04){
+            x += 0;
+            y -= 0.5;
          }
-         else
-             angle = 180;
-       }
-       else if (m_y - robot_y<0.1 || m_y - robot_y>0.1){
-         if (m_x-robot_x>0){
-             angle = -90;
+    else if (y < 0.21 && x > 0.21 && x < 2.04){
+        x += 0;
+        y += 0.5;
+    }
+
+    else if (x < 0.75 && y > 0.21 && y < 4.29){
+        x += 0.5;
+        y += 0;
+    }
+
+    else if (x > 2.04 && y > 4.29){
+        x -= 0.35;
+        y -= 0.35;
+    }
+
+    else if (x > 2.04 && y < 0.21){
+        x -= 0.35;
+        y += 0.35;
+    }
+
+    else if (x < 0.21 && y > 4.29){
+        x += 0.35;
+        y -= 0.35;
+    }
+
+    else {
+        x -= 0.5;
+        y += 0;
+    }
+    coord[0] = x;
+    coord[1] = y;
+
+    return coord;
+    }
+    public double[] getColorCoord(Translation2d XY){
+        double[] coord = new double[2];
+        double x = XY.getX(),
+               y = XY.getY();
+
+        if (y > 4.29 && x > 0.21 && x < 2.04){
+            x += 0;
+            y -= 0.39;
          }
-         else
-             angle = 90;
-       }
-       else 
-         angle = Math.atan2(m_y - robot_y, m_x - robot_x)*180/Math.PI;
-         angle *= -1;
-         //m_angle = angle;
-       return angle;
-     }
-     
+    else if (y < 0.21 && x > 0.21 && x < 2.04){
+        x += 0;
+        y += 0.39;
+    }
+
+    else if (x < 0.75 && y > 0.21 && y < 4.29){
+        x += 0.39;
+        y += 0;
+    }
+
+    else if (x > 2.04 && y > 4.29){
+        x -= 0.35;
+        y -= 0.35;
+    }
+
+    else if (x > 2.04 && y < 0.21){
+        x -= 0.35;
+        y += 0.35;
+    }
+
+    else if (x < 0.21 && y > 4.29){
+        x += 0.35;
+        y -= 0.35;
+    }
+
+    else {
+        x -= 0.39;
+        y += 0;
+    }
+    coord[0] = x;
+    coord[1] = y;
+    return coord;
+    }
     public Pose2d getPose() {
         return m_odometry.getPose();
     }

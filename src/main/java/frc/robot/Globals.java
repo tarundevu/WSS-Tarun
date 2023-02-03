@@ -43,7 +43,7 @@ public class Globals
      *  Object Detection = 1
      *  Work Order Board = 2
      */
-    public static int cvMode = 0;
+    public static int cvMode = -1;
     /*
 	   *                                              C|D|J              
 	   *                                            R|x|x|x|
