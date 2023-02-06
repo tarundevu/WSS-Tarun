@@ -12,7 +12,7 @@ public class CP2 extends SequentialCommandGroup{
   // move and push trolley
   public CP2(){
     super(
-      new InstantCommand(()-> m_arm.setCameraAngle(280)),
+      new InstantCommand(()-> m_arm.setCameraAngle(300)),
       new MovetoB(new Pose2d(0.5,2.4,new Rotation2d(0))) // Trolley location
     );
   }

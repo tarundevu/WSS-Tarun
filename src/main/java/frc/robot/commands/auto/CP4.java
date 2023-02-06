@@ -13,10 +13,9 @@ public class CP4 extends SequentialCommandGroup{
   // Move to target area
   public CP4(){
     super(
-      new InstantCommand(()-> m_arm.setCameraAngle(280)),
+      new InstantCommand(()-> m_arm.setCameraAngle(300)),
       new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
       new MovetoB(new Pose2d(1.0,3.5,new Rotation2d(0))) //target posisiton
-
     );
   }
 }

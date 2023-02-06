@@ -43,7 +43,7 @@ public class Vision extends SubsystemBase{
 
     public Vision(){
 
-        m_arm.setCameraAngle(280); // Look down
+        m_arm.setCameraAngle(300); // Look down
        
     }
 

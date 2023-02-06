@@ -22,8 +22,6 @@ import frc.robot.utils.OmniDriveOdometry;
 
 public class GotoTrolley extends SequentialCommandGroup {
   private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
-  private static double m_x, m_y;
-  private static double angle;
 
   /**
    * This command moves the robot in front of the trolley and rotates to face it
@@ -32,13 +30,10 @@ public class GotoTrolley extends SequentialCommandGroup {
    */
   public GotoTrolley(Pose2d pose) {
     super(
-      new MovetoB(new Pose2d(m_omnidrive.getTCoord(pose.getTranslation())[0], m_omnidrive.getTCoord(pose.getTranslation())[1], new Rotation2d(0))),
+      new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation())[0], m_omnidrive.getCoord(pose.getTranslation())[1], new Rotation2d(0))),
       new Rotate2Orientation(pose.getRotation().getDegrees()),
       new Align2Trolley(),
       new WaitCommand(1)
-      
     );
-    m_x = pose.getTranslation().getX();
-    m_y = pose.getTranslation().getY();
   }
 }

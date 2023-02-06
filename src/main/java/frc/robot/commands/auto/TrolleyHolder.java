@@ -75,9 +75,6 @@ public class TrolleyHolder extends CommandBase{
     {
         return m_endFlag;
     }
-
-    
-
 }
 
 

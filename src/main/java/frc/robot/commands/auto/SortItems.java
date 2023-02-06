@@ -41,7 +41,7 @@ public class SortItems extends SequentialCommandGroup{
     {
         super(   
         new PickItemfromBin(),
-        new InstantCommand(()-> m_arm.setCameraAngle(280)),
+        new InstantCommand(()-> m_arm.setCameraAngle(300)),
         new SelectCommand(
                 Map.ofEntries(
                     Map.entry(CommandSelector.ONE, new GotoColor(Layout.Convert_mm_Pose2d(Layout.RedPos))),
