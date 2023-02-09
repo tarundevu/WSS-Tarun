@@ -17,7 +17,7 @@ public class Vision extends SubsystemBase{
     
     private final ShuffleboardTab tab = Shuffleboard.getTab("Vision");
     private NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    private NetworkTable table = inst.getTable("SmartDashboard");
+    private NetworkTable table = inst.getTable("Shuffleboard/Vision");
     // private final NetworkTableEntry D_cW = tab.add("cW", 0).getEntry();
     private final NetworkTableEntry D_targetX = tab.add("TargetX", 0).getEntry();
     private final NetworkTableEntry D_curTarget = tab.add("curTarget", 0).getEntry();
@@ -38,6 +38,7 @@ public class Vision extends SubsystemBase{
     private final NetworkTableEntry D_currentItemY = tab.add("CurrentItemY", 0).getEntry();
     private final NetworkTableEntry D_AddedArmX = tab.add("AddedArmX", 0).getEntry();
     private final NetworkTableEntry D_AddedRobotX = tab.add("AddedRobotX", 0).getEntry();
+    private final NetworkTableEntry D_cvMode = tab.add("cvMode", 0).getEntry(); 
     // private final NetworkTableEntry D_useTF = tab.add("useTF", 0).getEntry();
     private double[] defaultValue = new double[1];
 
@@ -46,10 +47,10 @@ public class Vision extends SubsystemBase{
         m_arm.setCameraAngle(300); // Look down
        
     }
-
+    
     public double [] getLine(){
 
-      double[] line = (SmartDashboard.getEntry("line").getDoubleArray(defaultValue));
+      double[] line = (table.getEntry("line").getDoubleArray(defaultValue));
       return line;
     }
     
@@ -61,9 +62,9 @@ public class Vision extends SubsystemBase{
       return dimension[wh];
     }
 
-    public void setcvMode(){
-      SmartDashboard.putNumber("cvMode", Globals.cvMode);
-    }
+    // public void setcvMode(){
+    //   SmartDashboard.putNumber("cvMode", Globals.cvMode);
+    // }
     
     // gets the 1d array passed from networktables and stores it in a 2d array
     public void getWOBItems(){
@@ -93,9 +94,17 @@ public class Vision extends SubsystemBase{
        * 10,11 - Jagabee X,Y
        */
      
-      double[] objects = (SmartDashboard.getEntry("objects").getDoubleArray(defaultValue));
+      double[] objects = (table.getEntry("objects").getDoubleArray(defaultValue));
       
       return objects;
+  }
+  public void initialize(){
+    // Code written here will run before execute //
+    // Sets the arm and gripper position when enabled //
+    Globals.curBin = 0;
+    Globals.curTarget = 0;
+    Globals.curItemType = 0;
+    
   }
     @Override
     public void periodic()
@@ -110,6 +119,6 @@ public class Vision extends SubsystemBase{
         // D_JagabeeCount.setNumber(getObjects()[0]);
         // D_DettolCount.setNumber(getObjects()[3]);
         // D_CokeCount.setNumber(getObjects()[6]);
-    
+        D_cvMode.setNumber(Globals.cvMode);
     }
 }

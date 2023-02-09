@@ -73,7 +73,7 @@ public class TeleCmd extends CommandBase
         // m_omnidrive.setMotorOut012(x,y,w);
         //m_arm.setArmPos(0.328, 0.24);
         Globals.cvMode=2;
-        m_vision.setcvMode();
+
         m_arm.setCameraAngle(m_arm.getSliderServo());
         // m_arm.setCameraAngle(280);
         //m_arm.set

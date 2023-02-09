@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "com.kauailabs.first.GradleRIO" version "2020.3.2.14"
+    id "com.kauailabs.first.GradleRIO" version "2020.3.2.18"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -26,7 +26,7 @@ deploy {
             // Debug can be overridden by command line, for use with VSCode
             debug = frc.getDebugOrDefault(false)
         }
-        // Built in artifact to deploy arbitrary files to the roboRIO.
+        // Built in artifact to deploy arbitrary files to the vmxpi.
         fileTreeArtifact('frcStaticFileDeploy') {
             // The directory below is the local directory to deploy
             files = fileTree(dir: 'src/main/deploy')

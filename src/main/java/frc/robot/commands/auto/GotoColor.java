@@ -29,7 +29,7 @@ public class GotoColor extends SequentialCommandGroup {
   public GotoColor(Pose2d pose) {
     super(
        
-      new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation())[0], m_omnidrive.getCoord(pose.getTranslation())[1], new Rotation2d(0))),
+      new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation(),1)[0], m_omnidrive.getCoord(pose.getTranslation(),1)[1], new Rotation2d(0))),
       new Rotate2Orientation(pose.getRotation().getDegrees()),
       new WaitCommand(1)
     );

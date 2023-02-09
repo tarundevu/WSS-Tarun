@@ -13,10 +13,8 @@ public class Align2Line extends SequentialCommandGroup{
   public Align2Line(){
     super(
       new InstantCommand(()-> Globals.cvMode = 0),
-      new InstantCommand(m_vision::setcvMode),
       new AlignRobot(),
       new InstantCommand(()-> Globals.cvMode=-1),
-      new InstantCommand(m_vision::setcvMode),
       new MoveRobotSense(1, 0.3, 0, 0,0.25, ()-> m_sensor.getIRDistance()<=15)
     );
   }

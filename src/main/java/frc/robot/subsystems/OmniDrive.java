@@ -124,23 +124,23 @@ public class OmniDrive extends SubsystemBase
      * @param num - 0 for trolley, 1 for target area
      * @return - offset coordinates
      */
-    public double[] getCoord(Translation2d XY){
+    public double[] getCoord(Translation2d XY, int num){
         double[] coord = new double[2];
         double x = XY.getX(),
                y = XY.getY();
-        //double offset = (num==0)?0.4:0.39;
+        double offset = (num==0)?0.5:0.39;
 
         if (y > 4.29 && x > 0.21 && x < 2.04){ // Left
             x += 0;
-            y -= 0.4;
+            y -= offset;
          }
         else if (y < 0.21 && x > 0.21 && x < 2.04){ //Right
             x += 0;
-            y += 0.4;
+            y += offset;
         }
 
         else if (x < 0.75 && y > 0.21 && y < 4.29){ // Bottom
-            x += 0.4;
+            x += offset;
             y += 0;
         }
 
@@ -160,7 +160,7 @@ public class OmniDrive extends SubsystemBase
         }
 
         else { // Top or anywhere else
-            x -= 0.4;
+            x -= offset;
             y += 0;
         }
         coord[0] = x;
@@ -376,6 +376,9 @@ public class OmniDrive extends SubsystemBase
         m_odometry.resetPosition(Layout.Convert_mm_Pose2d(Layout.startPos));
         gyro.zeroYaw();
         curHeading = targetHeading = getYawRad();
+        for (int i=0; i<Constants.PID_NUM; i++){
+            pidControllers[i].reset();
+        }
    }
     /**
      * Code that runs once every robot loop
@@ -418,5 +421,6 @@ public class OmniDrive extends SubsystemBase
         D_odometry1.setDouble(value[1]);
         D_odometry2.setDouble(value[2]);
   
+        Globals.curDir = m_odometry.getPose().getRotation().getDegrees();
     }
 }

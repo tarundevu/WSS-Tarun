@@ -14,7 +14,7 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.Vision;
 
-public class ArmPickX extends MoveArm {
+public class ArmPick extends MoveArm {
     private final static Vision m_vision = RobotContainer.m_vision;
     private final static Arm m_arm = RobotContainer.m_arm;
 
@@ -25,7 +25,7 @@ public class ArmPickX extends MoveArm {
      * This command extends the arm towards the object to be picked up
      * @param type - 0 = X movement, 1 = Y movement(picking height), 2 = Y movement(just above object)
      */
-    public ArmPickX(int type){
+    public ArmPick(int type){
         super(new Translation2d(0,0), 0.2);
         m_type = type;
     }

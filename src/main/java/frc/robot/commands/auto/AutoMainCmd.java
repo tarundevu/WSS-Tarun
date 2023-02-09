@@ -52,7 +52,6 @@ public class AutoMainCmd extends SequentialCommandGroup
         // new InstantCommand(()-> m_arm.setCameraAngle(280)),
         // new WaitCommand(2),
         // new InstantCommand(()-> Globals.cvMode=2),
-        // new InstantCommand(m_vision::setcvMode)
         // new AlignRobot()
             // new ViewItem()
             // new LoopCommands(new WOB())
