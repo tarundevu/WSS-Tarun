@@ -113,7 +113,7 @@ public class AlignRobot extends CommandBase{
         else if (useW==true){
             
             
-            if (((line[0] - centerX)) <1 && -(line[1] - centerY) < 1 &&-line[2]<0.05 && count >= 300) {
+            if (((line[0] - centerX)) <1 && -(line[1] - centerY) < 1 &&-line[2]<0.05 && count >= 200) {
                 
                 m_drive.setRobotSpeedType(0, 0);
                 m_drive.setRobotSpeedType(1, 0); // Y is working well

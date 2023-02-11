@@ -31,42 +31,35 @@ public class Layout {
         //(x0,y0) - centre of box
         //x0   y0    xSize ySize Angle
         {1400, 1100,  300,  420, 0 },   //Pick Up bin 1
-        // {115, 3250,  230,  320,  0 }, 
+        {1400, 2450,  300,  420, 0 },   //Pick Up bin 2
         // {1140, 4390,  320, 230,  0 }, 
         // {1957, 2038-425,  150,  210,  0 }, 
        
     };
 
-    //Robot needs to make final adjustment to align with stand
-    public static final int PickUpBinPos[][] = {
-        //x, y, angle
-        //Robot stops 250mm from stand. To be adjusted
-        {700, 950, 90} //before pick up bin 
-        
-    };
-    //These are coordinates of the red colored target area
-    public static final int RedPos[][] = {
-        //x, y, angle
-        {0, 0, 0}
-    };
+    //Coordinates of PickUp bin
+    public static final int PickUpBinPos[] = {700,1100, -90};
+    public static final int PickUpBin2Pos[] = {700,2450, -90};
+    //These are coordinates of the red colored target area (NOTE: indicate the angle of orientation)
+    public static final int RedPos[] = {1500, 1800, -90};//{1400,1800,-90};//{2000,3100, -90};
+  
     //These are coordinates of the green colored target area
-    public static final int GreenPos[][] = {
-        //x, y, angle
-        {0, 0, 0}
-    };
+    public static final int GreenPos[] = {175,1800, 90};
+
     //These are coordinates of the blue colored target area
-    public static final int BluePos[][] = {
-        //x, y, angle
-        {0, 0, 0}
-    };
- 
+    public static final int BluePos[] = {300,1800, 90};//{1400,3350,-90};//{1000,1800, -90};
+
+    //These are coordinates of the trolleys (NOTE: indicate the angle of orientation) use 1 for 0 and 179 f0r 180
+    public static final int T1Pos[] = {150,4350, 45};
+  
+    public static final int T2Pos[] = {1400,3850, -90};
+
+    public static final int T3Pos[] = {830,4350,0};
+
     // Position for robot to go to for reading work order
-    public static final int workOrderPos[] = {950, 2038-500, 90};
+    public static final int workOrderPos[] = {900, 350, -90};//1200
 
-    // Initial Position for robot to go to for disposing hazmat
-    public static final int HazMatBinPos[] = {500, 980, 180};
-
-    // Robot start position. Also the cleaning position
+    // Robot start position.
     public static final int startPos[] = {210, 210, -90}; //start position
     // public static final int startPos[] = {960, 1100, -90}; //For open house
 

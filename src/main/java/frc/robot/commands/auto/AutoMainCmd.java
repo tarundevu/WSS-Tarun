@@ -17,6 +17,7 @@ import frc.robot.Globals;
 import frc.robot.RobotContainer;
 import frc.robot.Astar.Layout;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.Vision;
 import frc.robot.commands.auto.MoveRobotSense;
@@ -36,6 +37,7 @@ public class AutoMainCmd extends SequentialCommandGroup
     double temp;
     private final static Sensor m_sensor = RobotContainer.m_sensor;
     private final static Vision m_vision = RobotContainer.m_vision;
+    private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
     private final static Arm m_arm = RobotContainer.m_arm;
 
 	public AutoMainCmd() 
@@ -44,34 +46,54 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         super(
         
-        // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
-        // new InstantCommand(()-> m_vision.getWOBItems()),
-        // new ViewItem(),
-        new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),
-        // new MoveRobot(1,-0.1, 0, 0, 0.25)
-        new InstantCommand(()-> m_arm.setCameraAngle(280)),
-        new WaitCommand(2),
-        new InstantCommand(()-> Globals.cvMode=2),
-        new InstantCommand(m_vision::setcvMode)
-        //new AlignRobot()
+        
+        // new InstantCommand(()-> Globals.cvMode=-1),
+        new Task_A()
+        // new GotoColor(Layout.Convert_mm_Pose2d(Layout.GreenPos))
+        
+        // new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees())
+        // // new MoveArm(new Translation2d(0.33,0.24), 0.5) // Line detection position
+        // new MoveRobot(1, -0.1, 0, 0, 0.3)
+        //new GotoTrolley(0.15, 4.35)
+        //new RotatetoDir(RobotContainer.m_vision.Rotate2Obj(0.15,4.35))//working
+
             // new ViewItem(),
-            // new LoopCommands(new WOB())
+            // new LoopCommands(new ProcessSeq())
+            
         //new CP3()
         // new CP2()
         // new CP3()
         // new CP4()
         // new CP6()
-
-            // new LoopCmd(new ProcessSeq(), ()->(++Globals.loopCnt)>4 ), /// loop cmd
-                
+        
+            //new LoopCmd(new TestMotion(), ()->(++Globals.LoopCnt)>5 ) /// loop cmd
+                // new TestMotion(),
+                // new TestMotion(),
+                // new TestMotion(),
+                // new TestMotion(),
+                // new TestMotion()
+                // new MoveRobot(0, 0.0875, 0, 0, 0.4),
+                // // new WaitCommand(2),
+                // new MovetoB(new Pose2d(0.96, 1.6, new Rotation2d(0))),
+                // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
+                // new MoveRobot(0, 0.0875, 0, 0, 0.4),
+                // // new WaitCommand(2),
+                // new MovetoB(new Pose2d(0.96, 1.6, new Rotation2d(0))),
+                // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
+                // new MoveRobot(0, 0.0875, 0, 0, 0.4),
+                // // new WaitCommand(2),
+                // new MovetoB(new Pose2d(0.96, 1.6, new Rotation2d(0))),
+                // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
+                // new MoveRobot(0, 0.0875, 0, 0, 0.4),
+                // // new WaitCommand(2),
+                // new MovetoB(new Pose2d(0.96, 1.6, new Rotation2d(0))),
+                // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
+                // new MoveRobot(0, 0.0875, 0, 0, 0.4),
+                // // new WaitCommand(2),
+                // new MovetoB(new Pose2d(0.96, 1.6, new Rotation2d(0))),
+                // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0)))
               );
             
     }
-    @Override
-    public void initialize(){
-        
-        super.initialize();
-        RobotContainer.m_omnidrive.initialise();
-        RobotContainer.m_arm.initialize();
-    }
+    
 }

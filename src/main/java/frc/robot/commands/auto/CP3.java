@@ -14,7 +14,7 @@ public class CP3 extends SequentialCommandGroup{
     super(
       new Gripper(1, 90),
       new WaitCommand(5),
-      new Gripper(0, 90),
+      new Gripper(0),
       new PlaceDown()
     );
   }

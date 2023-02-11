@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 public class GrabTrolley extends SequentialCommandGroup{
   public GrabTrolley(){
     super(
-        new Gripper(0,150),
+        new Gripper(0),
         new MoveArm(new Translation2d(0.42,-0.01),0.5),
-        new Gripper(1, 150),
+        new Gripper(1),
         new MoveArm(new Translation2d(0.32,0),0.5)
 
     );

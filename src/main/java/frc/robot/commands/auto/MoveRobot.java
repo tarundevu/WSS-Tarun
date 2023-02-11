@@ -55,7 +55,7 @@ public class MoveRobot extends CommandBase
         else{
             m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 0.5);
         }
-        m_setpoint = new TrapezoidProfile.State(0, m_startSpeed);
+        //m_setpoint = new TrapezoidProfile.State(0, m_startSpeed);
         
 
         //addRequirements(m_drive); // Adds the subsystem to the command
@@ -74,8 +74,8 @@ public class MoveRobot extends CommandBase
         m_endFlag = false;
         //Negative distance don't seem to work with the library function????
         //Easier to make distance positive and use m_dir to keep track of negative speed.
-        m_dir = (m_dist>0)?1:-1;
-        m_dist *= m_dir;          
+        // m_dir = (m_dist>0)?1:-1;
+        // m_dist *= m_dir;          
         
         m_goal = new TrapezoidProfile.State(m_dist, m_endSpeed);
     }
@@ -95,13 +95,13 @@ public class MoveRobot extends CommandBase
         //Create a new profile to calculate the next setpoint(speed) for the profile
         var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
         m_setpoint = profile.calculate(dT);
-        m_drive.setRobotSpeedType(m_profType, m_setpoint.velocity*m_dir);
+        m_drive.setRobotSpeedType(m_profType, m_setpoint.velocity);
 
-        if ((m_setpoint.position>=m_goal.position) || endCondition()) {
+        if (profile.isFinished(dT) || endCondition()) {
             //distance reached or end condition met. End the command
             //This class should be modified so that the profile can end on other conditions like
             //sensor value etc.
-            m_drive.setRobotSpeedType(m_profType, m_goal.velocity*m_dir);
+            m_drive.setRobotSpeedType(m_profType, m_goal.velocity);
             m_endFlag = true;
         }
         

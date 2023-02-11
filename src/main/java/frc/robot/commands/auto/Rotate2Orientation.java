@@ -10,20 +10,21 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Vision;
 
-public class AlignPicker extends MoveRobot {
+public class Rotate2Orientation extends MoveRobot {
     //Grab the subsystem instance from RobotContainer
     private final static OmniDrive m_drive = RobotContainer.m_omnidrive;
     private final static Vision m_vision = RobotContainer.m_vision;
     // private static double convertPxToMM = 0.1/50;
-    private final double _startSpeed;
-    private double camera_offset_M = 0.015;
-    private double ratio = 0;
+    // private final double _startSpeed;
+    private double m_angle =0;
+    private double s_angle = 0;
     /**
      * This command is used to align the robot to the object that is to be picked
      */
-    public AlignPicker(){
-        super(0, 0, 0, 0, 0.4 );
-        _startSpeed = 0;  
+    public Rotate2Orientation(double angle){
+        super(2, 0, 0, 0, 0.3);
+        
+        s_angle = angle;
     }
      /**
      * Runs before execute
@@ -31,12 +32,18 @@ public class AlignPicker extends MoveRobot {
     @Override
     public void initialize()
     {   
-        
-        if(Globals.curItemType==0)
-            ratio = Globals.CokeRatio;
-        else
-            ratio = 1;
-        super.m_dist = ((Globals.curItemX -400 ) * Globals.convertPxToM)*ratio-camera_offset_M;
+        m_angle = s_angle;
+        m_angle = m_angle - Globals.curDir;
+        Globals.curAngle = m_angle;
+        if (m_angle>180)
+            m_angle  = m_angle - 360;
+        else if (m_angle<-180)
+            m_angle = m_angle + 360;
+        else 
+            m_angle = m_angle + 0;
+        m_angle = m_angle * (Math.PI/180);
+           
+        super.m_dist = m_angle;
         super.initialize();
     }
 }

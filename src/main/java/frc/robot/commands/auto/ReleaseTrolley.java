@@ -7,7 +7,7 @@ public class ReleaseTrolley extends SequentialCommandGroup {
   public ReleaseTrolley(){
     super(
       new MoveArm(new Translation2d(0.32,0),0.5),
-      new Gripper(0,150)
+      new Gripper(0)
     );
   }
 }

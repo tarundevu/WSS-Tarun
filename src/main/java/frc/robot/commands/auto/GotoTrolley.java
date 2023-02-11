@@ -4,82 +4,39 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import java.util.Map;
 
+
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Globals;
 import frc.robot.RobotContainer;
+import frc.robot.Astar.Layout;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Vision;
+import frc.robot.utils.OmniDriveOdometry;
 
-public class GotoTrolley extends SequentialCommandGroup{
-  private static double m_x,m_y;
-  private enum CommandSelector {
-    Top, Left, Right, Bottom, TL, TR, BL
-  }
-
-  static public CommandSelector Move() {
+public class GotoTrolley extends SequentialCommandGroup {
+  private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
   
-    if (m_y > 4.92 && m_x > 0.21 && m_x < 2.04)
-        return CommandSelector.Left;
-    else if (m_y < 0.21 && m_x > 0.21 && m_x < 2.04)
-        return CommandSelector.Right;
-    else if (m_x < 0.75 && m_y > 0.21 && m_y < 4.92)
-        return CommandSelector.Bottom;
-    else if (m_x > 2.04 && m_y > 4.92)
-        return CommandSelector.TL;
-    else if (m_x > 2.04 && m_y < 0.21)
-        return CommandSelector.TR;
-    else if (m_x < 0.21 && m_y > 4.92)
-        return CommandSelector.BL;
-    else 
-        return CommandSelector.Top;
-  }
-
-  static public CommandSelector Rotate() {
-  
-    if (m_y > 4.92 && m_x > 0.21 && m_x < 2.04)
-        return CommandSelector.Left;
-    else if (m_y < 0.21 && m_x > 0.21 && m_x < 2.04)
-        return CommandSelector.Right;
-    else if (m_x < 0.75 && m_y > 0.21 && m_y < 4.92)
-        return CommandSelector.Bottom;
-    else 
-        return null;
-  }
-  public GotoTrolley(double x, double y) {
+ 
+  /**
+   * This command moves the robot in front of the trolley and rotates to face it
+   * @param pose - Coordinates of trolley in Pose2d(Use Layout.Convert_mm_Pose2d(int[] from Layout))
+   * 
+   */
+  public GotoTrolley(Pose2d pose) {
     super(
-      new SelectCommand(
-        Map.ofEntries(
-            Map.entry(CommandSelector.Top, new MovetoB(new Pose2d(x-0.5, y, new Rotation2d(0)))),
-            Map.entry(CommandSelector.Left, new MovetoB(new Pose2d(x, y-0.5, new Rotation2d(0)))),
-            Map.entry(CommandSelector.Right, new MovetoB(new Pose2d(x, y+0.5, new Rotation2d(0)))),
-            Map.entry(CommandSelector.Bottom, new MovetoB(new Pose2d(x+0.5, y, new Rotation2d(0)))),
-            Map.entry(CommandSelector.TL, new MovetoB(new Pose2d(x-0.35, y-0.35, new Rotation2d(0)))),
-            Map.entry(CommandSelector.TR, new MovetoB(new Pose2d(x-0.35, y+0.35, new Rotation2d(0)))),
-            Map.entry(CommandSelector.BL, new MovetoB(new Pose2d(x+0.35, y-0.35, new Rotation2d(0))))
-            ), 
-        GotoTrolley::Move
-      ),
-      new SelectCommand(
-        Map.ofEntries(
-            Map.entry(CommandSelector.Left, new MoveRobot(2, Math.PI/2, 0, 0, 0.3)),
-            Map.entry(CommandSelector.Right, new MoveRobot(2, -Math.PI/2, 0, 0, 0.3)),
-            Map.entry(CommandSelector.Bottom, new MoveRobot(2, 3*(Math.PI/4), 0, 0, 0.3)),
-            Map.entry(CommandSelector.TL, new MoveRobot(2, Math.PI/4, 0, 0, 0.3)),
-            Map.entry(CommandSelector.TR, new MoveRobot(2, -Math.PI/4, 0, 0, 0.3)),
-            Map.entry(CommandSelector.BL, new MovetoB(new Pose2d(x+0.35, y-0.35, new Rotation2d(0))))
-            ), 
-        GotoTrolley::Rotate
-      ),
+      
+      new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation(),"trolley")[0], m_omnidrive.getCoord(pose.getTranslation(),"trolley")[1], new Rotation2d(0))),
+      new Rotate2Orientation(pose.getRotation().getDegrees()),
       new Align2Trolley(),
-      new TrolleyHolder(1)
+      new WaitCommand(1)
+      
     );
-    m_x = x;
-    m_y = y;
   }
-  
 }

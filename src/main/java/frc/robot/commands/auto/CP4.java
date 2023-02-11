@@ -12,7 +12,7 @@ public class CP4 extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
   public CP4(){
     super(
-      new InstantCommand(()-> m_arm.setCameraAngle(280)),
+      new MoveCamera(290),
       new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
       new MovetoB(new Pose2d(1.0,3.5,new Rotation2d(0)))
 

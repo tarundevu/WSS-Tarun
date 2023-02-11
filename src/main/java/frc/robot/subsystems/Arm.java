@@ -219,8 +219,8 @@ public class Arm extends SubsystemBase{
       offset1 = D_offset1.getDouble(0.0);
       D_armvalue.setDouble(getServoAngle());
       D_armvalue2.setDouble(getServoAngle2());
-      D_armAngleA.setDouble(Math.toDegrees(A));
-      D_armAngleB.setDouble(Math.toDegrees(B));
+      // D_armAngleA.setDouble(Math.toDegrees(A));
+      // D_armAngleB.setDouble(Math.toDegrees(B));
       D_X.setDouble(m_x);
       D_Y.setDouble(m_y);
       

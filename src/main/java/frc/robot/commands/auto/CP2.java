@@ -11,7 +11,7 @@ public class CP2 extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
   public CP2(){
     super(
-      new InstantCommand(()-> m_arm.setCameraAngle(280)),
+      new MoveCamera(290),
       new MovetoB(new Pose2d(0.5,2.4,new Rotation2d(0))) // Trolley location
     );
   }

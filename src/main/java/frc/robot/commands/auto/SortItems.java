@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
+import frc.robot.Astar.Layout;
 import frc.robot.subsystems.Arm;
 
 public class SortItems extends SequentialCommandGroup{
@@ -32,34 +33,50 @@ public class SortItems extends SequentialCommandGroup{
     
     if (Globals.curBin == 0)
         return CommandSelector.ONE;
-    else if (Globals.curBin == 1)
-        return CommandSelector.TWO;
     else 
-        return null;
+        return CommandSelector.TWO;
+    
+  }
+  static public CommandSelector selectRotation() {
+    
+    if (Globals.curBin == 0)
+        return CommandSelector.ONE;
+    else 
+        return CommandSelector.TWO;
     
   }
   public SortItems() 
     {
         super(   
         new PickItemfromBin(),
-        new InstantCommand(()-> m_arm.setCameraAngle(280)),
+        new MoveCamera(290),
         new SelectCommand(
-                Map.ofEntries(
-                    Map.entry(CommandSelector.ONE, new MovetoB(new Pose2d(0.96, 1.6, new Rotation2d(0)))),
-                    Map.entry(CommandSelector.TWO, new MovetoB(new Pose2d(0.96, 2.0, new Rotation2d(0)))),
-                    Map.entry(CommandSelector.THREE, new MovetoB(new Pose2d(0.96, 2.9, new Rotation2d(0))))
-                    ), 
-                SortItems::selectTarget
+            Map.ofEntries(
+                Map.entry(CommandSelector.ONE, new GotoColor(Layout.Convert_mm_Pose2d(Layout.RedPos))),
+                Map.entry(CommandSelector.TWO, new GotoColor(Layout.Convert_mm_Pose2d(Layout.GreenPos))),
+                Map.entry(CommandSelector.THREE, new GotoColor(Layout.Convert_mm_Pose2d(Layout.BluePos)))
+                ), 
+            SortItems::selectTarget
             ),
         new PlaceDown(),
         new MoveArm(new Translation2d(0.33,0.24), 0.5),
         new SelectCommand(
             Map.ofEntries(
-                Map.entry(CommandSelector.ONE,new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0)))),
-                Map.entry(CommandSelector.TWO, new MovetoB(new Pose2d(0.96, 2.45, new Rotation2d(0))))
+                Map.entry(CommandSelector.ONE,new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos))),
+                Map.entry(CommandSelector.TWO, new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos)))
                 ), 
             SortItems::selectBin
         ),
+        new SelectCommand(
+            Map.ofEntries(
+                Map.entry(CommandSelector.ONE,new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees())),
+                Map.entry(CommandSelector.TWO, new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos).getRotation().getDegrees()))
+                ), 
+            SortItems::selectRotation
+        ),
+        
+        new Align2Line(),
+        new MoveRobotSense(1, 0.3, 0, 0,0.25, ()-> RobotContainer.m_sensor.getIRDistance()<=15),
         new ViewItem()
         );
     }
