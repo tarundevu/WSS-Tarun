@@ -9,6 +9,7 @@ import frc.robot.subsystems.Arm;
 
 public class CP7 extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
+  // Move to trolley and touch it, unknown location
   public CP7(){
     super(
       // new InstantCommand(()-> m_arm.setCameraAngle(280)),

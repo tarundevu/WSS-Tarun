@@ -46,7 +46,7 @@ public class Vision extends SubsystemBase{
         // Globals.cvMode = -1;
         // setcvMode();
     }
-
+    
     public double [] getLine(){
 
       double[] line = (table.getEntry("line").getDoubleArray(defaultValue));
@@ -99,7 +99,7 @@ public class Vision extends SubsystemBase{
      Globals.curTarget = 0;
      Globals.curItemType = 0;
      Globals.curAngle = 0;
-     m_arm.setCameraAngle(280);
+     m_arm.setCameraAngle(290);
       
     }
     @Override

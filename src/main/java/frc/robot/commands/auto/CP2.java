@@ -9,6 +9,7 @@ import frc.robot.subsystems.Arm;
 
 public class CP2 extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
+  // move and push trolley
   public CP2(){
     super(
       new MoveCamera(290),

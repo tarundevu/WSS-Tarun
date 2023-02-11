@@ -61,9 +61,6 @@ public class MoveRobot extends CommandBase
         //addRequirements(m_drive); // Adds the subsystem to the command
      
     }
-
-    
-    
     /**
      * Runs before execute
      */

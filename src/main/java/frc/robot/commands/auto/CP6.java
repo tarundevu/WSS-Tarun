@@ -10,11 +10,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 
 public class CP6 extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
-  private static double trolley_x = 1.45,
-                        trolley_y = 4.35;
-  private static double target_x = 0.15,
-                        target_y = 2.9;   
-  
+  // pick up trolley and move it to target area
   public CP6(){
     super(
       new MoveCamera(290),

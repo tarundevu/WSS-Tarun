@@ -19,6 +19,7 @@ import frc.robot.subsystems.Menu;
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.Vision;
+import frc.robot.utils.OmniDriveOdometry;
 import frc.robot.subsystems.Arm;
 
 public class RobotContainer {
@@ -38,6 +39,7 @@ public class RobotContainer {
   public static Layout m_layout;
   public static Grid m_Grid;
   public static AStarAlgorithm m_Astar;
+  public static OmniDriveOdometry m_od;
 
   public RobotContainer()
   {

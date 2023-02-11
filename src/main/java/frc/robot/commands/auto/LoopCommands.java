@@ -14,7 +14,7 @@ public class LoopCommands extends LoopCmd
     private final static Vision m_vision = RobotContainer.m_vision;
     
     public boolean endCondition(){
-        for (int id=0; id<3; id++) {
+        for (int id=0; id<4; id++) {
             if(m_vision.getObjects()[id*3]>0){
                 Globals.curItemType = id;
                 Globals.curItemY = m_vision.getObjects()[Globals.curItemType*3+2];

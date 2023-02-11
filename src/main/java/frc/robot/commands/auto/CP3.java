@@ -10,6 +10,7 @@ import frc.robot.subsystems.Arm;
 
 public class CP3 extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
+  // Place item into trolley
   public CP3(){
     super(
       new Gripper(1, 90),

@@ -63,7 +63,7 @@ public class Globals
       for(Globals.curTarget = 0; Globals.curTarget < 3; Globals.curTarget++) { 
         // loops items
         for(Globals.curItemType = 0; Globals.curItemType < 4; Globals.curItemType++) {
-          // IF curItem is not any of the cokes
+          // IF curItem is a coke
           if(Globals.curItemType==0 || Globals.curItemType==1){
             // while array is not empty
             while (Globals.Targets[Globals.curTarget][0]>0) { 

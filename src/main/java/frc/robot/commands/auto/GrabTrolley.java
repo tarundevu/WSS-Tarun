@@ -3,7 +3,7 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 /*
- * This command is to be used with the previous gripper
+ * This command is to be used with the previous gripper(NOT IN USE)
  */
 public class GrabTrolley extends SequentialCommandGroup{
   public GrabTrolley(){

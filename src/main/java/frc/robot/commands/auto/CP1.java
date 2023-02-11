@@ -15,6 +15,7 @@ import frc.robot.subsystems.Vision;
 public class CP1 extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
   private final static Vision m_vision = RobotContainer.m_vision;
+  // Pick item from bin
   public CP1(){
     super(
       // set arm to vertical position

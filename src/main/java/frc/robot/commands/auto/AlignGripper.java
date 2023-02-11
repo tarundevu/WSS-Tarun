@@ -10,18 +10,17 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.OmniDrive;
 import frc.robot.subsystems.Vision;
 
-public class AlignPicker extends MoveRobot {
-    //Grab the subsystem instance from RobotContainer
+public class AlignGripper extends MoveRobot {
+    // Grab the subsystem instance from RobotContainer
     private final static OmniDrive m_drive = RobotContainer.m_omnidrive;
     private final static Vision m_vision = RobotContainer.m_vision;
-    // private static double convertPxToMM = 0.1/50;
     private final double _startSpeed;
     private double camera_offset_M = 0.015;
     private double ratio = 0;
     /**
      * This command is used to align the robot to the object that is to be picked
      */
-    public AlignPicker(){
+    public AlignGripper() {
         super(0, 0, 0, 0, 0.4 );
         _startSpeed = 0;  
     }

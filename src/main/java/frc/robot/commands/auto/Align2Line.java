@@ -14,7 +14,6 @@ public class Align2Line extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
   private final static Sensor m_sensor = RobotContainer.m_sensor;
   private final static Vision m_vision = RobotContainer.m_vision;
-
   public Align2Line(){
     super(
       new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position

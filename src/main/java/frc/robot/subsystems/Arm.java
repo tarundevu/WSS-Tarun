@@ -24,8 +24,6 @@ public class Arm extends SubsystemBase{
 
     private final double l1 = 0.24; // length of base to elbow
     private final double l2 = 0.328; // length of elbow to end-effector
-    private final double cameraY = 0.31;
-    private final double cameraX = 0.43;
     private double offset0 = 0;  
     private double offset1 = 0;
     private double A,B, m_x, m_y;
