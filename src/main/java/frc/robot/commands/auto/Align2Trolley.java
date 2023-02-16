@@ -15,6 +15,7 @@ public class Align2Trolley extends SequentialCommandGroup{
   private final static Vision m_vision = RobotContainer.m_vision;
   public Align2Trolley(){
     super(
+      new MoveArm(new Translation2d(0.33,0.3), 0.5), // Line detection position
       new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
       new MoveCamera(300),
       new InstantCommand(()-> Globals.cvMode = 0),

@@ -21,7 +21,7 @@ public class ReadWOB extends SequentialCommandGroup{
       new InstantCommand(()-> m_vision.getWOBItems()),
       new InstantCommand(()-> Globals.cvMode=-1),
       new WaitCommand(2),
-      new MoveCamera(290),
+      new MoveCamera(300),
       new MoveArm(new Translation2d(0.33,0.24), 0.5) // Line detection position
     );
   }

@@ -50,7 +50,7 @@ public class MoveRobot extends CommandBase
         m_profType = type;
         m_dist = dist;
         if (type==2){
-            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 2.0*Math.PI);
+            m_constraints = new TrapezoidProfile.Constraints(maxSpeed, Math.PI/2);
         }
         else{
             m_constraints = new TrapezoidProfile.Constraints(maxSpeed, 0.5);

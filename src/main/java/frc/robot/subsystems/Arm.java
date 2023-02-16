@@ -56,7 +56,7 @@ public class Arm extends SubsystemBase{
     public void initialize(){
       // Code written here will run before execute //
       // Sets the arm and gripper position when enabled //
-      setArmPos(0.328, 0.25); 
+      setArmPos(0.33, 0.24); 
       setGripper(0);
       setTrolleyAngle(0);
       //new WaitCommand(0.5);

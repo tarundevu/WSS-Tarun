@@ -49,7 +49,7 @@ public class SortItems extends SequentialCommandGroup{
     {
         super(   
         new PickItemfromBin(),
-        new MoveCamera(290),
+        new MoveCamera(300),
         new SelectCommand(
             Map.ofEntries(
                 Map.entry(CommandSelector.ONE, new GotoColor(Layout.Convert_mm_Pose2d(Layout.RedPos))),
@@ -59,7 +59,8 @@ public class SortItems extends SequentialCommandGroup{
             SortItems::selectTarget
             ),
         new PlaceDown(),
-        new MoveArm(new Translation2d(0.33,0.24), 0.5),
+        new MoveArm(new Translation2d(0.33,0.3), 0.5), // Line detection position
+        new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
         new MoveRobot(1, -0.05, 0, 0, 0.1),
         new SelectCommand(
             Map.ofEntries(

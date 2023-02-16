@@ -34,6 +34,7 @@ public class Menu extends SubsystemBase
     private final NetworkTableEntry D_button = tab.add("button", -1).getEntry();
     private final NetworkTableEntry D_menu = tab.add("menu", "?").getEntry();
     private NetworkTableEntry D_debug[] = new NetworkTableEntry[Globals.DNUM];
+    //tab.add("Motion", TestMotion);
 
    
     int menuNum=0;

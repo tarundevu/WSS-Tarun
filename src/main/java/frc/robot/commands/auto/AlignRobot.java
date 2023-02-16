@@ -2,6 +2,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 //RobotContainer import
 import frc.robot.RobotContainer;
 
@@ -15,6 +16,8 @@ public class AlignRobot extends CommandBase{
     private final static Vision m_vision = RobotContainer.m_vision;
     private double targetW, targetX, targetY;
     private double speedX, speedY, speedW;
+    private double x2, y2, w2;
+    private double ax, ay, aw;
     private double centerX;
     private double centerY; 
     private int count;
@@ -52,6 +55,9 @@ public class AlignRobot extends CommandBase{
         targetX = (line[0] - centerX);
         targetY = -(line[1] - centerY);
         targetW = -line[2];
+        ax = 0.5*Constants.PID_DT;
+        ay = 0.5*Constants.PID_DT;
+        aw = 1*Constants.PID_DT;
     }
     /**
      * Runs before execute
@@ -87,14 +93,29 @@ public class AlignRobot extends CommandBase{
         targetW = -line[2];
         speedX = 0.002 * targetX;
         speedY = 0.002 * targetY;
-        speedW = useW? 0.5 * targetW: 0;
+        speedW = useW? targetW: 0;        
+        if (speedX>0) 
+            if (speedX> (x2+ax)) speedX = x2 + ax;
+        else
+            if (speedX< (x2-ax)) speedX = x2 - ax;
+        if (speedY>0) 
+            if (speedY> (y2+ay)) speedY = y2 + ay;
+        else
+            if (speedY< (y2-ay)) speedY = y2 - ay;
+        if (speedW>0) 
+            if (speedW> (w2+aw)) speedW = w2 + aw;
+        else
+            if (speedW< (w2-aw)) speedX = w2 - aw;
+        x2 = speedX;
+        y2 = speedY;
+        w2 = speedW;       
         m_drive.setRobotSpeedType(0, speedX);
         m_drive.setRobotSpeedType(1, speedY); // Y is working well
         m_drive.setRobotSpeedType(2, speedW);
         
         
         if (useW){
-            if (Math.abs(line[0] - centerX) <2 && - Math.abs(line[1] - centerY) < 2 && Math.abs(line[2]) < 0.05 && count>= 100){
+            if ( (Math.abs(line[0] - centerX) <2) &&  (Math.abs(line[1] - centerY) < 2) && (Math.abs(line[2]-Math.toRadians(0)) < 0.05) && count>= 5){
                 m_endFlag = true;
                 m_drive.setRobotSpeedType(0, 0);
                 m_drive.setRobotSpeedType(1, 0); 
@@ -102,7 +123,7 @@ public class AlignRobot extends CommandBase{
             }
         }
         else{
-            if (Math.abs(line[0] - centerX) <2 && - Math.abs(line[1] - centerY) < 2 && count >= 200){
+            if (Math.abs(line[0] - centerX) <2 &&  Math.abs(line[1] - centerY) < 2 && count >= 200){
                 m_endFlag = true;
                 m_drive.setRobotSpeedType(0, 0);
                 m_drive.setRobotSpeedType(1, 0); 

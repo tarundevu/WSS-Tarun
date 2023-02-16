@@ -17,8 +17,8 @@ public class Globals
     public static double arm_offset_y = 0.13; // 0.125
     public static double arm_offset_z = 0.25;
     public static double gripper_offset = 0.19;
-    public static double CokeRatio = 0.86;
-    public static double AdjustFactor = 0.92;
+    public static double CokeRatio = 0.79;
+    public static double AdjustFactor = 0.8;
     public static int LoopCnt = 0; // use as counter for loops
     /*
      *  CokeU = 0

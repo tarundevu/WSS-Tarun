@@ -44,7 +44,7 @@ public final class Constants
     public static final int SONIC_ECHO      = 13;
 
     //Wheels
-    public static final double KWHEELDIAMETER = 0.097;  //wheel diameter
+    public static final double KWHEELDIAMETER = 0.0985;  //wheel diameter
     public static final double KENCODERCNTPR = 1464;  //Count per output shaft rev
     public static final double KENCODERDISTPERPULSE = (KWHEELDIAMETER*Math.PI)/KENCODERCNTPR;
 
