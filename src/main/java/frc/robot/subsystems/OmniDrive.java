@@ -70,12 +70,12 @@ public class OmniDrive extends SubsystemBase
     private final NetworkTableEntry D_odometry2 = tab.add("odo A", 0).getEntry();
     private final NetworkTableEntry D_angle = tab.add("angle", 0).getEntry();
     private final NetworkTableEntry D_Global = tab.add(" dir", 0).getEntry();
-    // private final NetworkTableEntry D_motorout = tab.add("motorout", 0).getEntry();
-    // private final NetworkTableEntry D_motor0 = tab.add("motor0", 0).getEntry();
-    // private final NetworkTableEntry D_motor1 = tab.add("motor1", 0).getEntry();
-    // private final NetworkTableEntry D_motorout1 = tab.add("motorout1", 0).getEntry();
-    // private final NetworkTableEntry D_motorout2 = tab.add("motorout2", 0).getEntry();
-    // private final NetworkTableEntry D_motor2 = tab.add("motor2", 0).getEntry();
+    private final NetworkTableEntry D_motorout = tab.add("motorout", 0).getEntry();
+    private final NetworkTableEntry D_motor0 = tab.add("motor0", 0).getEntry();
+    private final NetworkTableEntry D_motor1 = tab.add("motor1", 0).getEntry();
+    private final NetworkTableEntry D_motorout1 = tab.add("motorout1", 0).getEntry();
+    private final NetworkTableEntry D_motorout2 = tab.add("motorout2", 0).getEntry();
+    private final NetworkTableEntry D_motor2 = tab.add("motor2", 0).getEntry();
     //Subsystem for omnidrive
     public OmniDrive() {
 
@@ -136,7 +136,7 @@ public class OmniDrive extends SubsystemBase
         double[] coord = new double[2];
         double x = XY.getX(),
                y = XY.getY();
-        double offset = (type=="trolley")?0.6:0.35;
+        double offset = (type=="trolley")?0.6:0.37;
 
         if (y > 4.29 && x > 0.21 && x < 2.04){ // Left
             x += 0;
@@ -177,6 +177,25 @@ public class OmniDrive extends SubsystemBase
         return coord;
     }
     
+    public void UpdatePosition(Pose2d tgtpos){
+        double x = m_odometry.getPose().getTranslation().getX(),
+               y = m_odometry.getPose().getTranslation().getY(),
+               w = m_odometry.getPose().getRotation().getDegrees();
+        double theta = 0;
+        x += (tgtpos.getTranslation().getX() - x)*Globals.AdjustFactor;
+        y += (tgtpos.getTranslation().getY() - y)*Globals.AdjustFactor;
+        theta = tgtpos.getRotation().getDegrees() - w;
+        if (theta>=180)
+            theta = theta - 360;
+        else if (theta<=-180)
+            theta = theta + 360;
+        
+        w += theta * Globals.AdjustFactor;
+        w = Math.toRadians(w);
+        Globals.curAngle = w;
+        // m_odometry.update(x,y,theta);
+        m_odometry.resetPosition(new Pose2d(x,y,new Rotation2d(w)));
+    }
     
     public Pose2d getPose() {
         return m_odometry.getPose();
@@ -369,7 +388,7 @@ public class OmniDrive extends SubsystemBase
          * Unnecessary display should be removed during contest
          */
 
-        //D_curHeading.setDouble(curHeading);
+        // D_curHeading.setDouble(curHeading);
         // D_curHeading.setDouble(curHeading*180/Math.PI);
         // D_tgtHeading.setDouble(targetHeading*180/Math.PI);
         // D_navYaw.setDouble(-gyro.getYaw());
@@ -397,6 +416,6 @@ public class OmniDrive extends SubsystemBase
         // D_motor1.setDouble(motors[1].get());
         // D_motor2.setDouble(motors[2].get());
         D_angle.setDouble(Globals.curAngle);
-        D_Global.setDouble(Globals.curDir);
+        // D_Global.setDouble(Globals.curDir);
     }
 }

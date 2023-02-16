@@ -22,8 +22,6 @@ import frc.robot.utils.OmniDriveOdometry;
 
 public class GotoTrolley extends SequentialCommandGroup {
   private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
-  
- 
   /**
    * This command moves the robot in front of the trolley and rotates to face it
    * @param pose - Coordinates of trolley in Pose2d(Use Layout.Convert_mm_Pose2d(int[] from Layout))

@@ -17,12 +17,12 @@ public class Align2Line extends SequentialCommandGroup{
   public Align2Line(){
     super(
       new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
-      new MoveCamera(290),
+      new MoveCamera(300),
       new InstantCommand(()-> Globals.cvMode = 0),
       new AlignRobot(),
       new InstantCommand(()-> Globals.cvMode=-1),
-      new WaitCommand(2),
-      new MoveRobotSense(1, 0.3, 0, 0,0.25, ()-> m_sensor.getIRDistance()<=15)
+      new WaitCommand(2)//,
+      //new MoveRobotSense(1, 0.3, 0, 0,0.25, ()-> m_sensor.getIRDistance()<=15)
     );
   }
   

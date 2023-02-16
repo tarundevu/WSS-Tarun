@@ -32,7 +32,7 @@ public class PlaceDown extends SequentialCommandGroup
     {
       
       super(
-      new MoveArm(new Translation2d(0.35,0.12),0.5),
+      new MoveArm(new Translation2d(0.25,0.12),0.5),
       new Gripper(1,80),
       new WaitCommand(1),
       new Gripper(0,80)

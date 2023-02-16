@@ -85,8 +85,6 @@ public class AlignRobot extends CommandBase{
         targetX = (line[0] - centerX);
         targetY = -(line[1] - centerY);
         targetW = -line[2];
-        // speedX = 0.01 * Math.signum(targetX)*Math.sqrt(Math.abs(targetX));
-        // speedY = 0.01 * Math.signum(targetY) *Math.sqrt(Math.abs(targetY));
         speedX = 0.002 * targetX;
         speedY = 0.002 * targetY;
         speedW = useW? 0.5 * targetW: 0;
@@ -94,31 +92,21 @@ public class AlignRobot extends CommandBase{
         m_drive.setRobotSpeedType(1, speedY); // Y is working well
         m_drive.setRobotSpeedType(2, speedW);
         
-        // if (((m_vision.getLine(0) - centerX)) <1 && -(m_vision.getLine(1) - centerY) < 1 &&-m_vision.getLine(2)<0.05){
-        //     m_endFlag = true;
-        //     m_drive.setRobotSpeedType(0, 0);
-        //     m_drive.setRobotSpeedType(1, 0); // Y is working well
-        //     m_drive.setRobotSpeedType(2, 0);
-        // }
         
-        if (useW==false){
-            if (((line[0] - centerX)) <1 && -(line[1] - centerY) < 1 &&-line[2]<0.05 && count >= 100) {
-                
-                m_drive.setRobotSpeedType(0, 0);
-                m_drive.setRobotSpeedType(1, 0); // Y is working well
-                m_drive.setRobotSpeedType(2, 0);
+        if (useW){
+            if (Math.abs(line[0] - centerX) <2 && - Math.abs(line[1] - centerY) < 2 && Math.abs(line[2]) < 0.05 && count>= 100){
                 m_endFlag = true;
-            }  
-          }
-        else if (useW==true){
-            
-            
-            if (((line[0] - centerX)) <1 && -(line[1] - centerY) < 1 &&-line[2]<0.05 && count >= 200) {
-                
                 m_drive.setRobotSpeedType(0, 0);
-                m_drive.setRobotSpeedType(1, 0); // Y is working well
+                m_drive.setRobotSpeedType(1, 0); 
                 m_drive.setRobotSpeedType(2, 0);
+            }
+        }
+        else{
+            if (Math.abs(line[0] - centerX) <2 && - Math.abs(line[1] - centerY) < 2 && count >= 200){
                 m_endFlag = true;
+                m_drive.setRobotSpeedType(0, 0);
+                m_drive.setRobotSpeedType(1, 0); 
+                m_drive.setRobotSpeedType(2, 0);
             }
         }
           count ++;

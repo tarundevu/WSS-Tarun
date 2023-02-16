@@ -30,6 +30,7 @@ public class RobotContainer {
   public final static Sensor m_sensor = new Sensor(); 
   public final static Arm m_arm = new Arm();
   public final static Vision m_vision = new Vision();
+  public final static Points m_points = new Points();
   //user menu
   public final static Menu m_menu = new Menu(m_oi);
   //commands

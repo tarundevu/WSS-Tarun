@@ -60,6 +60,7 @@ public class SortItems extends SequentialCommandGroup{
             ),
         new PlaceDown(),
         new MoveArm(new Translation2d(0.33,0.24), 0.5),
+        new MoveRobot(1, -0.05, 0, 0, 0.1),
         new SelectCommand(
             Map.ofEntries(
                 Map.entry(CommandSelector.ONE,new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos))),
@@ -76,7 +77,6 @@ public class SortItems extends SequentialCommandGroup{
         ),
         
         new Align2Line(),
-        new MoveRobotSense(1, 0.3, 0, 0,0.25, ()-> RobotContainer.m_sensor.getIRDistance()<=15),
         new ViewItem()
         );
     }

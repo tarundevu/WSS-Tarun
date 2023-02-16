@@ -18,30 +18,32 @@ public class Gripper extends CommandBase{
     private TrapezoidProfile.State m_goal;
     private TrapezoidProfile.State m_setpoint;
     private TrapezoidProfile m_profile;
-    private double m_maxSpeed = 50; // default speed
+    private double maxSpeed = 60;
     private int isOpen;
     private double targetAngle;
     private int[][] itemGripperSizes = {
-        {200,0}, // Jagabee
-        {230,0}, // Dettol
-        {215,0}, // Coke
+        {210,100}, // CokeUp
+        {210,0}, // Coke
+        {210,0}, // Dettol
+        {220,0} // Jagabee
     };
  
+    /** This class is used to control an end effector
+     * 
+     * @param pos - 1 for open or 0 for close
+     * @param maxSpeed - Maximum speed
+     */
+    public Gripper(int pos, double maxSpeed)
+    {   
+        isOpen = pos;
+        m_constraints = new TrapezoidProfile.Constraints(maxSpeed, maxSpeed);
+    }
     /** This class is used to control an end effector
      * 
      * @param pos - 1 for open or 0 for close
      */
     public Gripper(int pos)
     {   
-        isOpen = pos;
-        m_constraints = new TrapezoidProfile.Constraints(m_maxSpeed, m_maxSpeed);
-    }
-    /** This class is used to control an end effector with settable speed
-     * 
-     * @param pos - 1 for open or 0 for close
-     * @param maxSpeed - Maximum speed
-     */
-    public Gripper(int pos, double maxSpeed){
         isOpen = pos;
         m_constraints = new TrapezoidProfile.Constraints(maxSpeed, maxSpeed);
     }

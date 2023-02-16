@@ -22,7 +22,7 @@ public class Rotate2Orientation extends MoveRobot {
      * This command is used to align the robot to the object that is to be picked
      */
     public Rotate2Orientation(double angle){
-        super(2, 0, 0, 0, 0.3);
+        super(2, 0, 0, 0, 0.4);
         
         s_angle = angle;
     }
@@ -34,7 +34,7 @@ public class Rotate2Orientation extends MoveRobot {
     {   
         m_angle = s_angle;
         m_angle = m_angle - Globals.curDir;
-        Globals.curAngle = m_angle;
+        // Globals.curAngle = m_angle;
         if (m_angle>180)
             m_angle  = m_angle - 360;
         else if (m_angle<-180)

@@ -46,9 +46,12 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         super(
         
+        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
+        // new Align2Line(),
         
-        // new InstantCommand(()-> Globals.cvMode=-1),
-        new Task_A()
+        // new InstantCommand(()->m_omnidrive.UpdatePosition(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos))),
+        // new WaitCommand(3)
+        // new Task_A()
         // new GotoColor(Layout.Convert_mm_Pose2d(Layout.GreenPos))
         
         // new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees())
@@ -57,8 +60,8 @@ public class AutoMainCmd extends SequentialCommandGroup
         //new GotoTrolley(0.15, 4.35)
         //new RotatetoDir(RobotContainer.m_vision.Rotate2Obj(0.15,4.35))//working
 
-            // new ViewItem(),
-            // new LoopCommands(new ProcessSeq())
+            new ViewItem(),
+            new LoopCommands(new ProcessSeq())
             
         //new CP3()
         // new CP2()
@@ -89,7 +92,7 @@ public class AutoMainCmd extends SequentialCommandGroup
                 // new MovetoB(new Pose2d(0.96, 1.6, new Rotation2d(0))),
                 // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
                 // new MoveRobot(0, 0.0875, 0, 0, 0.4),
-                // // new WaitCommand(2),
+                // new WaitCommand(2),
                 // new MovetoB(new Pose2d(0.96, 1.6, new Rotation2d(0))),
                 // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0)))
               );

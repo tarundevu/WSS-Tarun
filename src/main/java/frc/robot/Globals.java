@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+
 //Put all global variables here
 public class Globals
 {
@@ -9,13 +11,14 @@ public class Globals
     static public int debug[] = new int[DNUM];
     static public String[] debugNames = new String[] {"debug0", "debug1", "debug2", "debug3"};
     public static double curDir = 0;
-    public static double convertPxToM = 0.0006375;//0.000590;//0.0006075 // 0.56/800 , 0.00058 good // Resolution
+    public static double convertPxToM = 0.0006225;//0.000590;//0.0006075 // 0.56/800 , 0.00058 good // Resolution
     public static double camera_offset = 0.09;
     // public static double camera_mount_offset = 0.015; // currently not used
     public static double arm_offset_y = 0.13; // 0.125
     public static double arm_offset_z = 0.25;
     public static double gripper_offset = 0.19;
     public static double CokeRatio = 0.86;
+    public static double AdjustFactor = 0.92;
     public static int LoopCnt = 0; // use as counter for loops
     /*
      *  CokeU = 0
@@ -27,6 +30,7 @@ public class Globals
     public static double curItemX;
     public static double curItemY;
     public static double curAngle = 0;
+    public static Pose2d curPose;
     /*
      *  Red   = 0
      *  Green = 1

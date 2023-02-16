@@ -26,7 +26,7 @@ public class PickUp extends SequentialCommandGroup
         new ArmPickX(2),
         new Gripper(1, 70),
         new ArmPickX(1),
-        new Gripper(0, 50), 
+        new Gripper(0), 
         new MoveGripper(new Translation2d(0.4,0.3),0.5)
       );
       
