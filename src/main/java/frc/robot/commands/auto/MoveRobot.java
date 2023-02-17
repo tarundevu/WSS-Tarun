@@ -24,13 +24,13 @@ public class MoveRobot extends CommandBase
     private final static OmniDrive m_drive = RobotContainer.m_omnidrive;
     private double dT = 0.02;
     private boolean m_endFlag = false;
-    private int m_profType;
+    protected int m_profType;
     private TrapezoidProfile.Constraints m_constraints;
     private TrapezoidProfile.State m_goal = new TrapezoidProfile.State();
     private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
     private int m_dir;
 
-    protected final double m_startSpeed, m_endSpeed;
+    protected double m_startSpeed, m_endSpeed, m_maxSpeed;
     protected double m_dist;
     /**
      * This command moves the robot a certain distance following a trapezoidal speed profile.
@@ -47,6 +47,7 @@ public class MoveRobot extends CommandBase
     {
         m_startSpeed = startSpeed;
         m_endSpeed = endSpeed;
+        m_maxSpeed = maxSpeed;
         m_profType = type;
         m_dist = dist;
         if (type==2){

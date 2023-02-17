@@ -13,7 +13,7 @@ public class Globals
     public static double curDir = 0;
     public static double convertPxToM = 0.0006225;//0.000590;//0.0006075 // 0.56/800 , 0.00058 good // Resolution
     public static double camera_offset = 0.09;
-    // public static double camera_mount_offset = 0.015; // currently not used
+    public static double camera_mount_offset_x = 0.015; 
     public static double arm_offset_y = 0.13; // 0.125
     public static double arm_offset_z = 0.25;
     public static double gripper_offset = 0.19;
@@ -31,6 +31,8 @@ public class Globals
     public static double curItemY;
     public static double curAngle = 0;
     public static Pose2d curPose;
+    public static int loopCount = 0;
+    
     /*
      *  Red   = 0
      *  Green = 1
@@ -49,6 +51,13 @@ public class Globals
      *  Work Order Board = 2
      */
     public static int cvMode = -1;
+
+    public static double[][] moveCommands = {
+      {2,Math.PI/2,0,0, Math.PI/2},
+      {2,-Math.PI/2,0,0, Math.PI/2},
+      {0, -0.43, 0, 0, 5},
+      {0, -0.43, 0, 0, 5}
+    };
     /*
 	   *                                              C|D|J              
 	   *                                            R|x|x|x|
@@ -103,4 +112,27 @@ public class Globals
       }
     return true;
   }
+
+  public static boolean endConditionCP5(String targetArea){
+    loopCount++;
+    if(loopCount<19 && RobotContainer.m_vision.getDistanceTarget(targetArea)[0] == 0){
+        return false;
+    }
+    else{
+        loopCount = 0;
+        return true;
+    }
+  } 
+
+  public static boolean endConditionCP7(){
+    loopCount++;
+    // Count 19
+    if(loopCount<19 && (RobotContainer.m_vision.getDistanceTarget("Trolley")[0] == 0)){
+        return false;
+    }
+    else{
+        loopCount = 0;
+        return true;
+    }
+  } 
 }

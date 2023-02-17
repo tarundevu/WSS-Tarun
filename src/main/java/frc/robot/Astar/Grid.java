@@ -1,6 +1,7 @@
 package frc.robot.Astar;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Grid extends Network{
 
@@ -39,7 +40,7 @@ public class Grid extends Network{
         for(int i=0; i< obs.length; i++) {
             AddObstacle(obs[i][0], obs[i][1], obs[i][2], obs[i][3], obs[i][4]*Math.PI/180);
         }
-
+        
         //Expand obstacles. Do here????
     }
 
@@ -136,7 +137,7 @@ public class Grid extends Network{
 
                             }
                         }
-
+                        
                     }
                 }
             }
@@ -218,6 +219,26 @@ public class Grid extends Network{
                 Tile t = find(xx+x0,yy+y0);
                 if (t!=null)
                     t.setObsValue(Node.maxObsValue);
+            }
+        }
+    }
+     /**
+   * Remove rectangular shape obstacle to field.
+   *
+   * @param x0 centre X pos
+   * @param y0 centre Y pos
+   * @param xSize X size of rect
+   * @param ySize Y size of rect
+   * @param angle orientation of rectangle
+   */
+    public void RemoveObstacle(int x0, int y0, int xSize, int ySize, double angle) {
+        for (int x=-xSize/2; x<xSize/2; x++) {
+            for (int y=-ySize/2; y<ySize/2; y++) {
+                int xx = (int)Math.round(x*Math.cos(angle) - y*Math.sin(angle));
+                int yy = (int)Math.round(x*Math.sin(angle) + y*Math.cos(angle));
+                Tile t = find(xx+x0,yy+y0);
+                if (t!=null)
+                    t.setObsValue(0.0);
             }
         }
     }

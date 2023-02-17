@@ -84,14 +84,14 @@ public class TeleCmd extends CommandBase
         //     m_arm.setArmPos(0.328, 0.25);
         // }
         if (A==true){
-            //m_arm.setGripper(300);
-           m_arm.setTrolleyAngle(150);
+            m_arm.setGripper(290);
+        //    m_arm.setTrolleyAngle(150);
         //    Globals.cvMode=2;
         //    m_vision.setcvMode();
         }
         if (B==true){
-            // m_arm.setGripper(0);
-            m_arm.setTrolleyAngle(0);
+            m_arm.setGripper(0);
+            // m_arm.setTrolleyAngle(0);
         }
         // m_arm.setGripper(m_arm.getSliderServo());
         m_arm.setArmPos(m_arm.getSliderX(), m_arm.getSliderY());

@@ -42,7 +42,7 @@ public class MovetoB extends SequentialCommandGroup
     static private final CentripetalAccelerationConstraint m_CurveConstraint = new CentripetalAccelerationConstraint(0.5);
     static private final TrajectoryConfig m_Config = new TrajectoryConfig(0.45, 0.4).addConstraint(m_CurveConstraint).setReversed(false);
 
-    private Pose2d m_posB;
+    protected Pose2d m_posB;
   
     static MyGenerateTrajectory myGenerateTrajectory = new MyGenerateTrajectory();
 

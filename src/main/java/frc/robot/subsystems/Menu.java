@@ -53,7 +53,9 @@ public class Menu extends SubsystemBase
                     Map.entry(menuNum++, new CP2()),
                     Map.entry(menuNum++, new CP3()),
                     Map.entry(menuNum++, new CP4()),                    
-                    Map.entry(menuNum++, new CP5()),                    
+                    Map.entry(menuNum++, new CP5("RedTarget")),
+                    Map.entry(menuNum++, new CP5("GreenTarget")),  
+                    Map.entry(menuNum++, new CP5("BlueTarget")),                
                     Map.entry(menuNum++, new CP6()),
                     Map.entry(menuNum++, new CP7())
                 ), ()->Globals.menuItem

@@ -31,8 +31,10 @@ public class Points{
   public Pose2d blueTarget = new Pose2d();
   public Pose2d trolley = new Pose2d();
   private double[] defaultValue = new double[12];
-  // public Pose2d camOffset = new Pose2d(0.015, 0.6, new Rotation2d(0)); // Update this
-  public Pose2d camOffset = new Pose2d(-0.015, 0.55, new Rotation2d(0)); // Update this
+  public Pose2d camOffset = new Pose2d(0.00, 0.0, new Rotation2d(0)); // Update this
+  // public Pose2d camOffset = new Pose2d(0.015, 0.58, new Rotation2d(0)); // Update this
+  // public Pose2d camOffset = new Pose2d(-0.015, 0.55, new Rotation2d(0)); // Update this
+  // public Pose2d camOffset = new Pose2d(-0.015, 0.5, new Rotation2d(0)); // Update this
 
   // public Pose2d camOffset = new Pose2d(0.015, 0.67, new Rotation2d(0)); // Update this
   // public Pose2d camOffset = new Pose2d(0.015, 1.02, new Rotation2d(0)); // Update this
@@ -53,12 +55,22 @@ public class Points{
 
   public void updatePoint(String pointname, Pose2d newpose) {
     pointMap.put(pointname, newpose);
-    if (pointname == "Trolley"){
-      obstacleMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0,0.38),new Rotation2d())));
+    // if (pointname == "Trolley"){
+    //   obstacleMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0,0.38),new Rotation2d())));
+      
+    // }
+    // else{
+    //   obstacleMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0,0.255),new Rotation2d())));
+    // }
+    if(pointname != "Trolley"){
+      pointMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0.05, 0.30),new Rotation2d())));
+      obstacleMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0.0, 0.95),new Rotation2d())));
     }
     else{
-      obstacleMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0,0.255),new Rotation2d())));
+      // Adding Point Trolley
+      pointMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0.05, 0.35),new Rotation2d())));
     }
+
     
     
   }
@@ -149,7 +161,7 @@ public void updateAllObs(){
   }
 }
 
-  public void updateGrid(){
+  public void AddObsGrid(){
     int tile_size_mm = RobotContainer.m_layout.tile_size_mm;
    
     for (Map.Entry<String, Pose2d> obstacleEntry :obstacleMap.entrySet()) {
@@ -160,7 +172,13 @@ public void updateAllObs(){
         
     RobotContainer.m_Grid.ExpandObstacles(210);
   }
-
-    
-
+  public void RemoveTrolleyObsGrid(){
+    int tile_size_mm = RobotContainer.m_layout.tile_size_mm;
+   
+    Pose2d obs = obstacleMap.get("trolley");
+    int cx_mm = (int)(obs.getTranslation().getX()*1000);
+    int cy_mm= (int)(obs.getTranslation().getY()*1000);
+    RobotContainer.m_Grid.RemoveObstacle(Math.round((float)cx_mm/tile_size_mm), Math.round((float)cy_mm/tile_size_mm), Math.round((float)300/tile_size_mm), Math.round((float)300/tile_size_mm), obs.getRotation().getRadians());  
+    RobotContainer.m_Grid.ExpandObstacles(210);
+  }
 }

@@ -1,6 +1,7 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import frc.robot.Globals;
 //RobotContainer import
@@ -26,6 +27,13 @@ public class Rotate2Orientation extends MoveRobot {
         
         s_angle = angle;
     }
+
+    public Rotate2Orientation(Pose2d pose){
+        super(2, 0, 0, 0, Math.PI/3);
+        
+        s_angle = pose.getRotation().getDegrees();
+    }
+    
      /**
      * Runs before execute
      */
