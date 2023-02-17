@@ -20,7 +20,7 @@ public class CP5 extends SequentialCommandGroup {
       
         // Puts camera in viewing position
         new MoveArm(new Translation2d(0.3,0.4), 2),
-        new MoveCamera(295),
+        new MoveCamera(300),
         // Sets the python script to perspective transformation with HSV mode
         new InstantCommand(() -> Globals.cvMode = 3),
         // Move out of the way

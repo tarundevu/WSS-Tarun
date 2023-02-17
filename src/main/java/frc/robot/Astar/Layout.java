@@ -57,7 +57,7 @@ public class Layout {
     public static final int T3Pos[] = {830,4350,0};
 
     // Position for robot to go to for reading work order
-    public static final int workOrderPos[] = {900, 350, -90};//1200
+    public static final int workOrderPos[] = {1200, 350, -90};//1200
 
     // Robot start position.
     public static final int startPos[] = {210, 210, -90}; //start position

@@ -22,6 +22,10 @@ import frc.robot.commands.auto.MoveCurve;
 import frc.robot.commands.auto.MoveLeft;
 import frc.robot.commands.auto.MoveRight;
 import frc.robot.commands.auto.MoveTest;
+import frc.robot.commands.auto.TestMotionRot;
+import frc.robot.commands.auto.TestMotionX;
+import frc.robot.commands.auto.TestMotionY;
+import frc.robot.commands.auto.TestPicking;
 import frc.robot.commands.gamepad.OI;
 
 public class Menu extends SubsystemBase
@@ -70,7 +74,12 @@ public class Menu extends SubsystemBase
             "core6",
             "core7"
         };
-
+        
+        tab.add("TestMotionX", new TestMotionX());
+        tab.add("TestMotionY", new TestMotionY());
+        tab.add("TestMotionRot", new TestMotionRot());
+        tab.add("TestPicking", new TestPicking());
+        
         //A-up button, Y-down button
         m_oi.buttonA.whenPressed( ()->{Globals.menuItem--;Globals.menuItem=(Globals.menuItem+menuNum)%menuNum;});
         m_oi.buttonY.whenPressed( ()->{Globals.menuItem++;Globals.menuItem%=menuNum;});

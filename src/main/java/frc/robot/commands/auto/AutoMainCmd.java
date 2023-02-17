@@ -73,11 +73,11 @@ public class AutoMainCmd extends SequentialCommandGroup
         
             //new LoopCmd(new TestMotion(), ()->(++Globals.LoopCnt)>5 ) /// loop cmd
             // new MoveRobot(0,-1.5,0,0,0.4)
-                 new TestMotion(),
-                new TestMotion(),
-                new TestMotion(),
-                new TestMotion(),
-                new TestMotion()
+                 new TestMotionX(),
+                new TestMotionX(),
+                new TestMotionX(),
+                new TestMotionX(),
+                new TestMotionX()
                 // new MoveRobot(0, 0.0875, 0, 0, 0.4),
                 // // new WaitCommand(2),
                 // new MovetoB(new Pose2d(0.96, 1.6, new Rotation2d(0))),

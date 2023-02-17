@@ -9,7 +9,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.Vision;
 import frc.robot.Globals;
 
-public class LoopCommands extends LoopCmd
+public class OpenHseLoopCommand extends LoopCmd
 {
     private final static Vision m_vision = RobotContainer.m_vision;
     
@@ -27,7 +27,7 @@ public class LoopCommands extends LoopCmd
     }
 
 
-    public LoopCommands(SequentialCommandGroup cmdToRun)
+    public OpenHseLoopCommand(SequentialCommandGroup cmdToRun)
     {
         
         super(cmdToRun);

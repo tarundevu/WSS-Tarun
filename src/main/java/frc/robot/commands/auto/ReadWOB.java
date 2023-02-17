@@ -15,8 +15,8 @@ public class ReadWOB extends SequentialCommandGroup{
   public ReadWOB(){
     super(
       new InstantCommand(()-> Globals.cvMode = 2),
-      new MoveArm(new Translation2d(0.3,0.05), 0.5), 
-      new MoveCamera(167),
+      new MoveArm(new Translation2d(0.26,-0.06), 0.5), // WOB position
+      new MoveCamera(153),
       new WaitCommand(2),
       new InstantCommand(()-> m_vision.getWOBItems()),
       new InstantCommand(()-> Globals.cvMode=-1),

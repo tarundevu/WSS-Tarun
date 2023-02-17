@@ -22,7 +22,7 @@ public class CP1 extends SequentialCommandGroup{
       new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
      
       new ViewItem(),
-      new LoopCommands(new ProcessSeq())
+      new OpenHseLoopCommand(new ProcessSeq())
      
     );
   }

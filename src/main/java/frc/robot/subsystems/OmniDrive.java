@@ -295,8 +295,8 @@ public class OmniDrive extends SubsystemBase
             encoderDists[i] = encoders[i].getEncoderDistance();
             wheelSpeeds[i] = encoderSpeeds[i] = (encoderDists[i]-encoderDists_2[i])/pid_dT;
             encoderDists_2[i] = encoderDists[i];
-            //encoders[i].getSpeed() in rpm
-            //wheelSpeeds[i] = encoderSpeeds[i] = -encoders[i].getSpeed()*Math.PI*0.1/60;
+            // encoders[i].getSpeed() in rpm
+            // wheelSpeeds[i] = encoderSpeeds[i] = -encoders[i].getSpeed()*Math.PI*0.1/60;
             dcValue += wheelSpeeds[i];
         }
 
