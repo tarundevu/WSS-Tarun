@@ -74,6 +74,8 @@ public class TeleCmd extends CommandBase
         //m_arm.setArmPos(0.328, 0.24);
         Globals.cvMode=2;
         m_arm.setCameraAngle(m_arm.getSliderServo());
+        // m_arm.setCameraAngle(290);
+        // m_arm.setGripper(150);
         // m_arm.setCameraAngle(280);
         //m_arm.set
         // if ((pick == true)){

@@ -202,7 +202,8 @@ public class OmniDrive extends SubsystemBase
     }
 
     public double getYawRad() {
-        return -gyro.getYaw()*Math.PI/180;
+        // return -gyro.getYaw()*Math.PI/180;
+        return -gyro.getFusedHeading()*Math.PI/180;
     }
 
     /**
@@ -335,7 +336,7 @@ public class OmniDrive extends SubsystemBase
         /////////////////////////////////////////////////////////////////////////////////////////
         curHeading = getYawRad();
         
-        targetHeading += pidInputs[2]*pid_dT;   
+        targetHeading += pidInputs[2]*pid_dT*0.9965; // add ratio to compensate 
 
         //Limit targetHeading to -Pi to +Pi
         if (targetHeading>Math.PI) targetHeading -= Math.PI*2;
@@ -351,7 +352,7 @@ public class OmniDrive extends SubsystemBase
         }
 
         for (int i=0; i<Constants.MOTOR_NUM; i++) {
-            //motors[i].set(motorOuts[i]/max);
+            motors[i].set(motorOuts[i]/max);
             ///////////////////////////////////////////////////////////
             //motors[i].set(0);   //off motor to test encoders manually
         }   

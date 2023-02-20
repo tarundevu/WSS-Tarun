@@ -40,7 +40,7 @@ public class MovetoB extends SequentialCommandGroup
     private List<Translation2d> m_pathWayPoints;
     //Set max velocity, acceleration and centripedal acceleration (turn speed)
     static private final CentripetalAccelerationConstraint m_CurveConstraint = new CentripetalAccelerationConstraint(0.5);
-    static private final TrajectoryConfig m_Config = new TrajectoryConfig(0.45, 0.4).addConstraint(m_CurveConstraint).setReversed(false);
+    static private final TrajectoryConfig m_Config = new TrajectoryConfig(0.4, 0.4).addConstraint(m_CurveConstraint).setReversed(false);
 
     protected Pose2d m_posB;
   
@@ -112,8 +112,8 @@ public class MovetoB extends SequentialCommandGroup
         //generate trajectory based on A* output
         //QuinticHermite works better
         m_Trajectory =
-            //myGenerateTrajectory.generateTrajectoryClampedCubic(m_pathWayPoints, m_Config, 0.05);
-            myGenerateTrajectory.generateTrajectoryQuinticHermite(m_pathWayPoints, m_Config, 0.1);
+            myGenerateTrajectory.generateTrajectoryClampedCubic(m_pathWayPoints, m_Config, 0.05);
+            // myGenerateTrajectory.generateTrajectoryQuinticHermite(m_pathWayPoints, m_Config, 0.1);
 
         super.initialize();
 
@@ -134,7 +134,7 @@ public class MovetoB extends SequentialCommandGroup
                 // Position contollers
                 new PIDController(0.25, 0, 0),
                 new PIDController(0.25, 0, 0),
-                new ProfiledPIDController(1, 0, 0, new Constraints(Math.PI, Math.PI) ))
+                new ProfiledPIDController(1, 0, 0, new Constraints(Math.PI/2, Math.PI/2) ))
                 // RobotContainer.m_omnidrive )
 
             //End with rotation to the target heading???
