@@ -35,6 +35,7 @@ public class OmniDrive extends SubsystemBase
     private PIDController[] pidControllers;
     private double[] pidInputs;
     private double[] pidOutputs;
+    private double[] ffws;
 
     private double[] encoderDists;
     private double[] encoderDists_2;
@@ -113,7 +114,7 @@ public class OmniDrive extends SubsystemBase
         //Inputs and Outputs for wheel controller
         pidInputs = new double[Constants.PID_NUM];
         pidOutputs = new double[Constants.PID_NUM];
-
+        ffws = new double[Constants.PID_NUM];
         // gyro for rotational heading control
         gyro = new AHRS(SPI.Port.kMXP);
         gyro.zeroYaw();
@@ -336,13 +337,17 @@ public class OmniDrive extends SubsystemBase
         /////////////////////////////////////////////////////////////////////////////////////////
         curHeading = getYawRad();
         
-        targetHeading += pidInputs[2]*pid_dT*0.9965; // add ratio to compensate 
+        targetHeading += pidInputs[2]*pid_dT*0.996; // add ratio to compensate 
+
+        
 
         //Limit targetHeading to -Pi to +Pi
         if (targetHeading>Math.PI) targetHeading -= Math.PI*2;
         if (targetHeading<-Math.PI) targetHeading += Math.PI*2;
 
-        pidOutputs[2] = pidControllers[2].calculate(curHeading, targetHeading);
+        ffws[2] = pidInputs[2]*0.43;
+
+        pidOutputs[2] = pidControllers[2].calculate(curHeading, targetHeading) + ffws[2];
 
         //Limit output to -1.0 to 1.0 as PID outputs may be greater then 1.0
         double max=1.0;
