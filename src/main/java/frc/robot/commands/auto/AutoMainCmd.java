@@ -46,31 +46,17 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         super(
         
-        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
-        // new Align2Line(),
         
-        // new InstantCommand(()->m_omnidrive.UpdatePosition(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos))),
-        // new WaitCommand(3)
         // new Task_A()
-        // new GotoColor(Layout.Convert_mm_Pose2d(Layout.GreenPos))
-        
-        // new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees())
-        // // new MoveArm(new Translation2d(0.33,0.24), 0.5) // Line detection position
-        // new MoveRobot(1, -0.1, 0, 0, 0.3)
-        //new GotoTrolley(0.15, 4.35)
-        //new RotatetoDir(RobotContainer.m_vision.Rotate2Obj(0.15,4.35))//working
-        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
-        // new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),
-        // new Align2Line(),
-        //     new ViewItem(),
-        //     new LoopCommands(new ProcessSeq())
-            
-        //new CP3()
-        // new CP2()
-        // new CP3()
-        // new CP4()
-        // new CP6()
-        
+
+        new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
+        new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),
+        new Align2Line(),
+        new ViewItem(),
+        new OpenHseLoopCommand(new ProcessSeq())
+
+        // ###################################################################################### // 
+        //          FOR TESTING, IF ROBOT MOVEMENT HAS ISSUES           //
             //new LoopCmd(new TestMotion(), ()->(++Globals.LoopCnt)>5 ) /// loop cmd
             // new MoveRobot(0,-1.5,0,0,0.4)
                 //  new TestMotionX(),

@@ -21,8 +21,8 @@ public class ViewItem extends SequentialCommandGroup{
         new MoveCamera(280),
         new InstantCommand(()-> Globals.cvMode=1),  
         new WaitCommand(3),
-        new InstantCommand(()-> Globals.cvMode=-1),
-        new WaitCommand(2)
+        new InstantCommand(()-> Globals.cvMode=-1)
+        // new WaitCommand(2)
       
         );
     }

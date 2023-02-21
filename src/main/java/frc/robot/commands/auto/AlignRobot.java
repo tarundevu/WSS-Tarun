@@ -48,8 +48,8 @@ public class AlignRobot extends CommandBase{
         // centerY = 200.0;
 
         // Width = 200
-        centerX = 100;
-        centerY= 100; // wanted to change to 120
+        centerX = 195;//100;
+        centerY= 195;//100; // wanted to change to 120
         useW = true;
         double[] line = m_vision.getLine();
         targetX = (line[0] - centerX);
