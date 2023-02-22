@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ProxyScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -39,6 +40,7 @@ public class AutoMainCmd extends SequentialCommandGroup
     private final static Vision m_vision = RobotContainer.m_vision;
     private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
     private final static Arm m_arm = RobotContainer.m_arm;
+    private ProxyScheduleCommand m_proxySchedule;
 
 	public AutoMainCmd() 
     {
@@ -53,8 +55,8 @@ public class AutoMainCmd extends SequentialCommandGroup
         new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),
         new Align2Line(),
         new ViewItem(),
-        new OpenHseLoopCommand(new ProcessSeq())
-
+        new OpenHseLoopCommand(new ProcessSeq())//,
+        // new ProxyScheduleCommand(new MoveLeft())
         // ###################################################################################### // 
         //          FOR TESTING, IF ROBOT MOVEMENT HAS ISSUES           //
             //new LoopCmd(new TestMotion(), ()->(++Globals.LoopCnt)>5 ) /// loop cmd

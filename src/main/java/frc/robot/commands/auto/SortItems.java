@@ -49,7 +49,7 @@ public class SortItems extends SequentialCommandGroup{
     {
         super(   
         new PickItemfromBin(),
-        new MoveCamera(300),
+        // new MoveCamera(300),
         new SelectCommand(
             Map.ofEntries(
                 Map.entry(CommandSelector.ONE, new GotoColor(Layout.Convert_mm_Pose2d(Layout.RedPos))),

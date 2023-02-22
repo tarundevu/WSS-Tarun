@@ -14,15 +14,17 @@ public class ReadWOB extends SequentialCommandGroup{
   private final static Vision m_vision = RobotContainer.m_vision;
   public ReadWOB(){
     super(
+      // sets cvMOde to work order board detection
       new InstantCommand(()-> Globals.cvMode = 2),
-      new MoveArm(new Translation2d(0.26,-0.06), 0.5), // WOB position
-      new MoveCamera(153),
+      // Moves arm to work order board position
+      new WOBPosition(),
       new WaitCommand(2),
+      // gets the array from networktables and saves it
       new InstantCommand(()-> m_vision.getWOBItems()),
       new InstantCommand(()-> Globals.cvMode=-1),
       new WaitCommand(2),
-      new MoveCamera(300),
-      new MoveArm(new Translation2d(0.33,0.24), 0.5) // Line detection position
+      // Lifts arm up
+      new DetectionPosition()
     );
   }
 }

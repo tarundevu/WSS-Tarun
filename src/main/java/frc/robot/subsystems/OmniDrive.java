@@ -130,14 +130,15 @@ public class OmniDrive extends SubsystemBase
      /**
      * This method calculates the coordinates of the robot offset from the trolley/color paper
      * @param XY - x and y coordinates of trolley/color paper
-     * @param num - 0 for trolley, 1 for target area
+     * @param type - "trolley", "color" for target area
      * @return - offset coordinates
      */
-    public double[] getCoord(Translation2d XY,String type){
-        double[] coord = new double[2];
+    public Translation2d getCoord(Translation2d XY,String type){
+        // double[] coord = new double[2];
+        
         double x = XY.getX(),
                y = XY.getY();
-        double offset = (type=="trolley")?0.6:0.37;
+        double offset = (type=="trolley")?0.45:0.37;
 
         if (y > 4.29 && x > 0.21 && x < 2.04){ // Left
             x += 0;
@@ -172,9 +173,9 @@ public class OmniDrive extends SubsystemBase
             x -= offset;
             y += 0;
         }
-        coord[0] = x;
-        coord[1] = y;
-
+        // coord[0] = x;
+        // coord[1] = y;
+        Translation2d coord = new Translation2d(x,y);
         return coord;
     }
     

@@ -15,14 +15,22 @@ public class Align2Trolley extends SequentialCommandGroup{
   private final static Vision m_vision = RobotContainer.m_vision;
   public Align2Trolley(){
     super(
-      new MoveArm(new Translation2d(0.33,0.3), 0.5), // Line detection position
-      new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
-      new MoveCamera(300),
-      new InstantCommand(()-> Globals.cvMode = 0),
-      new AlignRobot("trolley"),
-      new InstantCommand(()-> Globals.cvMode=-1),
+      // Lifts arm
+      new DetectionPosition(),
+      // Align to trolley
+      // new InstantCommand(()-> Globals.cvMode = 0),
+      // new AlignRobot("trolley"),
+      // sets cvMode to trolley alignment
+      new InstantCommand(()-> Globals.cvMode = 5),
       new WaitCommand(2),
-      new MoveRobot(1, 0.03, 0, 0, 0.1)
+      // Align trolley Y
+      new TrolleyAlignment(0),
+      // Align trolley X
+      new TrolleyAlignment(1),
+      // resets cvMode to idle
+      new InstantCommand(()-> Globals.cvMode=-1)
+      // new WaitCommand(2),
+      // new MoveRobot(1, 0.03, 0, 0, 0.1)
     );
   }
 }

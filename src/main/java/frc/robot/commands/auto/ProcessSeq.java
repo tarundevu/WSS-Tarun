@@ -19,14 +19,16 @@ public class ProcessSeq extends SequentialCommandGroup {
     super(  
         
         new PickItemfromBin(),
-        new MoveCamera(300),
+        
         // new MovetoB(new Pose2d(0.96, 1.5, new Rotation2d(0))),
-        new GotoColor(Layout.Convert_mm_Pose2d(Layout.GreenPos)),
+        new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.GreenPos)),
         new PlaceDown(),
-        new MoveArm(new Translation2d(0.33,0.3), 0.5), // Line detection position
-        new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
+        // new MoveArm(new Translation2d(0.33,0.3), 0.5), // Line detection position
+        // new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
         // new MovetoB(new Pose2d(0.96, 1.1, new Rotation2d(0))),
         new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
+        
+
         new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),
         new Align2Line(),
         new ViewItem()

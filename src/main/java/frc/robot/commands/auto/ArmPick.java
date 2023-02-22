@@ -20,7 +20,7 @@ public class ArmPick extends MoveArm {
     private final static Arm m_arm = RobotContainer.m_arm;
     private final static Sensor m_sensor = RobotContainer.m_sensor;
 
-    private double pickUpHeight = 0.01;
+    private double pickUpHeight = 0.02;
     private double ratio = 0;
     private int m_type;
     /**
@@ -37,7 +37,7 @@ public class ArmPick extends MoveArm {
     public void initialize() {
         // xgoal = 0.335 - (getItemY(Globals.curItem) - 120) * Globals.convertPxToMM + 0.012;
         Translation2d pos;
-        if (m_type==0) {
+        if (m_type==0) { // MOves arm in the x direction
             if (Globals.curItemType==0)// for cokeU
                 ratio = Globals.CokeRatio;
             else
@@ -45,7 +45,7 @@ public class ArmPick extends MoveArm {
             double x = m_arm.getArmPos().getX() + Globals.camera_offset - (Globals.curItemY - m_vision.getResolution(1)/2) * Globals.convertPxToM*ratio;
             pos = new Translation2d(x, m_arm.getArmPos().getY());
         }   
-        else if (m_type==1){
+        else if (m_type==1){ //  MOves arm in the Y direction but at a height from the object
             if (Globals.curItemType==0){// for cokeU
                 double y = (pickUpHeight + 0.04) - Globals.arm_offset_z+ Globals.gripper_offset;
                 pos = new Translation2d(m_arm.getArmPos().getX(), y);   
@@ -55,7 +55,7 @@ public class ArmPick extends MoveArm {
                 pos = new Translation2d(m_arm.getArmPos().getX(), y);
             }
         }
-        else {
+        else { // Moves the arm in the y direction to the picking height
             if (Globals.curItemType==0){// for cokeU
                 double y = (pickUpHeight + 0.12) - Globals.arm_offset_z+ Globals.gripper_offset;
                 pos = new Translation2d(m_arm.getArmPos().getX(), y);   

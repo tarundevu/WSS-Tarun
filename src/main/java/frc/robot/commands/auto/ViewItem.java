@@ -16,11 +16,12 @@ public class ViewItem extends SequentialCommandGroup{
     {
  
         super(
-        //new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
-        new MoveArm(new Translation2d(0.24,0.1), 0.5),
-        new MoveCamera(280),
+        // Moves arm to viewing position
+        new ViewingPosition(),
+        // sets cvMode to object detection mode
         new InstantCommand(()-> Globals.cvMode=1),  
-        new WaitCommand(3),
+        new WaitCommand(2),
+        // resets cvMode to idle mode
         new InstantCommand(()-> Globals.cvMode=-1)
         // new WaitCommand(2)
       

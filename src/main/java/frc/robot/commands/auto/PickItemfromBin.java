@@ -38,11 +38,12 @@ public class PickItemfromBin extends SequentialCommandGroup
 	public PickItemfromBin() 
     {
         super(   
+        // aligns gripper to item
         new AlignGripper(),
-        new MoveCamera(240),
-        new PickUp(),
-        new MoveArm(new Translation2d(0.33,0.3), 0.5), // Line detection position
-        new MoveArm(new Translation2d(0.33,0.24), 0.5) // Line detection position
+        // picks item
+        new PickUp().alongWith(new MoveCamera(240)),
+        // Lifts arm 
+        new DetectionPosition()
         );
     }
     

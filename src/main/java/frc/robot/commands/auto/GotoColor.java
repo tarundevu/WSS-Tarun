@@ -29,7 +29,8 @@ private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
   public GotoColor(Pose2d pose) {
       super(
   
-    new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation(),"color")[0], m_omnidrive.getCoord(pose.getTranslation(),"color")[1], new Rotation2d(0))),
+      // new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation(),"color")[0], m_omnidrive.getCoord(pose.getTranslation(),"color")[1], new Rotation2d(0))),
+      new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation(),"trolley"), new Rotation2d(0))),
       new Rotate2Orientation(pose.getRotation().getDegrees()),
       new WaitCommand(1)
       

@@ -19,14 +19,12 @@ public class Align2Line extends SequentialCommandGroup{
   private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
   public Align2Line(){
     super(
-      // Lifts arm up
-      new MoveArm(new Translation2d(0.33,0.3), 0.5), // Line detection position
-      new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
-      // move camera to horizontal position
-      new MoveCamera(300),
+      // Lifts arm up and close gripper
+      new DetectionPosition().alongWith(new Gripper(1,80)),
       // sets cv mode to line detection
       new InstantCommand(()-> Globals.cvMode = 0),
-      // aligns to trolley
+      new WaitCommand(0.5),
+      // aligns to line
       new AlignRobot(),
       // resets cv mode to idle mode
       new InstantCommand(()-> Globals.cvMode=-1),
