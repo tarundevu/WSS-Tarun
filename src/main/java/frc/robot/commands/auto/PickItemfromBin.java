@@ -43,6 +43,7 @@ public class PickItemfromBin extends SequentialCommandGroup
         // picks item
         new PickUp().alongWith(new MoveCamera(240)),
         // Lifts arm 
+        new MoveArm(new Translation2d(0.33,0.3), 0.5),
         new DetectionPosition()
         );
     }

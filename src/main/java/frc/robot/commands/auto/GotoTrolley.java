@@ -34,6 +34,7 @@ public class GotoTrolley extends SequentialCommandGroup {
       new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation(),"trolley"), new Rotation2d(0))),
       new Rotate2Orientation(pose.getRotation().getDegrees()),
       new Align2Trolley(),
+      new MoveRobotSense(1, 0.03, 0, 0,0.25, ()-> RobotContainer.m_sensor.getIRDistance()<=9),
       new WaitCommand(1)
       
     );

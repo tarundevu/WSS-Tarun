@@ -16,6 +16,7 @@ public class Align2Trolley extends SequentialCommandGroup{
   public Align2Trolley(){
     super(
       // Lifts arm
+      new MoveArm(new Translation2d(0.33,0.3), 0.5),
       new DetectionPosition(),
       // Align to trolley
       // new InstantCommand(()-> Globals.cvMode = 0),

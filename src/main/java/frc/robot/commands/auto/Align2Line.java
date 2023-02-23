@@ -20,7 +20,8 @@ public class Align2Line extends SequentialCommandGroup{
   public Align2Line(){
     super(
       // Lifts arm up and close gripper
-      new DetectionPosition().alongWith(new Gripper(1,80)),
+      new MoveArm(new Translation2d(0.33,0.3), 0.5),
+      new DetectionPosition().alongWith(new Gripper(0,80)),
       // sets cv mode to line detection
       new InstantCommand(()-> Globals.cvMode = 0),
       new WaitCommand(0.5),
@@ -31,7 +32,7 @@ public class Align2Line extends SequentialCommandGroup{
       // wait 2 secs
       new WaitCommand(2),
       // resets robot's position
-      new InstantCommand(()->m_omnidrive.UpdatePosition(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos))),
+      new ResetPosition(),
       // moves forward until robot is 15 cm away
       new MoveRobotSense(1, 0.3, 0, 0,0.25, ()-> m_sensor.getIRDistance()<=15)
     );

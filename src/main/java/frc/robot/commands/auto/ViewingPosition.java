@@ -8,7 +8,7 @@ public class ViewingPosition extends ParallelCommandGroup{
     super(
       // Lifts Arm
       new MoveArm(new Translation2d(0.24,0.1), 0.5),
-      new MoveCamera(280)
+      new MoveCamera(278)
     );
   }
 }

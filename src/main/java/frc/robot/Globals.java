@@ -112,6 +112,8 @@ public class Globals
           }
         }
       }
+      Globals.curItemType = 0;
+      Globals.curTarget = 0;
     return true;
   }
 

@@ -21,13 +21,14 @@ public class PickUp extends SequentialCommandGroup
     {
       
       super(
-        new Gripper(0, 70).alongWith(new ArmPick(0)),
+        // new Gripper(0, 70).alongWith
+        new ArmPick(0),
         
         new ArmPick(2).alongWith(new Gripper(1, 70)),
         
         new ArmPick(1),
         new Gripper(0), 
-        new MoveGripper(new Translation2d(0.4,0.3),0.5)
+        new MoveGripper(new Translation2d(0.4,0.3),0.25)
       );
       
     }

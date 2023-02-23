@@ -49,13 +49,13 @@ public class AutoMainCmd extends SequentialCommandGroup
         super(
         
         
-        // new Task_A()
+        new Task_A()
 
-        new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
-        new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),
-        new Align2Line(),
-        new ViewItem(),
-        new OpenHseLoopCommand(new ProcessSeq())//,
+        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
+        // new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),
+        // new Align2Line(),
+        // new ViewItem(),
+        // new OpenHseLoopCommand(new ProcessSeq())//,
         // new ProxyScheduleCommand(new MoveLeft())
         // ###################################################################################### // 
         //          FOR TESTING, IF ROBOT MOVEMENT HAS ISSUES           //

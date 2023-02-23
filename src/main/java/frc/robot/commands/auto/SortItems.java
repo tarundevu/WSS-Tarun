@@ -52,15 +52,14 @@ public class SortItems extends SequentialCommandGroup{
         // new MoveCamera(300),
         new SelectCommand(
             Map.ofEntries(
-                Map.entry(CommandSelector.ONE, new GotoColor(Layout.Convert_mm_Pose2d(Layout.RedPos))),
-                Map.entry(CommandSelector.TWO, new GotoColor(Layout.Convert_mm_Pose2d(Layout.GreenPos))),
-                Map.entry(CommandSelector.THREE, new GotoColor(Layout.Convert_mm_Pose2d(Layout.BluePos)))
+                Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.RedPos))),
+                Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.GreenPos))),
+                Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.BluePos)))
                 ), 
             SortItems::selectTarget
             ),
+        
         new PlaceDown(),
-        new MoveArm(new Translation2d(0.33,0.3), 0.5), // Line detection position
-        new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
         new MoveRobot(1, -0.05, 0, 0, 0.1),
         new SelectCommand(
             Map.ofEntries(

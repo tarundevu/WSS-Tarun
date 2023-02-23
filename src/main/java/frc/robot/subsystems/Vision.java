@@ -30,6 +30,7 @@ public class Vision extends SubsystemBase{
     // private final NetworkTableEntry D_JagabeeCount = tab.add("JagCnt", 0).getEntry();
     // private final NetworkTableEntry D_DettolCount = tab.add("DettolCnt", 0).getEntry();
     // private final NetworkTableEntry D_CokeCount = tab.add("CokeCnt", 0).getEntry();
+    private final NetworkTableEntry D_WOB = tab.add("WOBList", 0).getEntry();
     
     private final static Arm m_arm = RobotContainer.m_arm;
     private final NetworkTableEntry D_currentItem = tab.add("CurrentItem", 0).getEntry();
@@ -76,6 +77,7 @@ public class Vision extends SubsystemBase{
     public void getWOBItems(){
       // reads the array passed to the networktable
       double[] WOB = table.getEntry("WOB").getDoubleArray(defaultValue);
+      D_WOB.setString(""+ WOB[0] + WOB[1]+ WOB[2]+ "," + WOB[3]+ WOB[4]+ WOB[5]+ "," + WOB[6]+ WOB[7]+ WOB[8]);
       // stores the data in Globals in a 2d array
       int[][] Targets = new int[3][3];
       int index = 0;

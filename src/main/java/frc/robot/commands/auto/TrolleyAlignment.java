@@ -14,13 +14,18 @@ public class TrolleyAlignment extends MoveRobot{
     }
     @Override
     public void initialize(){
-        if (m_type == 0){
-            super.m_dist = ((RobotContainer.m_vision.getLine()[0] - Globals.imW/2 ) * convertPxToM)-Globals.camera_mount_offset_x;
+        if( (RobotContainer.m_vision.getLine()[0] > 0) || (RobotContainer.m_vision.getLine()[1] > 0) ){
+            if (m_type == 0){
+                super.m_dist = ((RobotContainer.m_vision.getLine()[0] - Globals.imW/2 ) * convertPxToM)-Globals.camera_mount_offset_x;
+            }
+            else if (m_type == 1){
+                super.m_dist = ((435 - RobotContainer.m_vision.getLine()[1] ) * convertPxToM);
+            }
         }
-        else if (m_type == 1){
-            super.m_dist = ((435 - RobotContainer.m_vision.getLine()[1] ) * convertPxToM);
-
+        else{
+            super.m_dist = 0;
         }
+        
         
         super.initialize();
     }
