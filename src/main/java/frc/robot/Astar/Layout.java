@@ -31,7 +31,7 @@ public class Layout {
         //(x0,y0) - centre of box
         //x0   y0    xSize ySize Angle
         {1400, 1100,  300,  420, 0 },   //Pick Up bin 1
-        {1400, 2450,  300,  420, 0 },   //Pick Up bin 2
+        {1380, 3000,  300,  420, 45 },   //Pick Up bin 2
         // {1140, 4390,  320, 230,  0 }, 
         // {1957, 2038-425,  150,  210,  0 }, 
        
@@ -39,22 +39,22 @@ public class Layout {
 
     //Coordinates of PickUp bin
     public static final int PickUpBinPos[] = {680,1100, -90};
-    public static final int PickUpBin2Pos[] = {680,2450, -90};
+    public static final int PickUpBin2Pos[] = {920,3470, -45};
     //These are coordinates of the red colored target area (NOTE: indicate the angle of orientation)
-    public static final int RedPos[] = {1300,3750, -90};
+    public static final int RedPos[] = {2000,4320, -45};
   
     //These are coordinates of the green colored target area
     public static final int GreenPos[] = {175,2660, 90};
 
     //These are coordinates of the blue colored target area
-    public static final int BluePos[] = {2000,1800,-90};//{1000,1800, -90};
+    public static final int BluePos[] = {900,1850,-90};//{1000,1800, -90};
 
     //These are coordinates of the trolleys (NOTE: indicate the angle of orientation) 
     public static final int T1Pos[] = {500,1600, 90};
   
-    public static final int T2Pos[] = {140,4350, 45};
+    public static final int T2Pos[] = {2040,1850,-90};
 
-    public static final int T3Pos[] = {2050,3150,-90};
+    public static final int T3Pos[] = {140,4350, 45};
 
     // Position for robot to go to for reading work order
     public static final int workOrderPos[] = {1200, 250, -90};//1200

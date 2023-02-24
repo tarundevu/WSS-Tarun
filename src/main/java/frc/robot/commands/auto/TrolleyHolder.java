@@ -28,7 +28,7 @@ public class TrolleyHolder extends CommandBase{
         if (pos==0)
             tgt_pos = 0;
         else if (pos==1)
-            tgt_pos = 150;
+            tgt_pos = 130;
     }
     
     /**

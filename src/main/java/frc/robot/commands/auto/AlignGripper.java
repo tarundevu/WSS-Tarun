@@ -15,7 +15,6 @@ public class AlignGripper extends MoveRobot {
     private final static OmniDrive m_drive = RobotContainer.m_omnidrive;
     private final static Vision m_vision = RobotContainer.m_vision;
     private final double _startSpeed;
-    // private double camera_offset_M = 0.015;
     private double ratio = 0;
     /**
      * This command is used to align the robot to the object that is to be picked
