@@ -39,8 +39,8 @@ public class PlaceDown extends SequentialCommandGroup
       // wait 1 sec
       new WaitCommand(1),
       // Moves arm up
-      new MoveArm(new Translation2d(0.33,0.3), 0.5),
-      new DetectionPosition().alongWith(new Gripper(0,80))
+      
+      new MoveArm(new Translation2d(0.2,0.25), 0.5).alongWith(new Gripper(0,80))
       );
       
     }

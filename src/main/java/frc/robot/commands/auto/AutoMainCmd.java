@@ -49,7 +49,8 @@ public class AutoMainCmd extends SequentialCommandGroup
         super(
         
         
-        new Task_A()
+        // new Task_A()
+        new SortTrolleys()
 
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
         // new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),

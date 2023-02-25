@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Vendor imports
 import com.kauailabs.navx.frc.AHRS;
 import com.studica.frc.TitanQuad;
@@ -134,37 +137,36 @@ public class OmniDrive extends SubsystemBase
      * @return - offset coordinates
      */
     public Translation2d getCoord(Translation2d XY,String type){
-        // double[] coord = new double[2];
-        
+      
         double x = XY.getX(),
                y = XY.getY();
         double offset = (type=="trolley")?0.45:0.37;
 
-        if (y > 4.29 && x > 0.21 && x < 2.04){ // Left
+        if (y > 4.15 && x > 0.35 && x < 1.9){ // Left
             x += 0;
             y -= offset;
          }
-        else if (y < 0.21 && x > 0.21 && x < 2.04){ //Right
+        else if (y < 0.35 && x > 0.35 && x < 1.9){ //Right
             x += 0;
             y += offset;
         }
 
-        else if (x < 0.75 && y > 0.21 && y < 4.29){ // Bottom
+        else if (x < 1.0 && y > 0.35 && y < 4.15){ // Bottom
             x += offset;
             y += 0;
         }
 
-        else if (x > 2.04 && y > 4.29){ // Top Left
-            x -= 0.35;
+        else if (x > 1.9 && y > 4.15){ // Top Left
+            x += 0.35;
             y -= 0.35;
         }
 
-        else if (x > 2.04 && y < 0.21){ // Top Right
-            x -= 0.35;
-            y += 0.35;
+        else if (x > 1.9 && y < 0.35){ // Top Right
+            x += 0.35;
+            y -= 0.35;
         }
 
-        else if (x < 0.21 && y > 4.29){ // Bottom Left
+        else if (x < 0.35 && y > 4.15){ // Bottom Left
             x += 0.35;
             y -= 0.35;
         }
@@ -173,12 +175,51 @@ public class OmniDrive extends SubsystemBase
             x -= offset;
             y += 0;
         }
-        // coord[0] = x;
-        // coord[1] = y;
+
         Translation2d coord = new Translation2d(x,y);
         return coord;
     }
-    
+    public void FindNearestTarget(){
+        // if (Globals.TargetList.isEmpty() == false)
+        //     Globals.TargetList.clear();
+        
+        Translation2d robotXY = getPose().getTranslation();
+        List<int[]> list = new ArrayList<int[]>();
+        double d1 = robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.RedPos).getTranslation()),
+               d2 = robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.GreenPos).getTranslation()),
+               d3 = robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.BluePos).getTranslation());
+        if (Math.min(d1, d2) == d1 && Math.min(d1, d3) == d1){
+            list.set(0, Layout.RedPos);
+            if (Math.min(d2, d3)==d2){
+                list.set(1, Layout.GreenPos);
+                list.set(2, Layout.BluePos);
+            }
+            else
+                list.set(1, Layout.BluePos);
+                list.set(2, Layout.GreenPos);
+        }
+        else if (Math.min(d1, d2) == d2 && Math.min(d2, d3) == d2){
+            list.set(0, Layout.GreenPos);
+            if (Math.min(d1, d3)==d1){
+                list.set(1, Layout.RedPos);
+                list.set(2, Layout.BluePos);
+            }
+            else
+                list.set(1, Layout.BluePos);
+                list.set(2, Layout.RedPos);
+        }
+        else if (Math.min(d1, d3) == d3 && Math.min(d2, d3) == d3){
+            list.set(0, Layout.BluePos);
+            if (Math.min(d1, d1)==d1){
+                list.set(1, Layout.RedPos);
+                list.set(2, Layout.GreenPos);
+            }
+            else
+                list.set(1, Layout.GreenPos);
+                list.set(2, Layout.RedPos);
+        }
+        Globals.TargetList = list;
+    }
     public void UpdatePosition(Pose2d tgtpos){
         double x = m_odometry.getPose().getTranslation().getX(),
                y = m_odometry.getPose().getTranslation().getY(),

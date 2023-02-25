@@ -58,7 +58,14 @@ public class SortItems extends SequentialCommandGroup{
                 ), 
             SortItems::selectTarget
             ),
-        
+        // new SelectCommand(
+        //     Map.ofEntries(
+        //         Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Globals.TargetList.get(0)))),
+        //         Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Globals.TargetList.get(1)))),
+        //         Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Globals.TargetList.get(2))))
+        //         ), 
+        //     SortItems::selectTarget
+        //     ),
         new PlaceDown(),
         new MoveRobot(1, -0.05, 0, 0, 0.1),
         new SelectCommand(

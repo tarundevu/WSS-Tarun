@@ -39,7 +39,7 @@ public class Layout {
 
     //Coordinates of PickUp bin
     public static final int PickUpBinPos[] = {680,1100, -90};
-    public static final int PickUpBin2Pos[] = {920,3470, -45};
+    public static final int PickUpBin2Pos[] = {920,3470, -135};
     //These are coordinates of the red colored target area (NOTE: indicate the angle of orientation)
     public static final int RedPos[] = {2000,4320, -45};
   
@@ -47,14 +47,14 @@ public class Layout {
     public static final int GreenPos[] = {175,2660, 90};
 
     //These are coordinates of the blue colored target area
-    public static final int BluePos[] = {900,1850,-90};//{1000,1800, -90};
+    public static final int BluePos[] = {940,1850, 90};//{1000,1800, -90};
 
     //These are coordinates of the trolleys (NOTE: indicate the angle of orientation) 
     public static final int T1Pos[] = {500,1600, 90};
   
-    public static final int T2Pos[] = {2040,1850,-90};
+    public static final int T2Pos[] = {2000,1850,-90};
 
-    public static final int T3Pos[] = {140,4350, 45};
+    public static final int T3Pos[] = {150, 4350, 45};
 
     // Position for robot to go to for reading work order
     public static final int workOrderPos[] = {1200, 250, -90};//1200

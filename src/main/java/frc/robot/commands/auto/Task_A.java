@@ -26,6 +26,7 @@ public class Task_A extends SequentialCommandGroup{
             new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
             new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),
             new Align2Line(),
+            new InstantCommand(()-> RobotContainer.m_omnidrive.FindNearestTarget()),// FOr testing
             // new WaitCommand(2),
             new ViewItem(),
             new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),
@@ -35,6 +36,7 @@ public class Task_A extends SequentialCommandGroup{
             new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos)),
             new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos).getRotation().getDegrees()),
             new Align2Line(),
+            new InstantCommand(()-> RobotContainer.m_omnidrive.FindNearestTarget()),// FOr testing
             // new WaitCommand(2),
             new ViewItem(),
             new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),

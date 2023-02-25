@@ -1,6 +1,10 @@
 package frc.robot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import frc.robot.Astar.Layout;
 
 //Put all global variables here
 public class Globals
@@ -60,6 +64,9 @@ public class Globals
       {0, -0.43, 0, 0, 5},
       {0, -0.43, 0, 0, 5}
     };
+
+    public static List<int[]> TargetList = new ArrayList<int[]>();
+    public static List<int[]> TrolleyList = new ArrayList<int[]>();
     /*
 	   *                                              C|D|J              
 	   *                                            R|x|x|x|
