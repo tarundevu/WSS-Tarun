@@ -140,35 +140,53 @@ public class OmniDrive extends SubsystemBase
       
         double x = XY.getX(),
                y = XY.getY();
-        double offset = (type=="trolley")?0.45:0.37;
+        double offset = (type=="trolley")?0.50:0.60;
 
-        if (y > 4.15 && x > 0.35 && x < 1.9){ // Left
+        if (y >= 4.15 && x >= 0.35 && x <= 1.9){ // Left
             x += 0;
             y -= offset;
          }
-        else if (y < 0.35 && x > 0.35 && x < 1.9){ //Right
+        else if (y <= 0.35 && x >= 0.35 && x <= 1.9){ //Right
             x += 0;
             y += offset;
         }
 
-        else if (x < 1.0 && y > 0.35 && y < 4.15){ // Bottom
+        else if (x <= 1.0 && y >= 0.35 && y <= 4.15){ // Bottom
             x += offset;
             y += 0;
         }
 
-        else if (x > 1.9 && y > 4.15){ // Top Left
-            x += 0.35;
-            y -= 0.35;
+        else if (x >= 1.9 && y >= 4.15){ // Top Left
+            if(type == "trolley"){
+                x -= 0.35;
+                y -= 0.35; 
+            }
+            else{
+                x -= 0.4;
+                y -= 0.4;
+            }
         }
 
-        else if (x > 1.9 && y < 0.35){ // Top Right
-            x += 0.35;
-            y -= 0.35;
+        else if (x >= 1.9 && y <= 0.35){ // Top Right
+            if(type == "trolley"){
+                x -= 0.35;
+                y += 0.35;
+            }
+            else{
+                x -= 0.4;
+                y += 0.4;
+            }
         }
 
-        else if (x < 0.35 && y > 4.15){ // Bottom Left
-            x += 0.35;
-            y -= 0.35;
+        else if (x <= 0.35 && y >= 4.15){ // Bottom Left
+            if(type == "trolley"){
+                x += 0.35;
+                y -= 0.35;
+            }
+            else{
+                x += 0.4;
+                y -= 0.4;
+            }
         }
 
         else { // Top or anywhere else
@@ -210,7 +228,7 @@ public class OmniDrive extends SubsystemBase
         }
         else if (Math.min(d1, d3) == d3 && Math.min(d2, d3) == d3){
             list.set(0, Layout.BluePos);
-            if (Math.min(d1, d1)==d1){
+            if (Math.min(d1, d2)==d1){
                 list.set(1, Layout.RedPos);
                 list.set(2, Layout.GreenPos);
             }

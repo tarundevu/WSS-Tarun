@@ -24,12 +24,13 @@ public class Align2Trolley extends SequentialCommandGroup{
       // sets cvMode to trolley alignment
       new InstantCommand(()-> Globals.cvMode = 5),
       new WaitCommand(2),
+      // resets cvMode to idle
+      new InstantCommand(()-> Globals.cvMode=-1),
       // Align trolley Y
       new TrolleyAlignment(0),
       // Align trolley X
-      new TrolleyAlignment(1),
-      // resets cvMode to idle
-      new InstantCommand(()-> Globals.cvMode=-1)
+      new TrolleyAlignment(1)
+      
       // new WaitCommand(2),
       // new MoveRobot(1, 0.03, 0, 0, 0.1)
     );

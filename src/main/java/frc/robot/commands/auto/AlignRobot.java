@@ -59,6 +59,23 @@ public class AlignRobot extends CommandBase{
         ay = 0.5*Constants.PID_DT;
         aw = 1*Constants.PID_DT;
     }
+    public AlignRobot(int x, int y){
+        // When Width = 300
+        // centerX = 155.0;
+        // centerY = 200.0;
+
+        // Width = 200
+        centerX = x;//100;
+        centerY= y;//100; // wanted to change to 120
+        useW = true;
+        double[] line = m_vision.getLine();
+        targetX = (line[0] - centerX);
+        targetY = -(line[1] - centerY);
+        targetW = -line[2];
+        ax = 0.5*Constants.PID_DT;
+        ay = 0.5*Constants.PID_DT;
+        aw = 1*Constants.PID_DT;
+    }
     /**
      * Runs before execute
      */

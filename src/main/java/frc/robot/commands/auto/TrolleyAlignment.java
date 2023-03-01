@@ -19,7 +19,7 @@ public class TrolleyAlignment extends MoveRobot{
                 super.m_dist = ((RobotContainer.m_vision.getLine()[0] - Globals.imW/2 ) * convertPxToM)-Globals.camera_mount_offset_x;
             }
             else if (m_type == 1){
-                super.m_dist = ((440 - RobotContainer.m_vision.getLine()[1] ) * convertPxToM);
+                super.m_dist = ((450 - RobotContainer.m_vision.getLine()[1] ) * convertPxToM);
             }
         }
         else{

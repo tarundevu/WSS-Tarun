@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 import java.util.Map;
 
-
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
@@ -32,6 +32,8 @@ private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
       // new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation(),"color")[0], m_omnidrive.getCoord(pose.getTranslation(),"color")[1], new Rotation2d(0))),
       new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation(),"color"), new Rotation2d(0))),
       new Rotate2Orientation(pose.getRotation().getDegrees()),
+      // new InstantCommand(()-> RobotContainer.m_vision.setColor("Green")),
+      new Align2Color(),
       new WaitCommand(1)
       
     );

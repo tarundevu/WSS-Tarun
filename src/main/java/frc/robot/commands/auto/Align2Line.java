@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Globals;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 // import frc.robot.Astar.Layout;
 import frc.robot.subsystems.Arm;
@@ -23,6 +24,7 @@ public class Align2Line extends SequentialCommandGroup{
       new MoveArm(new Translation2d(0.33,0.3), 0.5),
       new DetectionPosition().alongWith(new Gripper(0,80)),
       // sets cv mode to line detection
+      new InstantCommand(()-> RobotContainer.m_vision.setColor("Black")),
       new InstantCommand(()-> Globals.cvMode = 0),
       new WaitCommand(0.5),
       // aligns to line

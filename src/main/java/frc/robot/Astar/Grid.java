@@ -95,7 +95,7 @@ public class Grid extends Network{
         //Expand obstacle by path cost. These are high cost cell to force robot away from obstacle
         //It is possible for robot to enter these cells (tiles).
         //Number of cells to expand and their values are defined here
-        double keepOutDist_mm = 150;      
+        double keepOutDist_mm = 100;      
         int numOfCells = Math.round((float)keepOutDist_mm/Layout.tile_size_mm);  
         double expansion[] = new double[numOfCells];
         double factor = Math.exp(Math.log(0.1f)/numOfCells);
