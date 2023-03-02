@@ -66,8 +66,8 @@ public class Globals
       {0, -0.43, 0, 0, 5}
     };
 
-    public static List<int[]> TargetList = new ArrayList<int[]>();
-    public static List<int[]> TrolleyList = new ArrayList<int[]>();
+    public static Pose2d[] TargetList = new Pose2d[] {};
+    public static Pose2d[] TrolleyList = new Pose2d[] {};
     /*
 	   *                                              C|D|J              
 	   *                                            R|x|x|x|

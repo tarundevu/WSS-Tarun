@@ -10,7 +10,7 @@ public class DetectionPosition extends ParallelCommandGroup{
       
       new MoveArm(new Translation2d(0.33,0.24), 0.5),
       // move camera to horizontal position
-      new MoveCamera(300)
+      new MoveCamera(286)
     );
   }
   

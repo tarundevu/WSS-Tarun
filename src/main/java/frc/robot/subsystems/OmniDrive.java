@@ -236,7 +236,7 @@ public class OmniDrive extends SubsystemBase
                 list.set(1, Layout.GreenPos);
                 list.set(2, Layout.RedPos);
         }
-        Globals.TargetList = list;
+        // Globals.TargetList = list;
     }
     public void UpdatePosition(Pose2d tgtpos){
         double x = m_odometry.getPose().getTranslation().getX(),
@@ -405,7 +405,7 @@ public class OmniDrive extends SubsystemBase
         if (targetHeading>Math.PI) targetHeading -= Math.PI*2;
         if (targetHeading<-Math.PI) targetHeading += Math.PI*2;
 
-        ffws[2] = pidInputs[2]*0.43;
+        ffws[2] = pidInputs[2]*0.1;
 
         pidOutputs[2] = pidControllers[2].calculate(curHeading, targetHeading) + ffws[2];
 

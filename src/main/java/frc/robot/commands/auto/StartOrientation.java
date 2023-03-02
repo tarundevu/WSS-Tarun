@@ -8,7 +8,7 @@ public class StartOrientation extends MoveRobot{
   }
   @Override
   public void initialize(){
-    super.m_dist = -Globals.startYaw;
+    super.m_dist = Globals.startYaw;
     super.initialize();
   }
 }

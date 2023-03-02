@@ -49,11 +49,15 @@ public class AutoMainCmd extends SequentialCommandGroup
         super(
         
         
-        new StartOrientation()
+        // new StartOrientation()
         // new StartPosition()
-        // new Task_A()
+        new Task_A()
         // new SortTrolleys()
-        // new Align2Trolley()
+        // new Align2Line()
+        // new TrolleyHolder(1),
+        // new InstantCommand(()-> RobotContainer.m_vision.setColor("Green")),
+        // new Align2Color()
+        // new DetectionPosition()
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
         // new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),
         // new Align2Line(),

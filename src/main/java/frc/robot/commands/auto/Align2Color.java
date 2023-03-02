@@ -14,7 +14,7 @@ public class Align2Color extends SequentialCommandGroup {
       new MoveArm(new Translation2d(0.33,0.3), 0.5),
       new MoveArm(new Translation2d(0.33,0.24), 0.5),
       // move camera to horizontal position
-      new MoveCamera(275),
+      new MoveCamera(265),
       // Align to trolle
       // sets cvMode to trolley alignment
       new InstantCommand(()-> Globals.cvMode = 0),
@@ -24,7 +24,7 @@ public class Align2Color extends SequentialCommandGroup {
       // resets cvMode to idle
       new InstantCommand(()-> Globals.cvMode=-1),
       // new WaitCommand(2),
-      new MoveRobot(1, 0.37, 0, 0, 0.1)
+      new MoveRobot(1, 0.25, 0, 0, 0.1)
     );
   }
 }

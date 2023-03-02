@@ -16,7 +16,7 @@ public class Task_A extends SequentialCommandGroup{
     public Task_A(){
         super(
             // Start Orientation Correction
-            new StartOrientation(),
+            // new StartOrientation(),
             //## Read WOB ##// 
             new MovetoB(Layout.Convert_mm_Pose2d(Layout.workOrderPos)),
             new ReadWOB(),
