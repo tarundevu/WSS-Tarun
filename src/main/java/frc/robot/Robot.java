@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer. 
     m_robotContainer = new RobotContainer();
     m_omnidrive = RobotContainer.m_omnidrive;
-
+    m_omnidrive.gyro.zeroYaw();
     //Run PID in different thread at higher rate
     if (Constants.PID_THREAD ) {
       m_follower = new Notifier(() -> { m_omnidrive.doPID(); });
@@ -97,7 +97,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_teleopCommand = m_robotContainer.getTeleopCommand();
-    RobotContainer.m_omnidrive.initialise();
+    RobotContainer.m_omnidrive.initialise(); 
     RobotContainer.m_arm.initialize();
     RobotContainer.m_vision.initialize();
     // schedule the autonomous command (example)

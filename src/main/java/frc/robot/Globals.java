@@ -36,9 +36,10 @@ public class Globals
     public static double curItemX;
     public static double curItemY;
     public static double curAngle = 0;
+    public static double IRdist = 0;
     public static Pose2d curPose;
     public static int loopCount = 0;
-    
+    public static double startYaw;
     /*
      *  Red   = 0
      *  Green = 1

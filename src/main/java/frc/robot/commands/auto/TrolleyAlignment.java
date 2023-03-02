@@ -18,9 +18,13 @@ public class TrolleyAlignment extends MoveRobot{
             if (m_type == 0){
                 super.m_dist = ((RobotContainer.m_vision.getLine()[0] - Globals.imW/2 ) * convertPxToM)-Globals.camera_mount_offset_x;
             }
-            else if (m_type == 1){
-                super.m_dist = ((450 - RobotContainer.m_vision.getLine()[1] ) * convertPxToM);
-            }
+            // else if (m_type == 1){
+            //     // super.m_dist = ((450 - RobotContainer.m_vision.getLine()[1] ) * convertPxToM);
+            //     double dist = 0;
+            //     dist = RobotContainer.m_sensor.getIRDistance()/100;
+            //     super.m_dist = dist;
+            // }
+
         }
         else{
             super.m_dist = 0;
@@ -36,11 +40,11 @@ public class TrolleyAlignment extends MoveRobot{
                 return true;
             }
         }
-        else if (m_type == 1){
-            if (Math.abs(RobotContainer.m_vision.getLine()[1] - 450) <3) {
-                return true;
-            }
-        }
+        // else if (m_type == 1){
+        //     if (Math.abs(RobotContainer.m_vision.getLine()[1] - 450) <3) {
+        //         return true;
+        //     }
+        // }
         return false;
     }
 }

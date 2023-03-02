@@ -57,7 +57,7 @@ public class OmniDrive extends SubsystemBase
     // Sensors
     private final DigitalOutput outDebug8;
     
-    private final AHRS gyro;
+    public final AHRS gyro;
 
     // Shuffleboard
     private final ShuffleboardTab tab = Shuffleboard.getTab("OmniDrive");
@@ -427,6 +427,7 @@ public class OmniDrive extends SubsystemBase
    public void initialise(){
         setRobotSpeedXYW(0,0,0);
         m_odometry.resetPosition(Layout.Convert_mm_Pose2d(Layout.startPos));
+        Globals.startYaw = getYawRad();
         gyro.zeroYaw();
         curHeading = targetHeading = getYawRad();
         for (int i=0; i<Constants.PID_NUM; i++){

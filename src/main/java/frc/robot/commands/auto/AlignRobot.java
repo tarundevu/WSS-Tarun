@@ -59,7 +59,7 @@ public class AlignRobot extends CommandBase{
         ay = 0.5*Constants.PID_DT;
         aw = 1*Constants.PID_DT;
     }
-    public AlignRobot(int x, int y){
+    public AlignRobot(int x, int y, boolean w){
         // When Width = 300
         // centerX = 155.0;
         // centerY = 200.0;
@@ -67,7 +67,7 @@ public class AlignRobot extends CommandBase{
         // Width = 200
         centerX = x;//100;
         centerY= y;//100; // wanted to change to 120
-        useW = true;
+        useW = w;
         double[] line = m_vision.getLine();
         targetX = (line[0] - centerX);
         targetY = -(line[1] - centerY);
@@ -104,7 +104,9 @@ public class AlignRobot extends CommandBase{
     @Override
     public void execute()
     {
-        double[] line = m_vision.getLine();
+        if(m_vision.getLine()[0] != 0 && m_vision.getLine()[0] != 1 )
+        {
+            double[] line = m_vision.getLine();
         targetX = (line[0] - centerX);
         targetY = -(line[1] - centerY);
         targetW = -line[2];
@@ -148,6 +150,12 @@ public class AlignRobot extends CommandBase{
             }
         }
           count ++;
+        }
+        else{
+            m_drive.setRobotSpeedXYW(0, 0, 0);
+            m_endFlag = true;
+        }
+        
         
     }
      /**

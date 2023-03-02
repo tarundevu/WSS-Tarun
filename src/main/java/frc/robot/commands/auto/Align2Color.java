@@ -20,7 +20,7 @@ public class Align2Color extends SequentialCommandGroup {
       new InstantCommand(()-> Globals.cvMode = 0),
       // RMBR IMPORTANT!! setColormode before calling Align2Color
       new WaitCommand(2),
-      new AlignRobot(195,200),
+      new AlignRobot(195,200, false),
       // resets cvMode to idle
       new InstantCommand(()-> Globals.cvMode=-1),
       // new WaitCommand(2),

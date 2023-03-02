@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Globals;
 
 public class Sensor extends SubsystemBase
 {
@@ -75,7 +76,7 @@ public class Sensor extends SubsystemBase
      * Call for the distance measured by the Sharp IR Sensor
      * <p>
      * 
-     * @return value between 0 - 100 (valid data range is 10cm - 80cm)
+     * @return value between 0 - 100 (valid data range is 8cm - 80cm)
      */
     public double getIRDistance() {
         return (Math.pow(sharp22.getAverageVoltage(), -1.2045)) * 27.726;
@@ -85,7 +86,9 @@ public class Sensor extends SubsystemBase
         return (Math.pow(sharp23.getAverageVoltage(), -1.2045)) * 27.726;
         
     }
-    
+    public void setIRDist(){
+        Globals.IRdist = getIRDistance()/100;
+    }
     // public double getUltrasonicDistance(){
         
     //     return sonar.getRangeMM();
