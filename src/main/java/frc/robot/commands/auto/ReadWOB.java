@@ -12,6 +12,7 @@ import frc.robot.subsystems.Vision;
 public class ReadWOB extends SequentialCommandGroup{
   private final static Arm m_arm = RobotContainer.m_arm;
   private final static Vision m_vision = RobotContainer.m_vision;
+  //This command is used to read the Work Order Board
   public ReadWOB(){
     super(
       // sets cvMOde to work order board detection
@@ -21,10 +22,11 @@ public class ReadWOB extends SequentialCommandGroup{
       new WaitCommand(2),
       // gets the array from networktables and saves it
       new InstantCommand(()-> m_vision.getWOBItems()),
+      // resets cvMode to idle
       new InstantCommand(()-> Globals.cvMode=-1),
+      // wait 2 secs
       new WaitCommand(2),
       // Lifts arm up
-      new MoveArm(new Translation2d(0.33,0.3), 0.5),
       new DetectionPosition()
     );
   }

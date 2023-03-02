@@ -41,17 +41,17 @@ public class Vision extends SubsystemBase{
     private final NetworkTableEntry D_cvMode = tab.add("cvMode", 0).getEntry(); 
     private final NetworkTableEntry D_colorMode = tab.add("ColorMode", 0).getEntry();
     // private final NetworkTableEntry D_useTF = tab.add("useTF", 0).getEntry();
-    private final NetworkTableEntry D_CameraMountOffsetX = tab.addPersistent("CameraMountOffsetX", 0.01).withWidget(BuiltInWidgets.kNumberSlider)
+    private final NetworkTableEntry D_CameraMountOffsetX = tab.addPersistent("CameraMountOffsetX", 0.015).withWidget(BuiltInWidgets.kNumberSlider)
     .withProperties(Map.of("min", 0, "max", 0.1)).getEntry();
-    private final NetworkTableEntry D_ConvertPxToM = tab.addPersistent("ConvertPxToM", 0.000625).withWidget(BuiltInWidgets.kNumberSlider)
+    private final NetworkTableEntry D_ConvertPxToM = tab.addPersistent("ConvertPxToM", 0.0006225).withWidget(BuiltInWidgets.kNumberSlider)
     .withProperties(Map.of("min", 0, "max", 0.0007)).getEntry();
     private final NetworkTableEntry D_ArmOffsetZ = tab.addPersistent("ArmOffsetZ", 0.25).withWidget(BuiltInWidgets.kNumberSlider)
             .withProperties(Map.of("min", 0, "max", 0.5)).getEntry();
-    private final NetworkTableEntry D_GripperOffsetZ = tab.addPersistent("GripperOffsetZ", 0.16).withWidget(BuiltInWidgets.kNumberSlider)
+    private final NetworkTableEntry D_GripperOffsetZ = tab.addPersistent("GripperOffsetZ", 0.19).withWidget(BuiltInWidgets.kNumberSlider)
             .withProperties(Map.of("min", 0, "max", 0.25)).getEntry();
-    private final NetworkTableEntry D_CokeRatio = tab.addPersistent("CokeRatio", 0.85).withWidget(BuiltInWidgets.kNumberSlider)
+    private final NetworkTableEntry D_CokeRatio = tab.addPersistent("CokeRatio", 0.79).withWidget(BuiltInWidgets.kNumberSlider)
             .withProperties(Map.of("min", 0, "max", 1)).getEntry();
-            
+    private final NetworkTableEntry D_WOBArray = tab.add("WOB array", 0).withWidget(BuiltInWidgets.kTextView).getEntry();      
     private double[] defaultValue = new double[12];
     
     public Vision(){
@@ -157,7 +157,11 @@ public class Vision extends SubsystemBase{
           }
       }
   }
-
+  public String array(){
+    String n = "tt";
+    String.format(" %s", n);
+    return n;
+  }
     public void initialize(){
       // Code written here will run before execute //
      Globals.curBin = 0;
@@ -167,6 +171,7 @@ public class Vision extends SubsystemBase{
      m_arm.setCameraAngle(290);
       
     }
+   
     @Override
     public void periodic()
     {
@@ -184,6 +189,9 @@ public class Vision extends SubsystemBase{
         // D_JagabeeCount.setNumber(getObjects()[0]);
         // D_DettolCount.setNumber(getObjects()[3]);
         // D_CokeCount.setNumber(getObjects()[6]);
+        D_WOBArray.setString(String.format("R:%s,%s,%s G:%s,%s,%s B:%s,%s,%s",Globals.Targets[0][0],Globals.Targets[0][1],Globals.Targets[0][2],
+                                                                                      Globals.Targets[1][0],Globals.Targets[1][1],Globals.Targets[1][2],
+                                                                                      Globals.Targets[2][0],Globals.Targets[2][1],Globals.Targets[2][2]));
         D_cvMode.setNumber(Globals.cvMode);
     
     }

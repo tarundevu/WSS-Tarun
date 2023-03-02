@@ -9,6 +9,7 @@ import frc.robot.commands.auto.MoveRobot;;
  * <p>
  * This class creates the inline auto command to drive the motor
  */
+// NOT USED IN COMPETITION
 public class MoveBack extends SequentialCommandGroup
 {
     public MoveBack()

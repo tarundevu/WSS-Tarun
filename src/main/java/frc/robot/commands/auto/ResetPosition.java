@@ -21,6 +21,9 @@ public class ResetPosition extends SequentialCommandGroup{
         return CommandSelector.TWO;
     
   }
+  /**
+   * Resets the current position of the robot with the pick up bin coordinates
+   */
   public ResetPosition(){
     super(
       new SelectCommand(

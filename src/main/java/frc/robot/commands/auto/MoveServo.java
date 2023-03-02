@@ -20,6 +20,7 @@ import frc.robot.subsystems.Arm;
  * <p>
  * This class drives a motor 
  */
+// NOT USED IN COMPETITION
 public class MoveServo extends CommandBase
 {
     //Grab the subsystem instance from RobotContainer

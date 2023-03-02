@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
  * <p>
  * This class creates the inline auto command to drive the motor
  */
+// NOT USED IN COMPETITION
 public class RotateTest extends SequentialCommandGroup
 {
    

@@ -13,6 +13,7 @@ import frc.robot.commands.auto.MoveRobotSense;
  * <p>
  * This class creates the inline auto command to drive the motor
  */
+// NOT USED IN COMPETITION
 public class MoveTest extends SequentialCommandGroup
 {
     private enum CommandSelector {

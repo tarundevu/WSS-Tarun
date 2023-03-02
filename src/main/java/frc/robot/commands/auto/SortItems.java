@@ -2,18 +2,12 @@ package frc.robot.commands.auto;
 
 import java.util.Map;
 import frc.robot.Globals;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.RobotContainer;
 import frc.robot.Astar.Layout;
-import frc.robot.subsystems.Arm;
 
+// The Routine for picking and transporting items to trolley/target area
 public class SortItems extends SequentialCommandGroup{
-  private final static Arm m_arm = RobotContainer.m_arm;
   private enum CommandSelector {
     ONE, TWO, THREE
   }
@@ -49,20 +43,20 @@ public class SortItems extends SequentialCommandGroup{
     {
         super(   
         new PickItemfromBin(),
-        // new MoveCamera(300),
+        new MoveCamera(286),
         new SelectCommand(
             Map.ofEntries(
-                Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.RedPos))),
-                Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.GreenPos))),
-                Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.BluePos)))
+                Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T1Pos))),
+                Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T2Pos))),
+                Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T3Pos)))
                 ), 
             SortItems::selectTarget
             ),
         // new SelectCommand(
         //     Map.ofEntries(
-        //         Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Globals.TargetList.get(0)))),
-        //         Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Globals.TargetList.get(1)))),
-        //         Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Globals.TargetList.get(2))))
+        //         Map.entry(CommandSelector.ONE, new GotoTrolley(Globals.TrolleyList[0])),
+        //         Map.entry(CommandSelector.TWO, new GotoTrolley(Globals.TrolleyList[1])),
+        //         Map.entry(CommandSelector.THREE, new GotoTrolley(Globals.TrolleyList[2]))
         //         ), 
         //     SortItems::selectTarget
         //     ),

@@ -197,46 +197,140 @@ public class OmniDrive extends SubsystemBase
         Translation2d coord = new Translation2d(x,y);
         return coord;
     }
-    public void FindNearestTarget(){
-        // if (Globals.TargetList.isEmpty() == false)
-        //     Globals.TargetList.clear();
-        
+    public void FindNearestTrolley(){
         Translation2d robotXY = getPose().getTranslation();
-        List<int[]> list = new ArrayList<int[]>();
-        double d1 = robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.RedPos).getTranslation()),
-               d2 = robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.GreenPos).getTranslation()),
-               d3 = robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.BluePos).getTranslation());
-        if (Math.min(d1, d2) == d1 && Math.min(d1, d3) == d1){
-            list.set(0, Layout.RedPos);
-            if (Math.min(d2, d3)==d2){
-                list.set(1, Layout.GreenPos);
-                list.set(2, Layout.BluePos);
-            }
-            else
-                list.set(1, Layout.BluePos);
-                list.set(2, Layout.GreenPos);
+        Pose2d[] list = new Pose2d[] {};
+        double first, second, third;
+        // finds distance from robot to trolleys
+        double d1 = robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.T1Pos).getTranslation()),
+               d2 = robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.T2Pos).getTranslation()),
+               d3 = robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.T3Pos).getTranslation());
+        
+        // Find smallest distance
+        first = Math.min(d1, Math.min(d2, d3));
+        // Find largest distance
+        third = Math.max(d1, Math.max(d2, d3));
+        // Find middle distance
+        second = d1 + d2 + d3 - first - third;
+
+        if (first==d1)
+            list[0] = Layout.Convert_mm_Pose2d(Layout.T1Pos);
+        else if (first==d2)
+            list[0] = Layout.Convert_mm_Pose2d(Layout.T2Pos); 
+        else if (first == d3)   
+            list[0] = Layout.Convert_mm_Pose2d(Layout.T3Pos);
+        if (second==d1)
+            list[1] = Layout.Convert_mm_Pose2d(Layout.T1Pos);
+        else if (second==d2)
+            list[1] = Layout.Convert_mm_Pose2d(Layout.T2Pos); 
+        else if (second == d3)   
+            list[1] = Layout.Convert_mm_Pose2d(Layout.T3Pos);
+        if (third==d1)
+            list[2] = Layout.Convert_mm_Pose2d(Layout.T1Pos);
+        else if (third==d2)
+            list[2] = Layout.Convert_mm_Pose2d(Layout.T2Pos); 
+        else if (third == d3)   
+            list[2] = Layout.Convert_mm_Pose2d(Layout.T3Pos);
+        // if (Math.min(d1, d2) == d1 && Math.min(d1, d3) == d1){
+        //     list[0] = Layout.Convert_mm_Pose2d(Layout.RedPos);
+        //     if (Math.min(d2, d3)==d2){
+        //         list[1] = Layout.Convert_mm_Pose2d(Layout.GreenPos);
+        //         list[2] = Layout.Convert_mm_Pose2d(Layout.BluePos);
+        //     }
+        //     else
+        //         list[1] = Layout.Convert_mm_Pose2d(Layout.BluePos);
+        //         list[2] = Layout.Convert_mm_Pose2d(Layout.GreenPos);
+        // }
+        // else if (Math.min(d1, d2) == d2 && Math.min(d2, d3) == d2){
+        //     list[0] = Layout.Convert_mm_Pose2d(Layout.GreenPos);
+        //     if (Math.min(d1, d3)==d1){
+        //         list[1] = Layout.Convert_mm_Pose2d(Layout.RedPos);
+        //         list[2] = Layout.Convert_mm_Pose2d(Layout.BluePos);
+        //     }
+        //     else
+        //         list[1] = Layout.Convert_mm_Pose2d(Layout.BluePos);
+        //         list[2] = Layout.Convert_mm_Pose2d(Layout.RedPos);
+        // }
+        // else if (Math.min(d1, d3) == d3 && Math.min(d2, d3) == d3){
+        //     list[0] = Layout.Convert_mm_Pose2d(Layout.BluePos);
+        //     if (Math.min(d1, d2)==d1){
+        //         list[1] = Layout.Convert_mm_Pose2d(Layout.RedPos);
+        //         list[2] = Layout.Convert_mm_Pose2d(Layout.GreenPos);
+        //     }
+        //     else
+        //         list[1] = Layout.Convert_mm_Pose2d(Layout.GreenPos);
+        //         list[2] = Layout.Convert_mm_Pose2d(Layout.RedPos);
+        // }
+        
+        Globals.TrolleyList = list;
+    }
+    public void FindNearestTarget(){
+        Translation2d robotXY = getPose().getTranslation();
+        Pose2d[] trolleylist = new Pose2d[] {};
+        Pose2d[] targetlist = new Pose2d[] {};
+        double first, second, third;
+        // finds distance from trolleys to target areas
+        double d1 = Layout.Convert_mm_Pose2d(Layout.T1Pos).getTranslation().getDistance(Layout.Convert_mm_Pose2d(Layout.RedPos).getTranslation()),
+               d2 = Layout.Convert_mm_Pose2d(Layout.T2Pos).getTranslation().getDistance(Layout.Convert_mm_Pose2d(Layout.GreenPos).getTranslation()),
+               d3 = Layout.Convert_mm_Pose2d(Layout.T3Pos).getTranslation().getDistance(Layout.Convert_mm_Pose2d(Layout.BluePos).getTranslation());
+        d1 += robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.T1Pos).getTranslation());
+        d2 += robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.T2Pos).getTranslation());
+        d3 += robotXY.getDistance(Layout.Convert_mm_Pose2d(Layout.T3Pos).getTranslation());
+        // Find smallest distance
+        first = Math.min(d1, Math.min(d2, d3));
+        // Find largest distance
+        third = Math.max(d1, Math.max(d2, d3));
+        // Find middle distance
+        second = d1 + d2 + d3 - first - third;
+
+        if (first==d1){
+            targetlist[0] = Layout.Convert_mm_Pose2d(Layout.RedPos);
+            trolleylist[0] = Layout.Convert_mm_Pose2d(Layout.T1Pos);
+            Globals.curTrolley = 0;
         }
-        else if (Math.min(d1, d2) == d2 && Math.min(d2, d3) == d2){
-            list.set(0, Layout.GreenPos);
-            if (Math.min(d1, d3)==d1){
-                list.set(1, Layout.RedPos);
-                list.set(2, Layout.BluePos);
-            }
-            else
-                list.set(1, Layout.BluePos);
-                list.set(2, Layout.RedPos);
+        else if (first==d2){
+            targetlist[0] = Layout.Convert_mm_Pose2d(Layout.GreenPos); 
+            trolleylist[0] = Layout.Convert_mm_Pose2d(Layout.T2Pos);
+       
         }
-        else if (Math.min(d1, d3) == d3 && Math.min(d2, d3) == d3){
-            list.set(0, Layout.BluePos);
-            if (Math.min(d1, d2)==d1){
-                list.set(1, Layout.RedPos);
-                list.set(2, Layout.GreenPos);
-            }
-            else
-                list.set(1, Layout.GreenPos);
-                list.set(2, Layout.RedPos);
+        else if (first == d3){
+            targetlist[0] = Layout.Convert_mm_Pose2d(Layout.BluePos);
+            trolleylist[0] = Layout.Convert_mm_Pose2d(Layout.T3Pos);
+        
         }
-        // Globals.TargetList = list;
+        if (second==d1){
+            targetlist[1] = Layout.Convert_mm_Pose2d(Layout.RedPos);
+            trolleylist[1] = Layout.Convert_mm_Pose2d(Layout.T1Pos);
+    
+        }
+        else if (second==d2){
+            targetlist[1] = Layout.Convert_mm_Pose2d(Layout.GreenPos);
+            trolleylist[1] = Layout.Convert_mm_Pose2d(Layout.T2Pos); 
+       
+        }
+        else if (second == d3){
+            targetlist[1] = Layout.Convert_mm_Pose2d(Layout.BluePos);
+            trolleylist[1] = Layout.Convert_mm_Pose2d(Layout.T3Pos);
+   
+        }
+        if (third==d1){
+            targetlist[2] = Layout.Convert_mm_Pose2d(Layout.RedPos);
+            trolleylist[2] = Layout.Convert_mm_Pose2d(Layout.T1Pos);
+     
+        }
+        else if (third==d2){
+            targetlist[2] = Layout.Convert_mm_Pose2d(Layout.GreenPos); 
+            trolleylist[2] = Layout.Convert_mm_Pose2d(Layout.T2Pos);
+        
+        }
+        else if (third == d3){
+            targetlist[2] = Layout.Convert_mm_Pose2d(Layout.BluePos);
+            trolleylist[2] = Layout.Convert_mm_Pose2d(Layout.T3Pos);
+  
+        }
+        
+        Globals.TargetList = targetlist;  
+        Globals.TrolleyList = trolleylist;
     }
     public void UpdatePosition(Pose2d tgtpos){
         double x = m_odometry.getPose().getTranslation().getX(),

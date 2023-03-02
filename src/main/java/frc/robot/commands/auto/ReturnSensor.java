@@ -13,6 +13,7 @@ import frc.robot.RobotContainer;
  * <p>
  * This class creates the inline auto command to drive the motor
  */
+// NOT USED IN COMPETITION
 public class ReturnSensor extends SequentialCommandGroup
 {
     

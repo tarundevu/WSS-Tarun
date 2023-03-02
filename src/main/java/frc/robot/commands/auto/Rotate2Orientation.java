@@ -21,13 +21,17 @@ public class Rotate2Orientation extends MoveRobot {
     private double s_angle = 0;
     /**
      * This command is used to align the robot to the object that is to be picked
+     * @param angle - The orientation to rotate to
      */
     public Rotate2Orientation(double angle){
         super(2, 0, 0, 0, Math.PI/3);
         
         s_angle = angle;
     }
-
+    /**
+     * This command is used to align the robot to the object that is to be picked
+     * @param pose - The pose of the target coordinates
+     */
     public Rotate2Orientation(Pose2d pose){
         super(2, 0, 0, 0, Math.PI/3);
         

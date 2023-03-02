@@ -26,45 +26,17 @@ public class AlignRobot extends CommandBase{
     private boolean useW = false;
     
     /**
-     * This command aligns the robot to desired black objects (T Junction or Trolley)
+     * This command aligns the robot to desired black/color objects (T Junction or color)
      * <p>
      * 
      * @param x - target X position
      * @param y - target Y position
+     * @param w - true or false for using rotation(true for line, false for color)
+     * <p>
+     * Line-> x = 195, y = 175 | Color-> x = 195, y = 200 (Default values, to be adjusted)
      */
-    public AlignRobot(String object){
-        useW = object == "trolley"? false:true;
-        centerX = 100;
-        centerY = 110;
-        // targetW = -m_vision.getLine(2);
-        double[] line = m_vision.getLine();
-        targetX = (line[0] - centerX);
-        targetY = -(line[1] - centerY);
-    }
-
-    public AlignRobot(){
-        // When Width = 300
-        // centerX = 155.0;
-        // centerY = 200.0;
-
-        // Width = 200
-        centerX = 195;//100;
-        centerY= 175;//100; // wanted to change to 120
-        useW = true;
-        double[] line = m_vision.getLine();
-        targetX = (line[0] - centerX);
-        targetY = -(line[1] - centerY);
-        targetW = -line[2];
-        ax = 0.5*Constants.PID_DT;
-        ay = 0.5*Constants.PID_DT;
-        aw = 1*Constants.PID_DT;
-    }
     public AlignRobot(int x, int y, boolean w){
-        // When Width = 300
-        // centerX = 155.0;
-        // centerY = 200.0;
 
-        // Width = 200
         centerX = x;//100;
         centerY= y;//100; // wanted to change to 120
         useW = w;

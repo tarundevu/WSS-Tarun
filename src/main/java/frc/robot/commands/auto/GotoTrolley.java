@@ -24,8 +24,8 @@ public class GotoTrolley extends SequentialCommandGroup {
   private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
   /**
    * This command moves the robot in front of the trolley and rotates to face it
-   * @param pose - Coordinates of trolley in Pose2d(Use Layout.Convert_mm_Pose2d(int[] from Layout))
-   * 
+   * @param pose - Coordinates of trolley in Pose2d(Use Layout.Convert_mm_Pose2d(int[] from Layout)) <p>
+   * Aligns to trolley
    */
   public GotoTrolley(Pose2d pose) {
     super(
@@ -36,7 +36,7 @@ public class GotoTrolley extends SequentialCommandGroup {
       new Align2Trolley(),
       new MoveRobotSense(1, 0.03, 0, 0,0.25, ()-> RobotContainer.m_sensor.getIRDistance()<=9),
       new WaitCommand(1)
-      
+      // This command does not call the trolley holder command. Please call it after executing this command.
     );
   }
 }

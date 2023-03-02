@@ -23,8 +23,8 @@ public class GotoColor extends SequentialCommandGroup {
 private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
   /**
    * This command moves the robot in front of the target and rotates to face it
-   * @param pose - Coordinates of trolley in Pose2d(Use Layout.Convert_mm_Pose2d(int[] from Layout))
-   * 
+   * @param pose - Coordinates of target area in Pose2d(Use Layout.Convert_mm_Pose2d(int[] from Layout)) <p>
+   * Aligns to color
    */
   public GotoColor(Pose2d pose) {
       super(

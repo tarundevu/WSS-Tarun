@@ -15,7 +15,7 @@ public class CP7 extends SequentialCommandGroup {
         super(
             // Puts camera in viewing position
             new MoveArm(new Translation2d(0.3,0.4), 2),
-            new MoveCamera(290),
+            new MoveCamera(286),
             // Put to finding trolley and transform point 
             new InstantCommand(() -> Globals.cvMode = 4),
             // Move out of the way

@@ -86,9 +86,6 @@ public class Sensor extends SubsystemBase
         return (Math.pow(sharp23.getAverageVoltage(), -1.2045)) * 27.726;
         
     }
-    public void setIRDist(){
-        Globals.IRdist = getIRDistance()/100;
-    }
     // public double getUltrasonicDistance(){
         
     //     return sonar.getRangeMM();

@@ -9,6 +9,7 @@ import frc.robot.commands.auto.MoveRobot;;
  * <p>
  * This class creates the inline auto command to drive the motor
  */
+// NOT USED IN COMPETITION
 public class MoveTurns extends SequentialCommandGroup
 {   
     public static double turnSpeed = 0.4;
