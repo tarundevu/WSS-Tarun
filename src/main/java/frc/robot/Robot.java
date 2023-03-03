@@ -81,6 +81,7 @@ public class Robot extends TimedRobot {
     RobotContainer.m_omnidrive.initialise();
     RobotContainer.m_arm.initialize();
     RobotContainer.m_vision.initialize();
+    //RobotContainer.InitMap();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

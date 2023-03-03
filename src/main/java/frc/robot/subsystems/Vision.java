@@ -51,7 +51,7 @@ public class Vision extends SubsystemBase{
             .withProperties(Map.of("min", 0, "max", 0.25)).getEntry();
     private final NetworkTableEntry D_CokeRatio = tab.addPersistent("CokeRatio", 0.79).withWidget(BuiltInWidgets.kNumberSlider)
             .withProperties(Map.of("min", 0, "max", 1)).getEntry();
-    private final NetworkTableEntry D_WOBArray = tab.add("WOB array", 0).withWidget(BuiltInWidgets.kTextView).getEntry();      
+    // private final NetworkTableEntry D_WOBArray = tab.add("WOB array", 0).withWidget(BuiltInWidgets.kTextView).getEntry();      
     private double[] defaultValue = new double[12];
     
     public Vision(){
@@ -168,7 +168,7 @@ public class Vision extends SubsystemBase{
      Globals.curTarget = 0;
      Globals.curItemType = 0;
      Globals.curAngle = 0;
-     m_arm.setCameraAngle(290);
+     m_arm.setCameraAngle(286);
       
     }
    
@@ -189,9 +189,9 @@ public class Vision extends SubsystemBase{
         // D_JagabeeCount.setNumber(getObjects()[0]);
         // D_DettolCount.setNumber(getObjects()[3]);
         // D_CokeCount.setNumber(getObjects()[6]);
-        D_WOBArray.setString(String.format("R:%s,%s,%s G:%s,%s,%s B:%s,%s,%s",Globals.Targets[0][0],Globals.Targets[0][1],Globals.Targets[0][2],
-                                                                                      Globals.Targets[1][0],Globals.Targets[1][1],Globals.Targets[1][2],
-                                                                                      Globals.Targets[2][0],Globals.Targets[2][1],Globals.Targets[2][2]));
+        // D_WOBArray.setString(String.format("R:%s,%s,%s G:%s,%s,%s B:%s,%s,%s",Globals.Targets[0][0],Globals.Targets[0][1],Globals.Targets[0][2],
+                                                                                      // Globals.Targets[1][0],Globals.Targets[1][1],Globals.Targets[1][2],
+                                                                                      // Globals.Targets[2][0],Globals.Targets[2][1],Globals.Targets[2][2]));
         D_cvMode.setNumber(Globals.cvMode);
     
     }

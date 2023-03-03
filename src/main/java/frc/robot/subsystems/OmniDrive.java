@@ -111,7 +111,7 @@ public class OmniDrive extends SubsystemBase
         //Speed control
         pidControllers[0] = new PIDController(0.4,12.0,0.00, pid_dT);  //x
         pidControllers[1] = new PIDController(0.4,12.0,0.00, pid_dT);  //y 2.0,32.0,0.02
-        pidControllers[2] = new PIDController(4.0,0.0,0.05, pid_dT);    //w
+        pidControllers[2] = new PIDController(4.0,0.0,0.01, pid_dT);    //w
         pidControllers[2].enableContinuousInput(-Math.PI, Math.PI);
 
         //Inputs and Outputs for wheel controller
@@ -357,8 +357,8 @@ public class OmniDrive extends SubsystemBase
     }
 
     public double getYawRad() {
-        // return -gyro.getYaw()*Math.PI/180;
-        return -gyro.getFusedHeading()*Math.PI/180;
+        return -gyro.getYaw()*Math.PI/180;
+        // return -gyro.getFusedHeading()*Math.PI/180;
     }
 
     /**

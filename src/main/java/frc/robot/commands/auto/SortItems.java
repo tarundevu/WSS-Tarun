@@ -46,9 +46,9 @@ public class SortItems extends SequentialCommandGroup{
         new MoveCamera(286),
         new SelectCommand(
             Map.ofEntries(
-                Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T1Pos))),
-                Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T2Pos))),
-                Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T3Pos)))
+                Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.RedPos))),
+                Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.GreenPos))),
+                Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.BluePos)))
                 ), 
             SortItems::selectTarget
             ),

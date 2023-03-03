@@ -24,6 +24,9 @@ public class Task_A extends SequentialCommandGroup{
             //## Read WOB ##// 
             new MovetoB(Layout.Convert_mm_Pose2d(Layout.workOrderPos)),
             new ReadWOB(),
+            //## Transport Trolleys ##//
+            new SortTrolleys(),
+            new WaitCommand(2),
             //## Sort Items ##//
             //## pick up bin 1 ##//
             new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
@@ -43,10 +46,9 @@ public class Task_A extends SequentialCommandGroup{
             // new WaitCommand(2),
             new ViewItem(),
             new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),
-            new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
-             //## Transport Trolleys ##//
-            new SortTrolleys()
-            //  new WaitCommand(2),
+            new MoveArm(new Translation2d(0.33,0.24), 0.5) // Line detection position
+             
+            
         );
         
     }

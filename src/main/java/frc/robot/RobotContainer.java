@@ -48,14 +48,17 @@ public class RobotContainer {
 
       //Set the default command for the hardware subsytem
       //m_omnidrive.setDefaultCommand(m_teleCmd);
-      m_layout = new Layout();
-      m_Grid = new Grid(m_layout);
-      m_Grid.ExpandObstacles(200);
-
-      // Create solver
-      m_Astar = new AStarAlgorithm(m_Grid);
+    InitMap();
   }
 
+  public static void InitMap() {
+    m_layout = new Layout();
+    m_Grid = new Grid(m_layout);
+    m_Grid.ExpandObstacles(200);
+
+    // Create solver
+    m_Astar = new AStarAlgorithm(m_Grid);
+  }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

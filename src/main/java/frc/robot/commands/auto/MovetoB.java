@@ -52,6 +52,7 @@ public class MovetoB extends SequentialCommandGroup
         //Astar works in cells (tiles)
         //Need to convert from real unit (x,y) position into nearest tile
         //
+
         Pose2d curPose = RobotContainer.m_omnidrive.getPose();
         int start_x = Layout.Convert_m_cell(curPose.getTranslation().getX());
         int start_y = Layout.Convert_m_cell(curPose.getTranslation().getY());
@@ -112,8 +113,8 @@ public class MovetoB extends SequentialCommandGroup
         //generate trajectory based on A* output
         //QuinticHermite works better
         m_Trajectory =
-            myGenerateTrajectory.generateTrajectoryClampedCubic(m_pathWayPoints, m_Config, 0.05);
-            // myGenerateTrajectory.generateTrajectoryQuinticHermite(m_pathWayPoints, m_Config, 0.1);
+            // myGenerateTrajectory.generateTrajectoryClampedCubic(m_pathWayPoints, m_Config, 0.05);
+            myGenerateTrajectory.generateTrajectoryQuinticHermite(m_pathWayPoints, m_Config, 0.1);
 
         super.initialize();
 
