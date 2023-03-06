@@ -77,7 +77,7 @@ public class Vision extends SubsystemBase{
     public void getWOBItems(){
       // reads the array passed to the networktable
       double[] WOB = table.getEntry("WOB").getDoubleArray(defaultValue);
-      D_WOB.setString(""+ WOB[0] + WOB[1]+ WOB[2]+ "," + WOB[3]+ WOB[4]+ WOB[5]+ "," + WOB[6]+ WOB[7]+ WOB[8]);
+      // D_WOB.setString(""+ WOB[0] + WOB[1]+ WOB[2]+ "," + WOB[3]+ WOB[4]+ WOB[5]+ "," + WOB[6]+ WOB[7]+ WOB[8]);
       // stores the data in Globals in a 2d array
       int[][] Targets = new int[3][3];
       int index = 0;

@@ -41,7 +41,7 @@ public class Arm extends SubsystemBase{
     private final NetworkTableEntry D_offset1 = tab.addPersistent("offset1", 0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", -500, "max", +500)).getEntry();
     private final NetworkTableEntry D_sliderX = tab.add("setX", 0.04).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0.05, "max", 0.4)) .getEntry();
     private final NetworkTableEntry D_sliderY = tab.add("setY", 0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", -0.3, "max", 0.4)) .getEntry();
-    private final NetworkTableEntry D_sliderServo = tab.add("setServo", 0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 300)) .getEntry();
+    private final NetworkTableEntry D_sliderServo = tab.add("setServo", 300).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min", 0, "max", 300)) .getEntry();
     private final NetworkTableEntry D_Gripper = tab.add("Gripper angle", 0).getEntry();
     
 

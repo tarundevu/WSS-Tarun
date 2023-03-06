@@ -19,7 +19,7 @@ public class ArmPick extends MoveArm {
     private final static Vision m_vision = RobotContainer.m_vision;
     private final static Arm m_arm = RobotContainer.m_arm;
     private final static Sensor m_sensor = RobotContainer.m_sensor;
-
+    private double TrolleyconvertPxToM = 0.0008625;
     private double pickUpHeight = 0.02;
     private double ratio = 0;
     private int m_type;
@@ -55,7 +55,7 @@ public class ArmPick extends MoveArm {
                 pos = new Translation2d(m_arm.getArmPos().getX(), y);
             }
         }
-        else { //  MOves arm in the Y direction but at a height from the object
+        else if (m_type==2){ //  MOves arm in the Y direction but at a height from the object
             if (Globals.curItemType==0){// for cokeU
                 double y = (pickUpHeight + 0.12) - Globals.arm_offset_z+ Globals.gripper_offset;
                 pos = new Translation2d(m_arm.getArmPos().getX(), y);   
@@ -65,7 +65,11 @@ public class ArmPick extends MoveArm {
                 pos = new Translation2d(m_arm.getArmPos().getX(), y);
             }
         }
-    
+        else{ // To place item in Trolley
+            double x  = m_arm.getArmPos().getX() + ((400 - RobotContainer.m_vision.getLine()[1] ) * TrolleyconvertPxToM)-0.05;
+            pos = new Translation2d(x, 0.12);
+            
+        }
       
           
         

@@ -2,8 +2,10 @@ package frc.robot.commands.auto;
 
 import java.util.Map;
 import frc.robot.Globals;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Astar.Layout;
 
 // The Routine for picking and transporting items to trolley/target area
@@ -52,14 +54,16 @@ public class SortItems extends SequentialCommandGroup{
                 ), 
             SortItems::selectTarget
             ),
-        // new SelectCommand(
-        //     Map.ofEntries(
-        //         Map.entry(CommandSelector.ONE, new GotoTrolley(Globals.TrolleyList[0])),
-        //         Map.entry(CommandSelector.TWO, new GotoTrolley(Globals.TrolleyList[1])),
-        //         Map.entry(CommandSelector.THREE, new GotoTrolley(Globals.TrolleyList[2]))
-        //         ), 
-        //     SortItems::selectTarget
-        //     ),
+        // Lifts arm
+        new DetectionPosition(),
+        // sets cvMode to trolley alignment
+        new InstantCommand(()-> Globals.cvMode = 5),
+        new WaitCommand(3),
+        // resets cvMode to idle
+        new InstantCommand(()-> Globals.cvMode=-1),
+        // Align trolley X
+        new TrolleyAlignment(0),
+
         new PlaceDown(),
         //new MoveRobot(1, -0.05, 0, 0, 0.1),
         new SelectCommand(

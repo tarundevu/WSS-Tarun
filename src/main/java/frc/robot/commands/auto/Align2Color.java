@@ -24,7 +24,7 @@ public class Align2Color extends SequentialCommandGroup {
       // resets cvMode to idle
       new InstantCommand(()-> Globals.cvMode=-1),
       // new WaitCommand(2),
-      new MoveRobot(1, 0.25, 0, 0, 0.1)
+      new MoveRobot(1, 0.32, 0, 0, 0.1)
     );
   }
 }

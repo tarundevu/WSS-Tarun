@@ -55,15 +55,7 @@ public class AutoMainCmd extends SequentialCommandGroup
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.testPickUpBinPos)),
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.workOrderPos))
-        // new DetectionPosition()
-        // new SortTrolleys()
-        // new Align2Line()
-        // new TrolleyHolder(1),
-        // new InstantCommand(()-> RobotContainer.m_vision.setColor("Green")),
-        // new Align2Color()
-        // new DetectionPosition()
-        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos))
-        // new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),
+        
         // new Align2Line(),
         // new ViewItem(),
         // new OpenHseLoopCommand(new ProcessSeq())//,
