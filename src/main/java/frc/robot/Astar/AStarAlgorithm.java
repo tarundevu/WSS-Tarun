@@ -76,7 +76,7 @@ public class AStarAlgorithm {
                 dir = current.dirTo(n);
                 if (dir != current.getDir())
                     extraCost = 2;
-                double tempScore = current.getCost() + current.distanceTo(n) * extraCost + n.getObsValue();
+                double tempScore = current.getCost() + current.distanceTo(n) * (extraCost + n.getObsValue());
 
                 if (openList.contains(n)) {
                     if (tempScore == n.getCost()) {

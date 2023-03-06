@@ -38,6 +38,7 @@ public class Layout {
     };
 
     //Coordinates of PickUp bin
+    public static final int testPickUpBinPos[] = {650,1100, -90};
     public static final int PickUpBinPos[] = {680,1100, -90};
     public static final int PickUpBin2Pos[] = {920,3470, -135};
     //These are coordinates of the red colored target area (NOTE: indicate the angle of orientation)

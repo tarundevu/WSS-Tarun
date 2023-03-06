@@ -52,7 +52,7 @@ public class Vision extends SubsystemBase{
     private final NetworkTableEntry D_CokeRatio = tab.addPersistent("CokeRatio", 0.79).withWidget(BuiltInWidgets.kNumberSlider)
             .withProperties(Map.of("min", 0, "max", 1)).getEntry();
     // private final NetworkTableEntry D_WOBArray = tab.add("WOB array", 0).withWidget(BuiltInWidgets.kTextView).getEntry();      
-    private double[] defaultValue = new double[12];
+    private double[] defaultValue = new double[13];
     
     public Vision(){
 
