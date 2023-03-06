@@ -105,6 +105,9 @@ public class OmniTrackTrajectoryCommand extends CommandBase {
 
   @Override
   public void initialize() {
+
+    if (m_trajectory.get() == null)
+        return ;
     var initialState = m_trajectory.get().sample(0);
 
     // Sample final pose to get robot rotation
@@ -122,7 +125,8 @@ public class OmniTrackTrajectoryCommand extends CommandBase {
   @Override
   @SuppressWarnings("LocalVariableName")
   public void execute() {
-
+    if (m_trajectory.get() == null)
+      return ;
     curTime += dT;
 
     var desiredState = m_trajectory.get().sample(curTime);
@@ -172,6 +176,8 @@ public class OmniTrackTrajectoryCommand extends CommandBase {
   @Override
   public boolean isFinished() {
 //    return m_timer.hasElapsed(m_trajectory.get().getTotalTimeSeconds());
+    if(m_trajectory.get()==null)
+      return true;
     return curTime > m_trajectory.get().getTotalTimeSeconds();
   }
 }

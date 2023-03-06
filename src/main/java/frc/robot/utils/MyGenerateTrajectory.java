@@ -19,6 +19,7 @@ public class MyGenerateTrajectory {
     //Intermediate way points are R distance from the original waypoint.
     //This will cause the path generated to be a small curve between the two intermediate waypoints
     public List<Translation2d> AddIntermediateWayPoints(List<Translation2d> wp, double R){
+        
         List<Translation2d> wp2 = new ArrayList<Translation2d>();
         Translation2d t1, t2, t12;
         int N = wp.size();
@@ -67,7 +68,10 @@ public class MyGenerateTrajectory {
     //Generate trajectory given a list of waypoints
     //use Quintic Hermite spline
     public Trajectory generateTrajectoryQuinticHermite( List<Translation2d> wp, TrajectoryConfig config, double R) {
-
+        if (wp==null){
+            mTrajectory = null;
+            return mTrajectory;
+        }
         List<Pose2d> waypoints = new ArrayList<Pose2d>();
         Pose2d p;
  

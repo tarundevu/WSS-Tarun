@@ -16,8 +16,6 @@ public abstract class Node {
 
     public abstract double dirTo(Node dest);
 
-    public abstract double angleTo(Node dest);
-
     public abstract double heuristic(Node dest);
 
     public double getCost() {

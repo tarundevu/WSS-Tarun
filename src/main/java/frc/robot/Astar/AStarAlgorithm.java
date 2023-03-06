@@ -37,7 +37,8 @@ public class AStarAlgorithm {
         }
 
         if (start.equals(end)) {
-            m_path = new ArrayList<>();
+            m_path = null;
+            m_pathWayPoints = null;
             return;
         }
 
@@ -149,13 +150,13 @@ public class AStarAlgorithm {
             Tile t = (Tile) n;
             //System.out.printf("(%d, %d, %f)\n", t.getX(), t.getY(), t.getDir());
             if (first) {
-                System.out.printf("(%d, %d, %f)\n", t.getX(), t.getY(), t.getDir());
+                // System.out.printf("(%d, %d, %f)\n", t.getX(), t.getY(), t.getDir());
                 m_pathWayPoints.add(n);
                 curDir = n.getDir();
                 first = false;
             } else {
                 if (t.getDir() != curDir) {
-                    System.out.printf("w(%d, %d, %f)\n", t.getX(), t.getY(), t.getDir());
+                    // System.out.printf("w(%d, %d, %f)\n", t.getX(), t.getY(), t.getDir());
                     m_pathWayPoints.add(n);
                     curDir = t.getDir();
                 }

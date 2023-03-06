@@ -53,7 +53,7 @@ public class AutoMainCmd extends SequentialCommandGroup
         // new StartPosition()
         new Task_A()
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
-        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.testPickUpBinPos)),
+        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.workOrderPos))
         
         // new Align2Line(),

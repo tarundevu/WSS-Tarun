@@ -82,18 +82,21 @@ public class MovetoB extends SequentialCommandGroup
         RobotContainer.m_Astar.setStart(nodeEnd);
         RobotContainer.m_Astar.setEnd(nodeStart);
 
-        System.out.printf("start=%d,%d, end=%d,%d dxy=%d,%d dxy=%f,%f\n\n", 
-            start_x, start_y, end_x, end_y, Layout.Convert_m_cell(dx), Layout.Convert_m_cell(dy), dx,dy);
+        // System.out.printf("\n*******************\n");
+        // System.out.printf("start=%d,%d, end=%d,%d dxy=%d,%d dxy=%f,%f\n\n", 
+            // start_x, start_y, end_x, end_y, Layout.Convert_m_cell(dx), Layout.Convert_m_cell(dy), dx,dy);
+        //long time = System.nanoTime();
         RobotContainer.m_Astar.solve();
+        //long elapsedTime = System.nanoTime() - time;
+        //System.out.printf("Solve time = %ld", elapsedTime/1000000);
         
         // Get the path waypoints
         ArrayList<Node> AstarPathWayPoints = RobotContainer.m_Astar.getPathWayPoints();
-        System.out.println(AstarPathWayPoints);
-
-        m_pathWayPoints = new ArrayList<>();
+            
 
         //Convert from Astar cell waypoints into real unit (meter)
         if (AstarPathWayPoints != null) {
+            m_pathWayPoints = new ArrayList<>();
             for (Node n : AstarPathWayPoints) {
 
                 if (n instanceof Tile) {
@@ -102,12 +105,13 @@ public class MovetoB extends SequentialCommandGroup
                     //Convert from cell unit to metre
                     Translation2d pt = new Translation2d(t.getX(), t.getY());
                     m_pathWayPoints.add(Layout.Convert_cell_m(pt));
-                    System.out.printf("x,y=%d,%d, end=%f,%f\n", t.getX(), t.getY(), Layout.Convert_cell_m(pt).getX(), Layout.Convert_cell_m(pt).getY());
+                    // System.out.printf("x,y=%d,%d, end=%f,%f\n", t.getX(), t.getY(), Layout.Convert_cell_m(pt).getX(), Layout.Convert_cell_m(pt).getY());
                 }
             }
         }
         else {
             //How to handle no proper path situation?
+            m_pathWayPoints = null;
         }
 
         //generate trajectory based on A* output
