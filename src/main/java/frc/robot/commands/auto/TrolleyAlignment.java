@@ -7,7 +7,7 @@ import frc.robot.RobotContainer;
 public class TrolleyAlignment extends MoveRobot{
 
     private int m_type;
-    private double convertPxToM = 0.0008625;
+    private double convertPxToM = 0.000875;//0.0008625;
     public TrolleyAlignment(int type){
         super(type,0,0,0,0.25);
         m_type = type;

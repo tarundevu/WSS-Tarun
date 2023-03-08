@@ -106,7 +106,7 @@ public class AlignRobot extends CommandBase{
         
         
         if (useW){
-            if ( (Math.abs(line[0] - centerX) <2) &&  (Math.abs(line[1] - centerY) < 2) && (Math.abs(line[2]-Math.toRadians(0)) < 0.05) && count>= 5){
+            if ( (Math.abs(line[0] - centerX) <2) &&  (Math.abs(line[1] - centerY) < 2) && (Math.abs(line[2]-Math.toRadians(0)) < 0.025) && count>= 5){
                 m_endFlag = true;
                 m_drive.setRobotSpeedType(0, 0);
                 m_drive.setRobotSpeedType(1, 0); 

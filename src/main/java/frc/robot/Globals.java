@@ -15,14 +15,16 @@ public class Globals
     static public int debug[] = new int[DNUM];
     static public String[] debugNames = new String[] {"debug0", "debug1", "debug2", "debug3"};
 // Vision //
-    public static double convertPxToM = 0.0006225;//0.000590;//0.0006075 // 0.56/800 , 0.00058 good // Resolution
-    public static double camera_offset = 0.09;
-    public static double camera_mount_offset_x = 0.015; 
+    /** (length in m)/(800 pixels) */
+    public static double convertPxToM = 0.00060625;//0.0006225;//0.0006075 // 0.56/800 , 0.00058 good // Resolution
+    public static double camera_offset = 0.1; //actual is 10.5cm
+    public static double camera_mount_offset_x = 0.015;// actual is 1.5cm
     public static double arm_offset_y = 0.13; // 0.125
     public static double arm_offset_z = 0.25;
-    public static double gripper_offset = 0.19;
-    public static double CokeRatio = 0.79;
-    public static double AdjustFactor = 0.8;
+    public static double gripper_offset = 0.19; // actual is 0.19
+    /** (height of cam - (height of coke - 3cm))/(height of cam) */
+    public static double CokeRatio = 0.79; // actual is 0.805
+    public static double AdjustFactor = 1;
     public static int imH = 600;
     public static int imW = 800;
     /**

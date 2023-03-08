@@ -176,7 +176,7 @@ public class Vision extends SubsystemBase{
     public void periodic()
     {
       Globals.convertPxToM = D_ConvertPxToM.getDouble(0.0006225);
-      Globals.camera_mount_offset_x = D_CameraMountOffsetX.getDouble(0.01);
+      Globals.camera_mount_offset_x = D_CameraMountOffsetX.getDouble(0.015);
       Globals.arm_offset_z = D_ArmOffsetZ.getDouble(0.25);
       Globals.gripper_offset = D_GripperOffsetZ.getDouble(0.19);
       Globals.CokeRatio = D_CokeRatio.getDouble(0.79);

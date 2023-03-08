@@ -57,9 +57,6 @@ public class AutoMainCmd extends SequentialCommandGroup
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.workOrderPos))
         
         // new Align2Line(),
-        // new ViewItem(),
-        // new OpenHseLoopCommand(new ProcessSeq())//,
-        // new ProxyScheduleCommand(new MoveLeft())
         // ###################################################################################### // 
         //          FOR TESTING, IF ROBOT MOVEMENT HAS ISSUES           //
             //new LoopCmd(new TestMotion(), ()->(++Globals.LoopCnt)>5 ) /// loop cmd

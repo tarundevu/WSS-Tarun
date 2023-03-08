@@ -38,9 +38,12 @@ public class Layout {
     };
 
     //Coordinates of PickUp bin
-    public static final int testPickUpBinPos[] = {650,1100, -90};
-    public static final int PickUpBinPos[] = {680,1100, -90};
-    public static final int PickUpBin2Pos[] = {920,3470, -135};
+    //72cm behind pickup bin
+    // At 45 deg, it's 0.707*72cm = 50.9cm
+
+    //public static final int testPickUpBinPos[] = {650,1100, -90};
+    public static final int PickUpBinPos[] = {1400-720,1100, -90};
+    public static final int PickUpBin2Pos[] = {1380-509,3000+509, -135};
     //These are coordinates of the red colored target area (NOTE: indicate the angle of orientation)
     public static final int RedPos[] = {2000,4320, -45};
   
@@ -62,7 +65,7 @@ public class Layout {
 
     // Robot start position.
     public static final int startPos[] = {210, 210, -90}; //start position
-    // public static final int startPos[] = {960, 1100, -90}; //For open house
+    // public static final int startPos[] = {960, 1100, -90}; //For open house/testing
 
     private int walls[][];
     private int obs[][];
