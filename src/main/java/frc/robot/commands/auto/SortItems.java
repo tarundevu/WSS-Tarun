@@ -41,19 +41,51 @@ public class SortItems extends SequentialCommandGroup{
         return CommandSelector.TWO;
     
   }
+  static public CommandSelector selectIFEmpty() {
+    
+    if (Globals.IsEmpty == false)
+        return CommandSelector.ONE;
+    else 
+        return CommandSelector.TWO;
+    
+  }
   public SortItems() 
     {
         super(   
-        new PickItemfromBin(),
+            new SelectCommand(
+                Map.ofEntries(
+                    Map.entry(CommandSelector.ONE, new SequentialCommandGroup(new PickItemfromBin(),new SelectCommand(
+                        Map.ofEntries(
+                            Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T3Pos))),
+                            Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T2Pos))),
+                            Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T1Pos)))
+                            ), 
+                        SortItems::selectTarget
+                        ))),
+                    Map.entry(CommandSelector.TWO, new DetectionPosition())
+                    ), 
+                SortItems::selectIFEmpty
+                ),
+        // new PickItemfromBin(),
         new MoveCamera(286),
-        new SelectCommand(
-            Map.ofEntries(
-                Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.RedPos))),
-                Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.GreenPos))),
-                Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.BluePos)))
-                ), 
-            SortItems::selectTarget
-            ),
+        // ## TROLLEY FIRST ## // use this for sorting trolleys 1st
+        // new SelectCommand(
+        //     Map.ofEntries(
+        //         Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.RedPos))),
+        //         Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.GreenPos))),
+        //         Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.BluePos)))
+        //         ), 
+        //     SortItems::selectTarget
+        //     ),
+        // ## PICK FIRST ## // use this for sorting items 1st
+        // new SelectCommand(
+        //     Map.ofEntries(
+        //         Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T3Pos))),
+        //         Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T2Pos))),
+        //         Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T1Pos)))
+        //         ), 
+        //     SortItems::selectTarget
+        //     ),
         // Lifts arm
         new DetectionPosition(),
         // sets cvMode to trolley alignment
@@ -65,7 +97,7 @@ public class SortItems extends SequentialCommandGroup{
         new TrolleyAlignment(0),
 
         new PlaceDown(),
-        //new MoveRobot(1, -0.05, 0, 0, 0.1),
+        new MoveRobot(1, -0.05, 0, 0, 0.1),
         new SelectCommand(
             Map.ofEntries(
                 Map.entry(CommandSelector.ONE,new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos))),

@@ -3,6 +3,8 @@ package frc.robot;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import frc.robot.Astar.Layout;
 
@@ -75,6 +77,7 @@ public class Globals
 // Extra //
     public static int LoopCnt = 0; // use as counter for loops
     public static int loopCount = 0;
+    public static boolean IsEmpty = false;
     public static Pose2d curPose;
     public static double[][] moveCommands = {
       {2,Math.PI/2,0,0, Math.PI/2},
@@ -97,26 +100,39 @@ public class Globals
             while (Globals.Targets[Globals.curTarget][0]>0) { 
                 // check if box contains item
               if(RobotContainer.m_vision.getObjects()[Globals.curItemType*3]>0){ 
-
+                if((RobotContainer.m_vision.getObjects()[0*3]+RobotContainer.m_vision.getObjects()[1*3]+RobotContainer.m_vision.getObjects()[2*3]+RobotContainer.m_vision.getObjects()[3*3])==1)
+                Globals.curBin++;
+                
                 Globals.curItemY = RobotContainer.m_vision.getObjects()[Globals.curItemType*3+2];
                 Globals.curItemX = RobotContainer.m_vision.getObjects()[Globals.curItemType*3+1];
                 Globals.Targets[Globals.curTarget][0]--; // decrements ONLY the column[0] with coke
                 return false;
               }
-              else // if box does not contain current item carry on
-                break; 
+              else if((RobotContainer.m_vision.getObjects()[0*3]+RobotContainer.m_vision.getObjects()[1*3]+RobotContainer.m_vision.getObjects()[2*3]+RobotContainer.m_vision.getObjects()[3*3])==0 && Globals.curBin==0){ 
+                Globals.IsEmpty = true;
+                Globals.curBin++;
+              }
+              else 
+                break;
             }
           }
           // If the item is not coke
           else{
             // while array is not empty
-            while (Globals.Targets[Globals.curTarget][Globals.curItemType-1]>0) { 
+            while (Globals.Targets[Globals.curTarget][Globals.curItemType-1]>0) {              
             // check if box contains item
               if(RobotContainer.m_vision.getObjects()[Globals.curItemType*3]>0){ 
+                if((RobotContainer.m_vision.getObjects()[0*3]+RobotContainer.m_vision.getObjects()[1*3]+RobotContainer.m_vision.getObjects()[2*3]+RobotContainer.m_vision.getObjects()[3*3])==1)
+                Globals.curBin++;
 
                 Globals.curItemY = RobotContainer.m_vision.getObjects()[Globals.curItemType*3+2];
                 Globals.curItemX = RobotContainer.m_vision.getObjects()[Globals.curItemType*3+1];
                 Globals.Targets[Globals.curTarget][Globals.curItemType-1]--;
+                return false;
+              }
+              else if((RobotContainer.m_vision.getObjects()[0*3]+RobotContainer.m_vision.getObjects()[1*3]+RobotContainer.m_vision.getObjects()[2*3]+RobotContainer.m_vision.getObjects()[3*3])==0 && Globals.curBin==0){ 
+                Globals.IsEmpty = true;
+                Globals.curBin++;
                 return false;
               }
               else // if box does not contain current item carry on

@@ -51,7 +51,8 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         // new StartOrientation()
         // new StartPosition()
-        new Task_A()
+        // new Task_A_trolley1st()
+        new Task_A_pick1st()
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.workOrderPos))
@@ -61,7 +62,7 @@ public class AutoMainCmd extends SequentialCommandGroup
         //          FOR TESTING, IF ROBOT MOVEMENT HAS ISSUES           //
             //new LoopCmd(new TestMotion(), ()->(++Globals.LoopCnt)>5 ) /// loop cmd
             // new MoveRobot(0,-1.5,0,0,0.4)
-                //  new TestMotionX(),
+                // new TestMotionX(),
                 // new TestMotionX(),
                 // new TestMotionX(),
                 // new TestMotionX(),

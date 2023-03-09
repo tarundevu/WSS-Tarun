@@ -11,11 +11,11 @@ import frc.robot.Globals;
 import frc.robot.RobotContainer;
 import frc.robot.Astar.Layout;
 
-public class Task_A extends SequentialCommandGroup{
+public class Task_A_trolley1st extends SequentialCommandGroup{
     /*
      * Sequence for Competition Task A
      */
-    public Task_A(){
+    public Task_A_trolley1st(){
         super(
             // Start Orientation Correction
             // new StartOrientation(),
@@ -32,21 +32,21 @@ public class Task_A extends SequentialCommandGroup{
             new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
             new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),
             new Align2Line(),
-            // new InstantCommand(()-> RobotContainer.m_omnidrive.FindNearestTrolley()),// FOr testing
-            // new WaitCommand(2),
             new ViewItem(),
             new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),
-            new InstantCommand(()->Globals.curBin = 1), // Change to second bin
-            new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
-            //## pick up bin2 ##//
-            new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos)),
-            new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos).getRotation().getDegrees()),
-            new Align2Line(),
-            // new InstantCommand(()-> RobotContainer.m_omnidrive.FindNearestTrolley()),// FOr testing
-            // new WaitCommand(2),
-            new ViewItem(),
-            new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),
+            // new InstantCommand(()->Globals.curBin = 1), // Change to second bin
             new MoveArm(new Translation2d(0.33,0.24), 0.5) // Line detection position
+
+
+            //## pick up bin2 ##//
+            // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos)),
+            // new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos).getRotation().getDegrees()),
+            // new Align2Line(),
+            // // new InstantCommand(()-> RobotContainer.m_omnidrive.FindNearestTrolley()),// FOr testing
+            // // new WaitCommand(2),
+            // new ViewItem(),
+            // new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),
+            // new MoveArm(new Translation2d(0.33,0.24), 0.5) // Line detection position
              
             
         );
