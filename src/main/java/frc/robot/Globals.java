@@ -81,8 +81,8 @@ public class Globals
     public static double[][] moveCommands = {
       {2,Math.PI/2,0,0, Math.PI/2},
       {2,-Math.PI/2,0,0, Math.PI/2},
-      {0, -0.43, 0, 0, 5},
-      {0, -0.43, 0, 0, 5}
+      {0, -0.43, 0, 0, 0.4},
+      {0, -0.43, 0, 0, 0.4}
     };
 // End Conditions //
 
@@ -168,6 +168,18 @@ public class Globals
     loopCount++;
     // Count 19
     if(loopCount<19 && (RobotContainer.m_vision.getDistanceTarget("Trolley")[0] == 0)){
+        return false;
+    }
+    else{
+        loopCount = 0;
+        return true;
+    }
+  } 
+
+  public static boolean endConditionTaskBMapping(){
+    loopCount++;
+    // Count 19
+    if(loopCount<9){
         return false;
     }
     else{

@@ -577,6 +577,7 @@ public class OmniDrive extends SubsystemBase
         // D_motor1.setDouble(motors[1].get());
         // D_motor2.setDouble(motors[2].get());
         D_angle.setDouble(Globals.curAngle);
+        Globals.curPose = m_odometry.getPose();
         // D_Global.setDouble(Globals.curDir);
     }
 }

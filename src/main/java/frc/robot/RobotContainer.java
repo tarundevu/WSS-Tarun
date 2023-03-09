@@ -54,6 +54,7 @@ public class RobotContainer {
   public static void InitMap() {
     m_layout = new Layout();
     m_Grid = new Grid(m_layout);
+    m_Grid.AddFixedObstacles(m_layout);
     m_Grid.ExpandObstacles(200);
 
     // Create solver

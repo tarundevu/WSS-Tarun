@@ -1,7 +1,6 @@
 package frc.robot.Astar;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Grid extends Network{
 
@@ -29,6 +28,14 @@ public class Grid extends Network{
             t.calculateNeighbours(this, true);
         }
 
+    }
+
+        /**
+     * Add fixed obstacles
+     * @param none
+     */
+
+    public void AddFixedObstacles(Layout layout) {
         //Add fixed walls
         int[][] walls = layout.getWalls();
         for(int i=0; i< walls.length; i++) {
@@ -40,11 +47,7 @@ public class Grid extends Network{
         for(int i=0; i< obs.length; i++) {
             AddObstacle(obs[i][0], obs[i][1], obs[i][2], obs[i][3], obs[i][4]*Math.PI/180);
         }
-        
-        //Expand obstacles. Do here????
-    }
-
-    
+     }
      /**
    * Expand obstacle to push robot away. Robot can still go through this expanded cell if necessary
    *
@@ -137,7 +140,7 @@ public class Grid extends Network{
 
                             }
                         }
-                        
+
                     }
                 }
             }
@@ -145,62 +148,6 @@ public class Grid extends Network{
 
     }
 
-    public void ExpandObstacles2(float robotRadius_mm) {
-
-        //Expand obstacle by robot radius. These are no entry zones
-        int robotRadius = Math.round((float)robotRadius_mm/Layout.tile_size_mm);
-        for (int k=0; k<robotRadius; k++) {
-            for (int x = 0; x < xSize; x++) {
-                for (int y = 0; y < ySize; y++) {
-                    Node current = find(x,y);
-                    if (current.getObsValue()==Node.maxObsValue) {
-                        for (Node n : current.getNeighbours()) {
-                            //temporary value
-                            if (n.getObsValue()!=Node.maxObsValue)
-                                n.setObsValue(Node.maxObsValue/2);
-                        }
-                    }
-                }
-            }
-            //Set temporary value back to max!
-            for (int x = 0; x < xSize; x++) {
-                for (int y = 0; y < ySize; y++) {
-                    Node current = find(x,y);
-                    if (current.getObsValue()==Node.maxObsValue/2) {
-                        current.setObsValue(Node.maxObsValue - 1);   //So that we can run mulitple times
-                    }
-                }
-            }
-        }
-
-        //Expand obstacle by path cost. These are high cost cell to force robot away from obstacle
-        //It is possible for robot to enter these cells (tiles).
-        //Number of cells to expand and their values are defined here
-        // double keepOutDist_mm = 160;      
-        // int numOfCells = Math.round((float)keepOutDist_mm/Layout.tile_size_mm);  
-        // double expansion[] = new double[numOfCells];
-        // double factor = Math.exp(Math.log(0.1f)/numOfCells);
-        // double cost = Node.maxObsValue*factor;
-        // for (int i=0; i<numOfCells; i++) { 
-        //     expansion[i] = cost;
-        //     cost *= factor;
-        // }
-
-        // for (int k=0; k<expansion.length; k++) {
-        //     for (int x = 0; x < xSize; x++) {
-        //         for (int y = 0; y < ySize; y++) {
-        //             double obsValue = expansion[k];
-        //             Node current = find(x,y);
-        //             if (current.getObsValue()>obsValue) {
-        //                 for (Node n : current.getNeighbours()) {
-        //                     if (n.getObsValue()==0.0)
-        //                         n.setObsValue(obsValue);
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-    }
 
     /**
    * Add rectangular shape obstacle to field.
@@ -222,27 +169,17 @@ public class Grid extends Network{
             }
         }
     }
-     /**
-   * Remove rectangular shape obstacle to field.
-   *
-   * @param x0 centre X pos
-   * @param y0 centre Y pos
-   * @param xSize X size of rect
-   * @param ySize Y size of rect
-   * @param angle orientation of rectangle
-   */
-    public void RemoveObstacle(int x0, int y0, int xSize, int ySize, double angle) {
-        for (int x=-xSize/2; x<xSize/2; x++) {
-            for (int y=-ySize/2; y<ySize/2; y++) {
-                int xx = (int)Math.round(x*Math.cos(angle) - y*Math.sin(angle));
-                int yy = (int)Math.round(x*Math.sin(angle) + y*Math.cos(angle));
-                Tile t = find(xx+x0,yy+y0);
-                if (t!=null)
-                    t.setObsValue(0.0);
+    /**
+     * function ClearObs() - clear all obstacle to redraw
+     **/
+    public void ClearObs() {
+        for (int i = 0; i < xSize; i++) {
+            for (int j = 0; j < ySize; j++) {
+                Node n = find(i, j);
+                n.setObsValue(0);
             }
         }
     }
-     
     /**
      * function findLine() - to find that belong to line connecting the two points
      **/

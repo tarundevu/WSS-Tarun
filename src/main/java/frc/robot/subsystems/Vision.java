@@ -135,28 +135,28 @@ public class Vision extends SubsystemBase{
       
   }
 
-  public void updatePoint(String targetName){
-      double x, y;
-      int w = (int)Globals.curPose.getRotation().getDegrees();
-      if (w != -90){
-          y = Globals.curPose.getTranslation().getY() + getDistanceTarget(targetName)[1] + RobotContainer.m_points.camOffset.getTranslation().getY();
-          x = Globals.curPose.getTranslation().getX() + getDistanceTarget(targetName)[0] + RobotContainer.m_points.camOffset.getTranslation().getX();
-      }
-      else{
-          x = Globals.curPose.getTranslation().getX() + getDistanceTarget(targetName)[1] + RobotContainer.m_points.camOffset.getTranslation().getY();
-          y = Globals.curPose.getTranslation().getY() - getDistanceTarget(targetName)[0] + RobotContainer.m_points.camOffset.getTranslation().getX(); 
-      }
-      RobotContainer.m_points.updatePoint(targetName, new Pose2d(new Translation2d(x, y), Globals.curPose.getRotation()));  
-  }
+  // public void updatePoint(String targetName){
+  //     double x, y;
+  //     int w = (int)Globals.curPose.getRotation().getDegrees();
+  //     if (w != -90){
+  //         y = Globals.curPose.getTranslation().getY() + getDistanceTarget(targetName)[1] + RobotContainer.m_points.camOffset.getTranslation().getY();
+  //         x = Globals.curPose.getTranslation().getX() + getDistanceTarget(targetName)[0] + RobotContainer.m_points.camOffset.getTranslation().getX();
+  //     }
+  //     else{
+  //         x = Globals.curPose.getTranslation().getX() + getDistanceTarget(targetName)[1] + RobotContainer.m_points.camOffset.getTranslation().getY();
+  //         y = Globals.curPose.getTranslation().getY() - getDistanceTarget(targetName)[0] + RobotContainer.m_points.camOffset.getTranslation().getX(); 
+  //     }
+  //     RobotContainer.m_points.updatePoint(targetName, new Pose2d(new Translation2d(x, y), Globals.curPose.getRotation()));  
+  // }
 
-  public void updateAllPoints(){
-      String[] targetAreas = {"RedTarget", "GreenTarget", "BlueTarget", "Trolley"};
-      for (String targetName: targetAreas){
-          if(getDistanceTarget(targetName)[0] != 0 && getDistanceTarget(targetName)[1] != 0 ){
-              updatePoint(targetName);
-          }
-      }
-  }
+  // public void updateAllPoints(){
+  //     String[] targetAreas = {"RedTarget", "GreenTarget", "BlueTarget", "Trolley"};
+  //     for (String targetName: targetAreas){
+  //         if(getDistanceTarget(targetName)[0] != 0 && getDistanceTarget(targetName)[1] != 0 ){
+  //             updatePoint(targetName);
+  //         }
+  //     }
+  // }
   public String array(){
     String n = "tt";
     String.format(" %s", n);
@@ -180,7 +180,7 @@ public class Vision extends SubsystemBase{
       Globals.arm_offset_z = D_ArmOffsetZ.getDouble(0.25);
       Globals.gripper_offset = D_GripperOffsetZ.getDouble(0.19);
       Globals.CokeRatio = D_CokeRatio.getDouble(0.79);
-
+      SmartDashboard.putString("Points Map", RobotContainer.m_points.pointMap.toString());
         D_curBin.setNumber(Globals.curBin);
         D_curTarget.setNumber(Globals.curTarget);
         D_currentItem.setNumber(Globals.curItemType);

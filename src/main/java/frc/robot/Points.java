@@ -30,8 +30,9 @@ public class Points{
   public Pose2d greenTarget = new Pose2d();
   public Pose2d blueTarget = new Pose2d();
   public Pose2d trolley = new Pose2d();
-  private double[] defaultValue = new double[12];
-  public Pose2d camOffset = new Pose2d(0.00, 0.0, new Rotation2d(0)); // Update this
+  private double[] defaultValue = new double[13];
+  public Pose2d camOffset = new Pose2d(0.00, 1.2, new Rotation2d(0)); // Update this
+  private int trolleyCount =0;
   // public Pose2d camOffset = new Pose2d(0.015, 0.58, new Rotation2d(0)); // Update this
   // public Pose2d camOffset = new Pose2d(-0.015, 0.55, new Rotation2d(0)); // Update this
   // public Pose2d camOffset = new Pose2d(-0.015, 0.5, new Rotation2d(0)); // Update this
@@ -40,10 +41,12 @@ public class Points{
   // public Pose2d camOffset = new Pose2d(0.015, 1.02, new Rotation2d(0)); // Update this
 
   public Points() {
+    trolleyCount = 0;
     pointMap.put("RedTarget", redTarget);
     pointMap.put("GreenTarget", greenTarget);
     pointMap.put("BlueTarget", blueTarget);
-    pointMap.put("Trolley", trolley);
+    pointMap.put("T0", trolley);
+    
     //obstacleMap.put("Trolley", trolley);
   }
   
@@ -53,27 +56,27 @@ public class Points{
     
   }
 
-  public void updatePoint(String pointname, Pose2d newpose) {
-    pointMap.put(pointname, newpose);
-    // if (pointname == "Trolley"){
-    //   obstacleMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0,0.38),new Rotation2d())));
+  // public void updatePoint(String pointname, Pose2d newpose) {
+  //   pointMap.put(pointname, newpose);
+  //   // if (pointname == "Trolley"){
+  //   //   obstacleMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0,0.38),new Rotation2d())));
       
-    // }
-    // else{
-    //   obstacleMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0,0.255),new Rotation2d())));
-    // }
-    if(pointname != "Trolley"){
-      pointMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0.05, 0.30),new Rotation2d())));
-      obstacleMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0.0, 0.95),new Rotation2d())));
-    }
-    else{
-      // Adding Point Trolley
-      pointMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0.05, 0.35),new Rotation2d())));
-    }
+  //   // }
+  //   // else{
+  //   //   obstacleMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0,0.255),new Rotation2d())));
+  //   // }
+  //   if(pointname != "Trolley"){
+  //     pointMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0.05, 0.30),new Rotation2d())));
+  //     obstacleMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0.0, 0.95),new Rotation2d())));
+  //   }
+  //   else{
+  //     // Adding Point Trolley
+  //     pointMap.put(pointname, newpose.plus(new Transform2d(new Translation2d(0.05, 0.35),new Rotation2d())));
+  //   }
 
     
     
-  }
+  // }
   public void updateObsPoint(String pointname, Pose2d newpose) {
     obstacleMap.put(pointname, newpose);
     
@@ -121,15 +124,48 @@ public class Points{
 public void updatePoint(String targetName){
   double x, y;
   int w = (int)Globals.curPose.getRotation().getDegrees();
+
   if (w != -90){
-      y = Globals.curPose.getTranslation().getY() + getDistanceTarget(targetName)[1] + RobotContainer.m_points.camOffset.getTranslation().getY();
-      x = Globals.curPose.getTranslation().getX() + getDistanceTarget(targetName)[0] + RobotContainer.m_points.camOffset.getTranslation().getX();
+      y = Globals.curPose.getTranslation().getY() + getDistanceTarget(targetName)[1] + camOffset.getTranslation().getY();
+      x = Globals.curPose.getTranslation().getX() + getDistanceTarget(targetName)[0] + camOffset.getTranslation().getX();
   }
   else{
-      x = Globals.curPose.getTranslation().getX() + getDistanceTarget(targetName)[1] + RobotContainer.m_points.camOffset.getTranslation().getY();
-      y = Globals.curPose.getTranslation().getY() - getDistanceTarget(targetName)[0] + RobotContainer.m_points.camOffset.getTranslation().getX(); 
+      x = Globals.curPose.getTranslation().getX() + getDistanceTarget(targetName)[1] + camOffset.getTranslation().getY();
+      y = Globals.curPose.getTranslation().getY() - getDistanceTarget(targetName)[0] + camOffset.getTranslation().getX(); 
   }
-  RobotContainer.m_points.updatePoint(targetName, new Pose2d(new Translation2d(x, y), Globals.curPose.getRotation()));  
+
+  // Checks whether this point already exist in map, else add inside map
+  double distanceFromOrigin = Math.sqrt(Math.pow(x, 2) + Math.pow(y,2));
+  boolean alreadyExist = false;
+  double tolerance = 0.1;
+  double upperbound = distanceFromOrigin + tolerance;
+  double lowerbound = distanceFromOrigin - tolerance;
+  
+  // Some values given by python script is lesser than startpos, why? idk
+  if( x > (float)Layout.startPos[0]/1000.0 && y > (float)Layout.startPos[1]/1000.0){
+    for(Pose2d location : pointMap.values()){
+      double pointDist = Math.sqrt(Math.pow(location.getTranslation().getX(), 2) + Math.pow(location.getTranslation().getY(),2));
+      if(pointDist >= lowerbound && pointDist <=upperbound){
+        alreadyExist = true;
+        break;
+      }
+    }
+  
+    if(!alreadyExist){
+      String name = new String();
+      if(targetName == "Trolley"){
+        name = "T" + trolleyCount++;
+      }
+      else{
+        name = targetName;
+      }
+  
+      pointMap.put(name, new Pose2d(new Translation2d(x, y), Globals.curPose.getRotation()));
+    }
+  }
+  
+  
+      
 }
 public void updateObsPoint(String obsName){
   double x, y;
@@ -144,7 +180,7 @@ public void updateObsPoint(String obsName){
   }
   RobotContainer.m_points.updateObsPoint(obsName, new Pose2d(new Translation2d(x, y), Globals.curPose.getRotation()));  
 }
-public void updateAllTarget(){
+public void updateAllPoints(){
   String[] targetAreas = {"RedTarget", "GreenTarget", "BlueTarget", "Trolley"};
   for (String targetName: targetAreas){
       if(getDistanceTarget(targetName)[0] != 0 && getDistanceTarget(targetName)[1] != 0 ){
@@ -175,7 +211,8 @@ public void updateAllObs(){
   }
   public void removeObs(String key){
     RobotContainer.m_Grid = new Grid(RobotContainer.m_layout);
-    RobotContainer.m_Astar = new AStarAlgorithm(RobotContainer.m_Grid);
+    // RobotContainer.m_Astar = new AStarAlgorithm(RobotContainer.m_Grid);
+    // m_Grid.AddFixedObstacles(m_layout);
     obstacleMap.remove(key);
     AddObsGrid();
   }

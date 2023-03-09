@@ -47,13 +47,13 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         
         super(
-        
+            new Task_B()
         
         // new StartOrientation()
         // new StartPosition()
         // new Task_A_trolley1st()
       
-        new Task_A_pick1st()
+        // new Task_A_pick1st()
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.workOrderPos))
