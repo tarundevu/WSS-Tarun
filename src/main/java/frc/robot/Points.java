@@ -55,6 +55,9 @@ public class Points{
     pointMap.clear();
     
   }
+  public void resetObsMap() {
+    obstacleMap.clear();
+  }
 
   // public void updatePoint(String pointname, Pose2d newpose) {
   //   pointMap.put(pointname, newpose);
@@ -210,9 +213,9 @@ public void updateAllObs(){
     RobotContainer.m_Grid.ExpandObstacles(200);
   }
   public void removeObs(String key){
-    RobotContainer.m_Grid = new Grid(RobotContainer.m_layout);
-    // RobotContainer.m_Astar = new AStarAlgorithm(RobotContainer.m_Grid);
-    // m_Grid.AddFixedObstacles(m_layout);
+    RobotContainer.m_Grid.ClearObs(); 
+    RobotContainer.m_Grid.AddFixedObstacles(RobotContainer.m_layout);
+    RobotContainer.m_Grid.ExpandObstacles(200);
     obstacleMap.remove(key);
     AddObsGrid();
   }

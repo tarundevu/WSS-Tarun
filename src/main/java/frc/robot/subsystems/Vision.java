@@ -181,6 +181,7 @@ public class Vision extends SubsystemBase{
       Globals.gripper_offset = D_GripperOffsetZ.getDouble(0.19);
       Globals.CokeRatio = D_CokeRatio.getDouble(0.79);
       SmartDashboard.putString("Points Map", RobotContainer.m_points.pointMap.toString());
+      SmartDashboard.putString("Obs Map", RobotContainer.m_points.obstacleMap.toString());
         D_curBin.setNumber(Globals.curBin);
         D_curTarget.setNumber(Globals.curTarget);
         D_currentItem.setNumber(Globals.curItemType);

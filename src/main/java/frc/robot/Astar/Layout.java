@@ -31,7 +31,7 @@ public class Layout {
         //(x0,y0) - centre of box
         //x0   y0    xSize ySize Angle
         {1400, 1100,  300,  420, 0 },   //Pick Up bin 1
-        {1380, 3000,  300,  420, 45},   //Pick Up bin 2
+        {1380, 3000,  300,  420, -45},   //Pick Up bin 2
         // {1140, 4390,  320, 230,  0 }, 
         // {1957, 2038-425,  150,  210,  0 }, 
        
@@ -58,7 +58,7 @@ public class Layout {
   
     public static final int T2Pos[] = {2000,1850,-90};
 
-    public static final int T3Pos[] = {150, 4350, 45};
+    public static final int T3Pos[] = {1450, 3850, -90};
 
     // Position for robot to go to for reading work order
     public static final int workOrderPos[] = {1100, 250, -90};//1100

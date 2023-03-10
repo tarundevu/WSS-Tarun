@@ -99,6 +99,7 @@ public class Globals
           while (Globals.Targets[Globals.curTarget][0]>0) { 
               // check if box contains item
             if(RobotContainer.m_vision.getObjects()[Globals.curItemType*3]>0){ 
+              // if last item
               if((RobotContainer.m_vision.getObjects()[0*3]+RobotContainer.m_vision.getObjects()[1*3]+RobotContainer.m_vision.getObjects()[2*3]+RobotContainer.m_vision.getObjects()[3*3])==1)
                 Globals.curBin++;
 
@@ -125,6 +126,7 @@ public class Globals
           while (Globals.Targets[Globals.curTarget][Globals.curItemType-1]>0) { 
           // check if box contains item
             if(RobotContainer.m_vision.getObjects()[Globals.curItemType*3]>0){ 
+              // If last item
               if((RobotContainer.m_vision.getObjects()[0*3]+RobotContainer.m_vision.getObjects()[1*3]+RobotContainer.m_vision.getObjects()[2*3]+RobotContainer.m_vision.getObjects()[3*3])==1)
                 Globals.curBin++;
 
