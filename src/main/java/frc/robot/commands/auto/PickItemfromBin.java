@@ -39,7 +39,7 @@ public class PickItemfromBin extends SequentialCommandGroup
 	public PickItemfromBin() 
     {
         super(   
-        // aligns gripper to item
+        // aligns robot to item
         new AlignGripper(),
         // picks item
         new PickUp().alongWith(new MoveCamera(240)),

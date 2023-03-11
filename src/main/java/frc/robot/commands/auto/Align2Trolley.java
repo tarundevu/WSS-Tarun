@@ -19,7 +19,7 @@ public class Align2Trolley extends SequentialCommandGroup{
       new DetectionPosition(),
       // sets cvMode to trolley alignment
       new InstantCommand(()-> Globals.cvMode = 5),
-      new WaitCommand(3),
+      new WaitCommand(4),
       // resets cvMode to idle
       new InstantCommand(()-> Globals.cvMode=-1),
       // Align trolley X

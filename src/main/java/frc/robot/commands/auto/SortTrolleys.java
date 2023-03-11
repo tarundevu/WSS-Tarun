@@ -10,37 +10,12 @@ import frc.robot.RobotContainer;
 import frc.robot.Astar.Layout;
 // The routine to transport the trolleys to the target areas
 public class SortTrolleys extends SequentialCommandGroup{
-    private enum CommandSelector {
-        ONE, TWO, THREE
-      }
-    
-      static public CommandSelector selectSetColor() {
-        if (Globals.TrolleyList[Globals.curTrolley] == Layout.Convert_mm_Pose2d(Layout.T1Pos))
-            return CommandSelector.ONE;
-        else if (Globals.TrolleyList[Globals.curTrolley] == Layout.Convert_mm_Pose2d(Layout.T2Pos))
-            return CommandSelector.TWO;
-        else if (Globals.TrolleyList[Globals.curTrolley] == Layout.Convert_mm_Pose2d(Layout.T3Pos))
-            return CommandSelector.THREE;
-        else 
-            return null;
-        
-      }
-      static public CommandSelector selectAddObstacle() {
-        
-        if (Globals.TrolleyList[Globals.curTrolley] == Layout.Convert_mm_Pose2d(Layout.T1Pos))
-            return CommandSelector.ONE;
-        else if (Globals.TrolleyList[Globals.curTrolley] == Layout.Convert_mm_Pose2d(Layout.T2Pos))
-            return CommandSelector.TWO;
-        else if (Globals.TrolleyList[Globals.curTrolley] == Layout.Convert_mm_Pose2d(Layout.T3Pos))
-            return CommandSelector.THREE;
-        else 
-            return null;
-        
-      }
+   
     public SortTrolleys(){
         super(
            
             // new InstantCommand(() ->Globals.debug[0]=-1),
+
             // SEQUENCE 1 If trolley first // 
             // new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T1Pos)),
             // new Align2Trolley(),

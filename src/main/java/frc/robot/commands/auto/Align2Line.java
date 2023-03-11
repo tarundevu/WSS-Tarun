@@ -18,6 +18,7 @@ public class Align2Line extends SequentialCommandGroup{
   private final static Sensor m_sensor = RobotContainer.m_sensor;
   private final static Vision m_vision = RobotContainer.m_vision;
   private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
+  // aligns to line
   public Align2Line(){
     super(
       // Lifts arm up and close gripper

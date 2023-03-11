@@ -19,6 +19,7 @@ public class Task_A_trolley1st extends SequentialCommandGroup{
         super(
             // Start Orientation Correction
             // new StartOrientation(),
+            new InstantCommand(()->RobotContainer.m_points.SetTrolleysAsObstacles()),
             //## Calibrate Robot Position ##//
             new InitialCalibration(),
             //## Read WOB ##// 
@@ -36,19 +37,7 @@ public class Task_A_trolley1st extends SequentialCommandGroup{
             new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),
             // new InstantCommand(()->Globals.curBin = 1), // Change to second bin
             new MoveArm(new Translation2d(0.33,0.24), 0.5) // Line detection position
-
-
-            //## pick up bin2 ##//
-            // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos)),
-            // new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos).getRotation().getDegrees()),
-            // new Align2Line(),
-            // // new InstantCommand(()-> RobotContainer.m_omnidrive.FindNearestTrolley()),// FOr testing
-            // // new WaitCommand(2),
-            // new ViewItem(),
-            // new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),
-            // new MoveArm(new Translation2d(0.33,0.24), 0.5) // Line detection position
-             
-            
+   
         );
         
     }

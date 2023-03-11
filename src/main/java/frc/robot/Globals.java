@@ -73,7 +73,6 @@ public class Globals
     public static double curAngle = 0;
     public static double startYaw;
     public static int curTrolley = 0;
-    public static int NowTarget = 0;// to be replaced by curTarget
 // Extra //
     public static int LoopCnt = 0; // use as counter for loops
     public static int loopCount = 0;

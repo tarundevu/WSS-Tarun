@@ -10,8 +10,9 @@ public class DetectionPosition extends SequentialCommandGroup{
     super(
       // Lifts Arm
       new MoveArm(new Translation2d(0.33,0.3), 0.5),
+      //Parallel command group runs commands in parallel
       new ParallelCommandGroup(new MoveArm(new Translation2d(0.33,0.24), 0.5),
-      // move camera to horizontal position
+                               // move camera to horizontal position
                                new MoveCamera(286)
       )
       
