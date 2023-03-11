@@ -10,7 +10,7 @@ public class Task_B extends SequentialCommandGroup{
     super(
       // Puts camera in viewing position
       new MoveArm(new Translation2d(0.3,0.4), 2),
-      new MoveCamera(285),
+      new MoveCamera(277),
       
       // Sets the python script to perspective transformation with tensorflow model
       new InstantCommand(() -> Globals.cvMode = 4),
@@ -21,8 +21,8 @@ public class Task_B extends SequentialCommandGroup{
 
       // Mapping movement sequence
       new loopMoveRobotWaypoint(),
-      new LoopCmd(new loopMoveRobotWaypoint(), () -> Globals.endConditionTaskBMapping()),
-      new CheckAndMoveTarget("T0")
+      new LoopCmd(new loopMoveRobotWaypoint(), () -> Globals.endConditionTaskBMapping())
+      // new CheckAndMoveTarget("T0")
       
       
       // new MovetoPoint("T2")

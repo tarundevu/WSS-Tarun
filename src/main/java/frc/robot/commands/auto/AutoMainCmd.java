@@ -47,17 +47,19 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         
         super(
-            // new Task_B()
+            new Task_B()
         
         // new StartOrientation()
         // new StartPosition()
         // new Task_A_trolley1st()
     //   new MovetoB(new Pose2d(new Translation2d(1.8, 1.7),new Rotation2d(0))),
     
-        new Task_A_pick1st()
-        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
-        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
-        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.workOrderPos))
+        // new Task_A_pick1st()
+        // new InstantCommand(()->RobotContainer.m_points.SetTrolleysAsObstacles()),
+        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.testPickUpBinPos)),
+        // // new MovetoB(Layout.Convert_mm_Pose2d(Layout.T2Pos)),
+        // new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T2Pos)),
+        // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos))
         
         // new Align2Line(),
         // ###################################################################################### // 

@@ -36,12 +36,19 @@ public class Layout {
         // {1957, 2038-425,  150,  210,  0 }, 
        
     };
+    public static final int obsRound_mm[][] = {
+ 
+        // {500, 1600,  300},   //t1
+        // {2000, 1850,  300},   //t2
+        // {1450, 3850,  300},   //t3
+           
+    };
 
     //Coordinates of PickUp bin
     //72cm behind pickup bin
     // At 45 deg, it's 0.707*72cm = 50.9cm
 
-    //public static final int testPickUpBinPos[] = {650,1100, -90};
+    public static final int testPickUpBinPos[] = {1400-520,1100, -90};
     public static final int PickUpBinPos[] = {1400-720,1100, -90};
     public static final int PickUpBin2Pos[] = {1380-509,3000+509, -135};
     //These are coordinates of the red colored target area (NOTE: indicate the angle of orientation)
@@ -69,6 +76,7 @@ public class Layout {
 
     private int walls[][];
     private int obs[][];
+    private int obsRound[][];
 
     public Layout() {
         int i, j;
@@ -89,6 +97,15 @@ public class Layout {
             }
             obs[i][4] = obs_mm[i][4];  //Angle in degree stays the same
         }
+
+         //Convert obstacles in mm to obstacles in cell size
+         obsRound = new int[obsRound_mm.length][3];
+         for (i=0; i< obsRound_mm.length; i++) {
+             for (j=0; j<3; j++) {
+                 obsRound[i][j] = Math.round((float)obsRound_mm[i][j]/tile_size_mm);
+             }
+             obsRound[i][4] = obsRound_mm[i][4];  //Angle in degree stays the same
+         }
 
     }
 
@@ -111,5 +128,9 @@ public class Layout {
 
     public int [][] getObs() {
         return obs;
+    }
+
+    public int [][] getObsRound() {
+        return obsRound;
     }
 }

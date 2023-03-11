@@ -22,6 +22,8 @@ import frc.robot.commands.auto.MoveCurve;
 import frc.robot.commands.auto.MoveLeft;
 import frc.robot.commands.auto.MoveRight;
 import frc.robot.commands.auto.MoveTest;
+import frc.robot.commands.auto.TestColor;
+import frc.robot.commands.auto.TestLine;
 import frc.robot.commands.auto.TestMotionRot;
 import frc.robot.commands.auto.TestMotionX;
 import frc.robot.commands.auto.TestMotionY;
@@ -79,6 +81,8 @@ public class Menu extends SubsystemBase
         tab.add("TestMotionY", new TestMotionY());
         tab.add("TestMotionRot", new TestMotionRot());
         tab.add("TestPicking", new TestPicking());
+        tab.add("TestLine", new TestLine());
+        tab.add("TestColor", new TestColor());
         
         //A-up button, Y-down button
         m_oi.buttonA.whenPressed( ()->{Globals.menuItem--;Globals.menuItem=(Globals.menuItem+menuNum)%menuNum;});

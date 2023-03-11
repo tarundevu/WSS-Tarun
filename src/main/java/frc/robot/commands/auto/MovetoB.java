@@ -128,7 +128,7 @@ public class MovetoB extends SequentialCommandGroup
             // There's problem with generating trajectory and path is a short straight line
             m_Trajectory =
             // myGenerateTrajectory.generateTrajectoryClampedCubic(m_pathWayPoints, m_Config, 0.1);
-            myGenerateTrajectory.generateTrajectoryQuinticHermite(m_pathWayPoints, m_Config, 0.1);
+            myGenerateTrajectory.generateTrajectoryQuinticHermite(m_pathWayPoints, m_Config, 0.04);
         }
 
 

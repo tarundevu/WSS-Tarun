@@ -81,8 +81,8 @@ public class Globals
     public static double[][] moveCommands = {
       {2,Math.PI/2,0,0, Math.PI/2},
       {2,-Math.PI/2,0,0, Math.PI/2},
-      {0, -0.43, 0, 0, 0.4},
-      {0, -0.43, 0, 0, 0.4}
+      {0, -0.43, 0, 0, 0.2},
+      {0, -0.43, 0, 0, 0.2}
     };
 // End Conditions //
 
@@ -181,7 +181,7 @@ public class Globals
   public static boolean endConditionTaskBMapping(){
     loopCount++;
     // Count 19
-    if(loopCount<9){
+    if(loopCount<12){
         return false;
     }
     else{

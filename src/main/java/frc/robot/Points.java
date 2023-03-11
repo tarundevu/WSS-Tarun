@@ -31,20 +31,15 @@ public class Points{
   public Pose2d blueTarget = new Pose2d();
   public Pose2d trolley = new Pose2d();
   private double[] defaultValue = new double[13];
-  public Pose2d camOffset = new Pose2d(0.00, 1.2, new Rotation2d(0)); // Update this
-  private int trolleyCount =0;
-  // public Pose2d camOffset = new Pose2d(0.015, 0.58, new Rotation2d(0)); // Update this
-  // public Pose2d camOffset = new Pose2d(-0.015, 0.55, new Rotation2d(0)); // Update this
-  // public Pose2d camOffset = new Pose2d(-0.015, 0.5, new Rotation2d(0)); // Update this
-
-  // public Pose2d camOffset = new Pose2d(0.015, 0.67, new Rotation2d(0)); // Update this
-  // public Pose2d camOffset = new Pose2d(0.015, 1.02, new Rotation2d(0)); // Update this
+  public Pose2d camOffset = new Pose2d(0.015, 0.59, new Rotation2d(0)); // Update this
+  private int trolleyCount = 0;
+  
 
   public Points() {
     trolleyCount = 0;
-    pointMap.put("RedTarget", redTarget);
-    pointMap.put("GreenTarget", greenTarget);
-    pointMap.put("BlueTarget", blueTarget);
+    // pointMap.put("RedTarget", redTarget);
+    // pointMap.put("GreenTarget", greenTarget);
+    // pointMap.put("BlueTarget", blueTarget);
     pointMap.put("T0", trolley);
     
     //obstacleMap.put("Trolley", trolley);
@@ -141,14 +136,20 @@ public void updatePoint(String targetName){
   double distanceFromOrigin = Math.sqrt(Math.pow(x, 2) + Math.pow(y,2));
   boolean alreadyExist = false;
   double tolerance = 0.1;
-  double upperbound = distanceFromOrigin + tolerance;
-  double lowerbound = distanceFromOrigin - tolerance;
+  // double upperbound = distanceFromOrigin + tolerance;
+  // double lowerbound = distanceFromOrigin - tolerance;
+  Pose2d upperbound = new Pose2d(new Translation2d(x + tolerance, y + tolerance), new Rotation2d());
+  Pose2d lowerbound = new Pose2d(new Translation2d(x - tolerance, y - tolerance), new Rotation2d());
   
   // Some values given by python script is lesser than startpos, why? idk
   if( x > (float)Layout.startPos[0]/1000.0 && y > (float)Layout.startPos[1]/1000.0){
     for(Pose2d location : pointMap.values()){
-      double pointDist = Math.sqrt(Math.pow(location.getTranslation().getX(), 2) + Math.pow(location.getTranslation().getY(),2));
-      if(pointDist >= lowerbound && pointDist <=upperbound){
+      // double pointDist = Math.sqrt(Math.pow(location.getTranslation().getX(), 2) + Math.pow(location.getTranslation().getY(),2));
+      // if(pointDist >= lowerbound && pointDist <=upperbound){
+      //   alreadyExist = true;
+      //   break;
+      // }
+      if((location.getTranslation().getX() >= lowerbound.getTranslation().getX() && location.getTranslation().getX() <=upperbound.getTranslation().getX()) && (location.getTranslation().getY() >= lowerbound.getTranslation().getY() && location.getTranslation().getY() <=upperbound.getTranslation().getY())){
         alreadyExist = true;
         break;
       }
@@ -207,17 +208,18 @@ public void updateAllObs(){
     for (Map.Entry<String, Pose2d> obstacleEntry :obstacleMap.entrySet()) {
           int cx_mm = (int)(obstacleEntry.getValue().getTranslation().getX()*1000);
           int cy_mm= (int)(obstacleEntry.getValue().getTranslation().getY()*1000);
-          RobotContainer.m_Grid.AddObstacle(Math.round((float)cx_mm/tile_size_mm), Math.round((float)cy_mm/tile_size_mm), Math.round((float)300/tile_size_mm), Math.round((float)300/tile_size_mm), obstacleEntry.getValue().getRotation().getRadians());  
+          RobotContainer.m_Grid.AddObsRound(Math.round((float)cx_mm/tile_size_mm), Math.round((float)cy_mm/tile_size_mm), Math.round((float)300/tile_size_mm));  
     }
         
-    RobotContainer.m_Grid.ExpandObstacles(200);
+    RobotContainer.m_Grid.ExpandObstacles(270);
   }
   public void removeObs(String key){
     RobotContainer.m_Grid.ClearObs(); 
     RobotContainer.m_Grid.AddFixedObstacles(RobotContainer.m_layout);
-    RobotContainer.m_Grid.ExpandObstacles(200);
+    RobotContainer.m_Grid.ExpandObstacles(270);
     obstacleMap.remove(key);
     AddObsGrid();
+   
   }
   public void SetTrolleysAsObstacles(){
     obstacleMap.put("T1", Layout.Convert_mm_Pose2d(Layout.T1Pos));

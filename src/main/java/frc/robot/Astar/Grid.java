@@ -47,6 +47,11 @@ public class Grid extends Network{
         for(int i=0; i< obs.length; i++) {
             AddObstacle(obs[i][0], obs[i][1], obs[i][2], obs[i][3], obs[i][4]*Math.PI/180);
         }
+        
+        int[][] obsRound = layout.getObsRound();
+        for(int i=0; i< obsRound.length; i++) {
+            AddObsRound(obsRound[i][0], obsRound[i][1], obsRound[i][2]);
+        }
      }
      /**
    * Expand obstacle to push robot away. Robot can still go through this expanded cell if necessary
@@ -101,7 +106,7 @@ public class Grid extends Network{
         double keepOutDist_mm = 200;      
         int numOfCells = Math.round((float)keepOutDist_mm/Layout.tile_size_mm);  
         double expansion[] = new double[numOfCells];
-        double factor = Math.exp(Math.log(0.1f)/numOfCells);
+        double factor = 0.5;//Math.exp(Math.log(0.1f)/numOfCells);
         double cost = Node.maxObsValue*factor;
         for (int i=0; i<numOfCells; i++) { 
             expansion[i] = cost;
@@ -169,6 +174,23 @@ public class Grid extends Network{
             }
         }
     }
+    
+    public void AddObsRound(int x0, int y0, int diameter) {
+        double radius = diameter/2;
+        int numOfCells = diameter/2;  
+        System.out.printf("cell = %d\n", numOfCells);
+        for (int x=-diameter/2; x<diameter/2; x++) {
+            for (int y=-diameter/2; y<diameter/2; y++) {
+                int dist = Math.round((float)Math.sqrt(x*x + y*y));
+                if (dist<numOfCells) {
+                    Tile t = find(x+x0,y+y0);
+                    if (t!=null)
+                        t.setObsValue(Node.maxObsValue);
+                }
+            }
+        }
+    }
+
     /**
      * function ClearObs() - clear all obstacle to redraw
      **/
