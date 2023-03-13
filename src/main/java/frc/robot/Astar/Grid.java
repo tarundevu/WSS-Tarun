@@ -2,6 +2,9 @@ package frc.robot.Astar;
 
 import java.util.ArrayList;
 
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+
 public class Grid extends Network{
 
     private int xSize, ySize;
@@ -103,10 +106,10 @@ public class Grid extends Network{
         //Expand obstacle by path cost. These are high cost cell to force robot away from obstacle
         //It is possible for robot to enter these cells (tiles).
         //Number of cells to expand and their values are defined here
-        double keepOutDist_mm = 200;      
+        double keepOutDist_mm = 250;      
         int numOfCells = Math.round((float)keepOutDist_mm/Layout.tile_size_mm);  
         double expansion[] = new double[numOfCells];
-        double factor = 0.5;//Math.exp(Math.log(0.1f)/numOfCells);
+        double factor = 0.75;//Math.exp(Math.log(0.1f)/numOfCells);
         double cost = Node.maxObsValue*factor;
         for (int i=0; i<numOfCells; i++) { 
             expansion[i] = cost;
@@ -174,7 +177,7 @@ public class Grid extends Network{
             }
         }
     }
-    
+
     public void AddObsRound(int x0, int y0, int diameter) {
         double radius = diameter/2;
         int numOfCells = diameter/2;  
@@ -258,6 +261,52 @@ public class Grid extends Network{
         if (x>=0 && x<xSize && y>=0 && y<ySize)
             return tiles.get(x*ySize+y);
         else return null;
+    }
+    double[] angle =  new double[] {0, Math.PI/4, Math.PI, Math.PI*3/4, Math.PI, -Math.PI*3/4, -Math.PI/2, -Math.PI/4 };
+    /**
+   * Find free position for robot to goto an object
+   * The function will search all the space from the 8 NSEW directions
+   * @param x object centre X pos (in m)
+   * @param y object centre Y pos (in m)
+   * @param dist dist of robot pos from object (in m)
+   */
+    public Pose2d findGotoPos(double x, double y, double dist){
+        Tile t;
+        Pose2d[] pos = new Pose2d[8];
+        double[] cost = new double[8];
+
+        double lowestCost = Node.maxObsValue;
+        int lowestIdx = 0;
+        // System.out.println(":::::::::::::::::::");
+        // System.out.printf("x,y=%f, %f\n", x, y);
+        for(int i=0; i<8; i++) {
+            double pos_x = x + dist*Math.cos(angle[i]);
+            double pos_y = y + dist*Math.sin(angle[i]);
+            int grid_x = Layout.Convert_m_cell(pos_x);
+            int grid_y = Layout.Convert_m_cell(pos_y);
+
+            t = find(grid_x, grid_y);
+            if ( t != null) {
+                cost[i] = t.getObsValue();
+                // System.out.printf("x,y=%d,%d a=%f cost=%f\n", grid_x, grid_y, angle[i], cost[i]);
+            }
+            else {
+                cost[i] = Node.maxObsValue;
+            }
+            pos[i] = new Pose2d(pos_x, pos_y, new Rotation2d(angle[i]));
+            if (lowestCost>cost[i]) {
+                lowestCost = cost[i];
+                lowestIdx = i;
+                // System.out.println(pos[i]);
+                // System.out.printf("xl,yl=%d,%d cost=%f\n", grid_x, grid_y, lowestCost);
+            }
+
+        }
+
+        // Find best position. It should be based on lowest cost. If there are more than 1 lowest cost,
+        // the chose the nearest point.
+        // For now, use the lowest first find.
+        return pos[lowestIdx];
     }
 
     @Override
