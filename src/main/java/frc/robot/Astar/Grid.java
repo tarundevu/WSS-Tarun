@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import frc.robot.Globals;
 
 public class Grid extends Network{
 
@@ -262,7 +264,7 @@ public class Grid extends Network{
             return tiles.get(x*ySize+y);
         else return null;
     }
-    double[] angle =  new double[] {0, Math.PI/4, Math.PI, Math.PI*3/4, Math.PI, -Math.PI*3/4, -Math.PI/2, -Math.PI/4 };
+    double[] angle =  new double[] {0, Math.PI/4, Math.PI/2, Math.PI*3/4, Math.PI, -Math.PI*3/4, -Math.PI/2, -Math.PI/4 };
     /**
    * Find free position for robot to goto an object
    * The function will search all the space from the 8 NSEW directions
@@ -270,7 +272,7 @@ public class Grid extends Network{
    * @param y object centre Y pos (in m)
    * @param dist dist of robot pos from object (in m)
    */
-    public Pose2d findGotoPos(double x, double y, double dist){
+    public Pose2d findGotoPos(Translation2d xy, double dist){
         Tile t;
         Pose2d[] pos = new Pose2d[8];
         double[] cost = new double[8];
@@ -280,8 +282,8 @@ public class Grid extends Network{
         // System.out.println(":::::::::::::::::::");
         // System.out.printf("x,y=%f, %f\n", x, y);
         for(int i=0; i<8; i++) {
-            double pos_x = x + dist*Math.cos(angle[i]);
-            double pos_y = y + dist*Math.sin(angle[i]);
+            double pos_x = xy.getX() + dist*Math.cos(angle[i]);
+            double pos_y = xy.getY() + dist*Math.sin(angle[i]);
             int grid_x = Layout.Convert_m_cell(pos_x);
             int grid_y = Layout.Convert_m_cell(pos_y);
 
@@ -293,6 +295,10 @@ public class Grid extends Network{
             else {
                 cost[i] = Node.maxObsValue;
             }
+            // double n_angle = angle[i] - Math.PI/2;
+            // if (n_angle <= -Math.PI)
+            //     n_angle += 2*Math.PI;
+            
             pos[i] = new Pose2d(pos_x, pos_y, new Rotation2d(angle[i]));
             if (lowestCost>cost[i]) {
                 lowestCost = cost[i];
@@ -300,12 +306,18 @@ public class Grid extends Network{
                 // System.out.println(pos[i]);
                 // System.out.printf("xl,yl=%d,%d cost=%f\n", grid_x, grid_y, lowestCost);
             }
+            // n_angle = 0;
 
         }
-
+    
         // Find best position. It should be based on lowest cost. If there are more than 1 lowest cost,
         // the chose the nearest point.
         // For now, use the lowest first find.
+        double n_angle = pos[lowestIdx].getRotation().getRadians() - Math.PI*3/2;
+        if (n_angle <= -Math.PI)
+            n_angle += 2*Math.PI;
+        pos[lowestIdx] = new Pose2d(pos[lowestIdx].getTranslation(),new Rotation2d(n_angle));
+        // Globals.curAngle = pos[lowestIdx].getRotation().getDegrees();
         return pos[lowestIdx];
     }
 

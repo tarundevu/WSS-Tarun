@@ -35,7 +35,7 @@ public class RobotContainer {
   public final static Menu m_menu = new Menu(m_oi);
   //commands
   public final static TeleCmd m_teleCmd = new TeleCmd(m_omnidrive, m_oi, m_arm);
-  public final static AutoMainCmd m_autoCmd = new AutoMainCmd();
+  public static AutoMainCmd m_autoCmd;
   //Create grid
   public static Layout m_layout;
   public static Grid m_Grid;
@@ -59,6 +59,7 @@ public class RobotContainer {
 
     // Create solver
     m_Astar = new AStarAlgorithm(m_Grid);
+    m_autoCmd = new AutoMainCmd();
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

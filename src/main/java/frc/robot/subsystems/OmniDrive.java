@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -253,7 +254,7 @@ public class OmniDrive extends SubsystemBase
         
         w += theta * Globals.AdjustFactor;
         w = Math.toRadians(w);
-        Globals.curAngle = w;
+        // Globals.curAngle = w;
         // m_odometry.update(x,y,theta);
         m_odometry.resetPosition(new Pose2d(x,y,new Rotation2d(w)));
     }
@@ -484,6 +485,7 @@ public class OmniDrive extends SubsystemBase
         // D_motor2.setDouble(motors[2].get());
         D_angle.setDouble(Globals.curAngle);
         Globals.curPose = m_odometry.getPose();
+        SmartDashboard.putString("CurPose", m_odometry.getPose().toString()); // Debugging Purposes
         // D_Global.setDouble(Globals.curDir);
     }
 }

@@ -47,8 +47,24 @@ public class AutoMainCmd extends SequentialCommandGroup
         
         
         super(
-            new Task_B()
-        
+            // new Task_B()
+            // Move out of starting position
+            new MovetoB(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.T1Pos).getTranslation(), 0.5)),
+            new Rotate2Orientation(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.T1Pos).getTranslation(), 0.5)),
+            new MovetoB(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.T2Pos).getTranslation(), 0.5)),
+            new Rotate2Orientation(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.T2Pos).getTranslation(), 0.5)),
+            new MovetoB(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.T3Pos).getTranslation(), 0.5)),
+            new Rotate2Orientation(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.T3Pos).getTranslation(), 0.5)),
+            new MovetoB(RobotContainer.m_Grid.findGotoPos(new Translation2d(1.5,4.35), 0.5)),
+            new Rotate2Orientation(RobotContainer.m_Grid.findGotoPos(new Translation2d(1.5,4.35), 0.5)),
+            new MovetoB(RobotContainer.m_Grid.findGotoPos(new Translation2d(1.9,1.9), 0.5)),
+            new Rotate2Orientation(RobotContainer.m_Grid.findGotoPos(new Translation2d(1.9,1.9), 0.5)),
+            new MovetoB(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.GreenPos).getTranslation(), 0.5)),
+            new Rotate2Orientation(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.GreenPos).getTranslation(), 0.5))
+            
+            // new InstantCommand(()-> Globals.curAngle = RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.T1Pos).getTranslation(), 0.5).getRotation().getDegrees())
+            // new Rotate2Orientation(-135)
+            // new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos))
         // new StartOrientation()
         // new StartPosition()
         // new Task_A_trolley1st()

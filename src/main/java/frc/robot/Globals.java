@@ -80,8 +80,8 @@ public class Globals
     public static double[][] moveCommands = {
       {2,Math.PI/2,0,0, Math.PI/2},
       {2,-Math.PI/2,0,0, Math.PI/2},
-      {0, -0.43, 0, 0, 0.2},
-      {0, -0.43, 0, 0, 0.2}
+      {0, -0.43, 0, 0, 0.4},
+      {0, -0.43, 0, 0, 0.4}
     };
 // End Conditions //
 

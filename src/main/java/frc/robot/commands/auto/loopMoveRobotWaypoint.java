@@ -10,7 +10,7 @@ public class loopMoveRobotWaypoint extends SequentialCommandGroup {
     public loopMoveRobotWaypoint(){
         super(
             new MoveRobotWayPoint(),
-            new WaitCommand(4),
+            new WaitCommand(8),
             // CP5 might be affected 
             new InstantCommand(() -> RobotContainer.m_points.updateAllPoints())
         );

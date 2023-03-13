@@ -25,7 +25,7 @@ public class MoveRobot extends CommandBase
     private double dT = 0.02;
     private boolean m_endFlag = false;
     protected int m_profType;
-    private TrapezoidProfile.Constraints m_constraints;
+    protected TrapezoidProfile.Constraints m_constraints;
     private TrapezoidProfile.State m_goal = new TrapezoidProfile.State();
     private TrapezoidProfile.State m_setpoint = new TrapezoidProfile.State();
     private int m_dir;
