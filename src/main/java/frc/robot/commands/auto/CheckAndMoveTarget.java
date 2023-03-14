@@ -4,10 +4,11 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 
 public class CheckAndMoveTarget extends SequentialCommandGroup{
-    public CheckAndMoveTarget(String targetName){
+    public CheckAndMoveTarget(String targetName, double dist){
         super(
-            new Rotate2Orientation(RobotContainer.m_points.getPoint(targetName)), 
-            new MovetoPoint(targetName)
+            new MovetoPoint(targetName, dist),
+            new Rotate2Orientation(targetName, dist)
+            
         );
     }
 }

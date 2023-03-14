@@ -24,7 +24,7 @@ public class CP7 extends SequentialCommandGroup {
             // Loop MoveRobot Commands until target area is found
             new loopMoveRobotWaypoint(),
             new LoopCmd(new loopMoveRobotWaypoint(), () -> Globals.endConditionCP7()),
-            new MovetoPoint("Trolley")
+            new MovetoPoint("Trolley", 0.5)
             );
     }
 }

@@ -53,6 +53,7 @@ public class MovetoB extends SequentialCommandGroup
 
     @Override
     public void initialize() {
+        
         super.initialize();
         //Astar works in cells (tiles)
         //Need to convert from real unit (x,y) position into nearest tile
@@ -168,4 +169,5 @@ public class MovetoB extends SequentialCommandGroup
         MovetoB.m_initFlag = false;
 
     }
+    
 }

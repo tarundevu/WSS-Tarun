@@ -279,8 +279,8 @@ public class Grid extends Network{
 
         double lowestCost = Node.maxObsValue;
         int lowestIdx = 0;
-        // System.out.println(":::::::::::::::::::");
-        // System.out.printf("x,y=%f, %f\n", x, y);
+        System.out.println(":::::::::::::::::::");
+        System.out.printf("x,y=%f, %f\n", xy.getX(), xy.getY());
         for(int i=0; i<8; i++) {
             double pos_x = xy.getX() + dist*Math.cos(angle[i]);
             double pos_y = xy.getY() + dist*Math.sin(angle[i]);
@@ -290,7 +290,7 @@ public class Grid extends Network{
             t = find(grid_x, grid_y);
             if ( t != null) {
                 cost[i] = t.getObsValue();
-                // System.out.printf("x,y=%d,%d a=%f cost=%f\n", grid_x, grid_y, angle[i], cost[i]);
+                System.out.printf("x,y=%d,%d a=%f cost=%f\n", grid_x, grid_y, angle[i], cost[i]);
             }
             else {
                 cost[i] = Node.maxObsValue;
@@ -303,8 +303,8 @@ public class Grid extends Network{
             if (lowestCost>cost[i]) {
                 lowestCost = cost[i];
                 lowestIdx = i;
-                // System.out.println(pos[i]);
-                // System.out.printf("xl,yl=%d,%d cost=%f\n", grid_x, grid_y, lowestCost);
+                System.out.println(pos[i]);
+                System.out.printf("xl,yl=%d,%d cost=%f\n", grid_x, grid_y, lowestCost);
             }
             // n_angle = 0;
 

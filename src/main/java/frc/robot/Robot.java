@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
     RobotContainer.m_points.resetObsMap();
     RobotContainer.m_points.resetMap();
     RobotContainer.m_Grid.AddFixedObstacles(RobotContainer.m_layout);
-    RobotContainer.m_Grid.ExpandObstacles(270);
+    RobotContainer.m_Grid.ExpandObstacles(240);
     //RobotContainer.InitMap();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

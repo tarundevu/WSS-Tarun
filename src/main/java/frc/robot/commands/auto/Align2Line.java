@@ -26,7 +26,7 @@ public class Align2Line extends SequentialCommandGroup{
       // sets cv mode to line detection
       new InstantCommand(()-> RobotContainer.m_vision.setColor("Black")),
       new InstantCommand(()-> Globals.cvMode = 0),
-      new WaitCommand(0.5),
+      new WaitCommand(1), // Org 0.5
       // aligns to line
       new AlignRobot(194,175,true),
       // resets cv mode to idle mode

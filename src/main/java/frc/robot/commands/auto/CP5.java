@@ -29,7 +29,7 @@ public class CP5 extends SequentialCommandGroup {
         // Loop MoveRobot Commands until target area is found
         new loopMoveRobotWaypoint(),
         new LoopCmd(new loopMoveRobotWaypoint(), () -> Globals.endConditionCP5(target)),
-        new MovetoPoint(target),
+        new MovetoPoint(target, 0.5),
         new MoveRobot(1, 0.2, 0, 0, 5)
       
     );

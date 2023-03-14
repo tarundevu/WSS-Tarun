@@ -1,9 +1,13 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
+import java.util.Map;
+
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import frc.robot.Globals;
+import frc.robot.Robot;
 //RobotContainer import
 import frc.robot.RobotContainer;
 
@@ -19,6 +23,9 @@ public class Rotate2Orientation extends MoveRobot {
     // private final double _startSpeed;
     private double m_angle =0;
     private double s_angle = 0;
+    private boolean updateMap = false;
+    private double m_dist;
+    private String m_target;
     /**
      * This command is used to align the robot to the object that is to be picked
      * @param angle - The orientation to rotate to
@@ -34,8 +41,13 @@ public class Rotate2Orientation extends MoveRobot {
      */
     public Rotate2Orientation(Pose2d pose){
         super(2, 0, 0, 0, Math.PI/3);
-        
         s_angle = pose.getRotation().getDegrees();
+    }
+    public Rotate2Orientation(String target, double dist){
+        super(2, 0, 0, 0, Math.PI/3);
+        updateMap = true;
+        m_target = target;
+        m_dist = dist;
     }
     
      /**
@@ -44,6 +56,9 @@ public class Rotate2Orientation extends MoveRobot {
     @Override
     public void initialize()
     {   
+        if(updateMap){
+            s_angle = RobotContainer.m_Grid.findGotoPos(RobotContainer.m_points.pointMap.get(m_target).getTranslation(), m_dist).getRotation().getDegrees();
+        }
         m_angle = s_angle;
         m_angle = m_angle - Globals.curDir;
         // Globals.curAngle = m_angle;
@@ -54,7 +69,7 @@ public class Rotate2Orientation extends MoveRobot {
         else 
             m_angle = m_angle + 0;
         m_angle = m_angle * (Math.PI/180);
-           
+        System.out.println("Rotate2Orientation: " + m_angle);   
         super.m_dist = m_angle;
         super.initialize();
     }

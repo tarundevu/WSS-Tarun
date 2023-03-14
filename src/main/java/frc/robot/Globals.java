@@ -85,6 +85,8 @@ public class Globals
     };
 // End Conditions //
 
+    public static float robotRadius_mm = 240;
+
     // End condition for pick and place
     // NOTE: 2d array has 3 columns but there are 4 objects
     public static boolean WOBLoopCondition(){
@@ -180,7 +182,7 @@ public class Globals
   public static boolean endConditionTaskBMapping(){
     loopCount++;
     // Count 19
-    if(loopCount<12){
+    if(loopCount<19){
         return false;
     }
     else{
