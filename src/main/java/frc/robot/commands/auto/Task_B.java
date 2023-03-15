@@ -1,5 +1,7 @@
 package frc.robot.commands.auto;
 
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -18,10 +20,13 @@ public class Task_B extends SequentialCommandGroup{
       // Move out of starting position
       new MoveRobot(0, -0.05, 0, 0, 5),
       new MoveRobot(1, 0.25, 0, 0, 5),
-
+      // new MovetoB(new Pose2d(new Translation2d(0.46, 0.26), new Rotation2d())),
+      // new Rotate2Orientation(0),
       // Mapping movement sequence
-      new loopMoveRobotWaypoint(),
-      new LoopCmd(new loopMoveRobotWaypoint(), () -> Globals.endConditionTaskBMapping()),
+      // new loopMoveRobotWaypoint(),
+      // new LoopCmd(new loopMoveRobotWaypoint(), () -> Globals.endConditionTaskBMapping()),
+      new LoopMovetoB(),
+      new LoopCmd(new LoopMovetoB(), () -> Globals.endConditionTaskBMapping()),
       new InstantCommand(()->RobotContainer.m_points.AddObsGrid()),
 
       //## Calibrate Robot Position ##//

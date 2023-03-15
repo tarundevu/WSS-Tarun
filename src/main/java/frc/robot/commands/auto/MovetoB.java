@@ -44,6 +44,7 @@ public class MovetoB extends SequentialCommandGroup
     static private final CentripetalAccelerationConstraint m_CurveConstraint = new CentripetalAccelerationConstraint(0.5);
     static private final TrajectoryConfig m_Config = new TrajectoryConfig(0.4, 0.4).addConstraint(m_CurveConstraint).setReversed(false);
 
+    static protected Pose2d m_posB2;    
     protected Pose2d m_posB;
     private double m_dist;
     static private boolean m_trajFlag = false;
@@ -58,6 +59,7 @@ public class MovetoB extends SequentialCommandGroup
         //Astar works in cells (tiles)
         //Need to convert from real unit (x,y) position into nearest tile
         //
+        System.out.println("m_posb: " + m_posB);
         Pose2d curPose = RobotContainer.m_omnidrive.getPose();
         int start_x = Layout.Convert_m_cell(curPose.getTranslation().getX());
         int start_y = Layout.Convert_m_cell(curPose.getTranslation().getY());
@@ -142,11 +144,14 @@ public class MovetoB extends SequentialCommandGroup
     public static boolean TrajCondition() {
         return m_trajFlag;
     }
+    public static Pose2d Get_posB2() {
+        return m_posB2;
+    }
     public Trajectory getTrajectory() {
         return m_Trajectory;
     }
 
-	public MovetoB(Pose2d posB)
+	public MovetoB(Pose2d pose2d)
     {
         
         super (
@@ -161,11 +166,11 @@ public class MovetoB extends SequentialCommandGroup
                     new PIDController(0.25, 0, 0),
                     new PIDController(0.25, 0, 0),
                     new ProfiledPIDController(1, 0, 0, new Constraints(Math.PI/2, Math.PI/2) ) ), 
-                new MoveRobotStr(posB), MovetoB::TrajCondition)
+                new MoveRobotStr(MovetoB::Get_posB2), MovetoB::TrajCondition)
             
             //End with rotation to the target heading???
         );
-        m_posB = posB;
+        m_posB = pose2d;
         MovetoB.m_initFlag = false;
 
     }

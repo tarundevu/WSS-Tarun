@@ -6,6 +6,8 @@ import java.util.List;
 import javax.lang.model.util.ElementScanner6;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import frc.robot.Astar.Layout;
 
 //Put all global variables here
@@ -82,6 +84,12 @@ public class Globals
       {2,-Math.PI/2,0,0, Math.PI/2},
       {0, -0.43, 0, 0, 0.4},
       {0, -0.43, 0, 0, 0.4}
+    };
+    public static Pose2d[] pose2dMoveCommands = {
+      new Pose2d(new Translation2d(0,0), new Rotation2d(0)),
+      new Pose2d(new Translation2d(0,0), new Rotation2d(-Math.PI/2)),
+      new Pose2d(new Translation2d(0,0.43), new Rotation2d(-Math.PI/2)),
+      new Pose2d(new Translation2d(0,0.43), new Rotation2d(-Math.PI/2)),
     };
 // End Conditions //
 
@@ -178,11 +186,11 @@ public class Globals
         return true;
     }
   } 
-
+  public static Pose2d waypoint = new Pose2d();
   public static boolean endConditionTaskBMapping(){
     loopCount++;
     // Count 19
-    if(loopCount<19){
+    if(curPose.getTranslation().getY() < 3.7){
         return false;
     }
     else{

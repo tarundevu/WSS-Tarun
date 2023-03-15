@@ -1,5 +1,7 @@
 package frc.robot.commands.auto;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 //WPI imports
@@ -28,7 +30,7 @@ public class MoveRobotStr extends CommandBase
     private TrapezoidProfile m_profile;
 
     protected double m_startSpeed, m_endSpeed, m_dist, m_dir;
-    private Pose2d m_posB;
+    private Supplier<Pose2d> m_posB;
 
     /**
      * This command moves the robot a certain distance following a trapezoidal speed profile.
@@ -41,7 +43,7 @@ public class MoveRobotStr extends CommandBase
      * @param maxSpeed - max speed of robot
      */
     //This move the robot a certain distance following a trapezoidal speed profile.
-    public MoveRobotStr(Pose2d posB)
+    public MoveRobotStr(Supplier<Pose2d> posB)
     {
         m_startSpeed = 0;
         m_endSpeed = 0;
@@ -59,8 +61,8 @@ public class MoveRobotStr extends CommandBase
     {   
         Pose2d curPose = RobotContainer.m_omnidrive.getPose();
         double dx, dy;
-        dx = m_posB.getTranslation().getX() - curPose.getTranslation().getX();
-        dy = m_posB.getTranslation().getY() - curPose.getTranslation().getY();
+        dx = m_posB.get().getTranslation().getX() - curPose.getTranslation().getX();
+        dy = m_posB.get().getTranslation().getY() - curPose.getTranslation().getY();
         m_dist = Math.sqrt(dx*dx + dy*dy);
         double angle = Math.atan2(dy, dx);
 

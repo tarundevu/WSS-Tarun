@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import frc.robot.Globals;
+import frc.robot.RobotContainer;
 
 public class Grid extends Network{
 
@@ -264,7 +265,7 @@ public class Grid extends Network{
             return tiles.get(x*ySize+y);
         else return null;
     }
-    double[] angle =  new double[] {0, Math.PI/4, Math.PI/2, Math.PI*3/4, Math.PI, -Math.PI*3/4, -Math.PI/2, -Math.PI/4 };
+    double[] angle =  new double[] {0, Math.PI/4, -Math.PI/4, Math.PI/2, -Math.PI/2, Math.PI*3/4, -Math.PI*3/4, Math.PI };
     /**
    * Find free position for robot to goto an object
    * The function will search all the space from the 8 NSEW directions
@@ -277,49 +278,61 @@ public class Grid extends Network{
         Pose2d[] pos = new Pose2d[8];
         double[] cost = new double[8];
 
-        double lowestCost = Node.maxObsValue;
-        int lowestIdx = 0;
-        System.out.println(":::::::::::::::::::");
-        System.out.printf("x,y=%f, %f\n", xy.getX(), xy.getY());
+        double dx = RobotContainer.m_omnidrive.getPose().getTranslation().getX() - xy.getX();
+        double dy = RobotContainer.m_omnidrive.getPose().getTranslation().getY() - xy.getY();
+        double a = Math.atan2(dy, dx);   //angle from obstacle to cur pos
+
+        // Find close NSEW match
+        int startIndx = 0;
         for(int i=0; i<8; i++) {
-            double pos_x = xy.getX() + dist*Math.cos(angle[i]);
-            double pos_y = xy.getY() + dist*Math.sin(angle[i]);
+            double diff = a-angle[i];
+            if (diff>Math.PI) diff -= Math.PI*2;
+            if (diff<-Math.PI) diff += Math.PI*2;
+            if ((diff<Math.PI/8) && (diff>-Math.PI/8)) {
+                startIndx = i;
+                break;
+            }
+
+        }
+
+        double lowestCost = Node.maxObsValue;
+        double startAngle = angle[startIndx];
+        int lowestIdx = 0;
+        // System.out.println(":::::::::::::::::::");
+        // System.out.printf("cur_xy=%f,%f xy=%f,%f a=%f startIndx=%d \n", cur_x, cur_y, x, y, a, startIndx);
+        for(int i=0; i<(8); i++) {
+
+            double aa = angle[i]+startAngle;  //angle to check
+            double pos_x = xy.getX() + dist*Math.cos(aa);
+            double pos_y = xy.getX() + dist*Math.sin(aa);
             int grid_x = Layout.Convert_m_cell(pos_x);
             int grid_y = Layout.Convert_m_cell(pos_y);
-
             t = find(grid_x, grid_y);
             if ( t != null) {
                 cost[i] = t.getObsValue();
-                System.out.printf("x,y=%d,%d a=%f cost=%f\n", grid_x, grid_y, angle[i], cost[i]);
+                if (i==0)
+                    cost[i] -= 10;
+                //  System.out.printf("i=%d x,y=%d,%d a=%f cost=%f\n", i, grid_x, grid_y, aa, cost[i]);
             }
             else {
                 cost[i] = Node.maxObsValue;
             }
-            // double n_angle = angle[i] - Math.PI/2;
-            // if (n_angle <= -Math.PI)
-            //     n_angle += 2*Math.PI;
-            
-            pos[i] = new Pose2d(pos_x, pos_y, new Rotation2d(angle[i]));
+            pos[i] = new Pose2d(pos_x, pos_y, new Rotation2d(aa));
             if (lowestCost>cost[i]) {
                 lowestCost = cost[i];
                 lowestIdx = i;
-                System.out.println(pos[i]);
-                System.out.printf("xl,yl=%d,%d cost=%f\n", grid_x, grid_y, lowestCost);
+                // System.out.println(pos[i]);
+                // System.out.printf("xl,yl=%d,%d lowestCost=%f\n", grid_x, grid_y, lowestCost);
             }
-            // n_angle = 0;
 
         }
-    
+
         // Find best position. It should be based on lowest cost. If there are more than 1 lowest cost,
         // the chose the nearest point.
         // For now, use the lowest first find.
-        double n_angle = pos[lowestIdx].getRotation().getRadians() - Math.PI*3/2;
-        if (n_angle <= -Math.PI)
-            n_angle += 2*Math.PI;
-        pos[lowestIdx] = new Pose2d(pos[lowestIdx].getTranslation(),new Rotation2d(n_angle));
-        // Globals.curAngle = pos[lowestIdx].getRotation().getDegrees();
-        return pos[lowestIdx];
+        return pos[lowestIdx];   //angle[lowestIndx]
     }
+
 
     @Override
     public Iterable<Node> getNodes() {

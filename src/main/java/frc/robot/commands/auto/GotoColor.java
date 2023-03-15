@@ -42,7 +42,7 @@ private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
   public GotoColor(String target) {
     super(
     // Gets offsetted coordinates from getCoord() which takes in the color coordinates as parameter
-    new CheckAndMoveTarget(target, 0.5),
+    new CheckAndMoveTarget(target, 0.7),
     // Aligns to the color (RMBR IMPORTANT!!!!! setColormode before calling Align2Color)
     new Align2Color(),
     new WaitCommand(1)
