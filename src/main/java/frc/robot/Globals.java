@@ -1,7 +1,9 @@
 package frc.robot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.lang.model.util.ElementScanner6;
 
@@ -198,4 +200,15 @@ public class Globals
         return true;
     }
   } 
+  // public static ArrayList<Pose2d> targetAreas = new ArrayList<Pose2d>();
+  // public static ArrayList<Pose2d> trolleys = new ArrayList<Pose2d>();
+  // public static Map<Pose2d, Pose2d> pairedTrolleyTarget = new HashMap<>();
+  
+  // public static void pairTargetNTrolley() {
+  //   ArrayList<Double> distances = new ArrayList<Double>();
+
+  //   int[][] combinations = new int[][]{
+  //     {}
+  //   }
+  // }
 }

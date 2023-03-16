@@ -85,7 +85,7 @@ public class SortTrolleys extends SequentialCommandGroup{
             new Align2Trolley(),
             new TrolleyHolder(1),
             new InstantCommand(()-> RobotContainer.m_points.removeObs("T1")),
-            
+            new InstantCommand(()-> System.out.println("After removeobs, Before Setting color blue")),
             new InstantCommand(()-> RobotContainer.m_vision.setColor("Blue")),
             new GotoColor(Layout.BluePos),
             new TrolleyHolder(0),
