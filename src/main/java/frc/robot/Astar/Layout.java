@@ -7,130 +7,105 @@ import edu.wpi.first.wpilibj.geometry.Transform2d;
 
 public class Layout {
     // Dimension of layout in real unit
-    public static final int x_size_mm = 2250;
-    public static final int y_size_mm = 4500;
-    public static final int tile_size_mm = 25;
-    public static final float tile_size_meter = tile_size_mm/1000.0f;
-    public static final int X_SIZE = Math.round((float)x_size_mm/tile_size_mm)+1; //??
-    public static final int Y_SIZE = Math.round((float)y_size_mm/tile_size_mm)+1;
+    public static final double x_size_m = 2.250;
+    public static final double y_size_m = 4.500;
+    public static final double tile_size_m = 0.025;
     
     //List all fixed walls in layout here
-    public static final int walls_mm[][] = {
-        //(x0,y0) (x1,y1) end coordinates of line
-        //x0,   y0,    x1,    y1
+    //List all fixed walls in layout here
+    public static final double walls_m[][] = {
         //Boundary
-        {0,  0,     x_size_mm,  0}, 
-        {0,  0,     0,  y_size_mm}, 
-        {0,     y_size_mm,  x_size_mm,     y_size_mm   }, 
-        {x_size_mm,  y_size_mm,  x_size_mm,     0}, 
-        
+        {0,         0,         x_size_m,     0   }, 
+        {x_size_m,  0,         x_size_m,     y_size_m}, 
+        {x_size_m,  y_size_m,  0,            y_size_m}, 
+        {0,         y_size_m,  0,            0   }, 
+        // Other walls
+
+   
     };
 
     //List all fixed rectangular obstacles in layout here
-    public static final int obs_mm[][] = {
-        //(x0,y0) - centre of box
-        //x0   y0    xSize ySize Angle
-        {1400, 1100,  300,  420, 0 },   //Pick Up bin 1
-        {1380, 3000,  300,  420, -45},   //Pick Up bin 2, Remove for Task B
-        // {1140, 4390,  320, 230,  0 }, 
-        // {1957, 2038-425,  150,  210,  0 }, 
-       
+    public static final double obs_m[][] = {
+        //x0    y0      xSize   ySize   Angle
+        {1.400, 1.100,  0.300,  0.420,  0 },   //pickup bin
+        {1.380, 3.000,  0.300,  0.420,  -Math.PI/4 },   //pickup bin
     };
-    public static final int obsRound_mm[][] = {
- 
-        // {500, 1600,  300},   //t1
-        // {2000, 1850,  300},   //t2
-        // {1450, 3850,  300},   //t3
-           
+    public static final double obsRound_m[][] = {
+        //x,    y,      diameter
+        // {2.100, 4.310,  0.300}, //red
+        // {0.200, 4.370 , 0.300}, //green
+        // {1.100, 4.330,  0.300}  //blue
+        // {0.980,  3.910,  0.300} //red
+        // {0.290,  4.370,  0.300}, //green
+        // {1.860,  3.830,  0.300}  //blue
+      
     };
 
     //Coordinates of PickUp bin
     //72cm behind pickup bin
     // At 45 deg, it's 0.707*72cm = 50.9cm
 
-    public static final int testPickUpBinPos[] = {1400-520,1100, -90};
-    public static final int PickUpBinPos[] = {1400-720,1100, -90};
-    public static final int PickUpBin2Pos[] = {1380-509,3000+509, -135};
+    public static final Pose2d TestPickUpBinPos = new Pose2d(0.63, 1.05,  new Rotation2d(-Math.PI/2) );
+    public static final Pose2d PickUpBinPos = new Pose2d(1.4-0.72, 1.1,  new Rotation2d(-Math.PI/2) );
+    public static final Pose2d PickUpBin2Pos = new Pose2d(1.38-0.509, 3.0+0.509,  new Rotation2d(-Math.PI/4) );
     //These are coordinates of the red colored target area (NOTE: indicate the angle of orientation)
-    public static final int RedPos[] = {2000,4320, -45};
+    public static final Pose2d RedPos = new Pose2d(2, 4.32,  new Rotation2d(Math.toRadians(-45)));
   
     //These are coordinates of the green colored target area
-    public static final int GreenPos[] = {175,2660, 90};
+    public static final Pose2d GreenPos = new Pose2d(0.175, 2.66,  new Rotation2d(Math.toRadians(90)));
 
     //These are coordinates of the blue colored target area
-    public static final int BluePos[] = {940,1850, 90};//{1000,1800, -90};
+    public static final Pose2d BluePos = new Pose2d(0.940, 1.85,  new Rotation2d(Math.toRadians(90)));
 
     //These are coordinates of the trolleys (NOTE: indicate the angle of orientation) 
-    public static final int T1Pos[] = {500,1600, 90};
+    public static final Pose2d T1Pos = new Pose2d(0.5, 1.6,  new Rotation2d(Math.toRadians(90)));
   
-    public static final int T2Pos[] = {2100,4350,-45};//{2000,1850,-90};
+    public static final Pose2d T2Pos = new Pose2d(2, 1.85,  new Rotation2d(Math.toRadians(-45)));
 
-    public static final int T3Pos[] = {150,4350,45};//{1450, 3850, -90};
+    public static final Pose2d T3Pos = new Pose2d(0.150, 4.35,  new Rotation2d(Math.toRadians(45)));
 
     // Position for robot to go to for reading work order
-    public static final int workOrderPos[] = {1100, 250, -90};//1100
+    public static final Pose2d workOrderPos = new Pose2d(1.1, 0.250,  new Rotation2d(Math.toRadians(-90)));
 
     // Robot start position.
-    public static final int startPos[] = {210, 210, -90}; //start position
-    // public static final int startPos[] = {960, 1100, -90}; //For open house/testing
+    public static final Pose2d startPos = new Pose2d(0.210, 0.210, new Rotation2d(-Math.PI/2) );
+    // public static final Pose2d startPos = new Pose2d(0.96,1.1, new Rotation2d(-Math.PI/2) ); //For open house/testing
 
-    private int walls[][];
-    private int obs[][];
-    private int obsRound[][];
-
-    public Layout() {
-        int i, j;
-        
-        //Convert walls in mm to walls in cell size
-        walls = new int[walls_mm.length][4];
-        for (i=0; i< walls_mm.length; i++) {
-            for (j=0; j<4; j++) {
-                walls[i][j] = Math.round((float)walls_mm[i][j]/tile_size_mm);
-            }
-        }
-
-        //Convert obstacles in mm to obstacles in cell size
-        obs = new int[obs_mm.length][5];
-        for (i=0; i< obs_mm.length; i++) {
-            for (j=0; j<4; j++) {
-                obs[i][j] = Math.round((float)obs_mm[i][j]/tile_size_mm);
-            }
-            obs[i][4] = obs_mm[i][4];  //Angle in degree stays the same
-        }
-
-         //Convert obstacles in mm to obstacles in cell size
-         obsRound = new int[obsRound_mm.length][3];
-         for (i=0; i< obsRound_mm.length; i++) {
-             for (j=0; j<3; j++) {
-                 obsRound[i][j] = Math.round((float)obsRound_mm[i][j]/tile_size_mm);
-             }
-             obsRound[i][4] = obsRound_mm[i][4];  //Angle in degree stays the same
-         }
-
+     public Layout() {
+       
+      
     }
 
+     /**
+   * Convert a point in cell to m
+   *
+   * @param pt (int metre)
+   * @return pt (in cell size)
+   */
     static public Translation2d Convert_cell_m(Translation2d pt) {
-        Translation2d pt_m = new Translation2d(pt.getX()*tile_size_meter, pt.getY()*tile_size_meter);
-        return pt_m;
+    Translation2d pt_m = new Translation2d(pt.getX()*tile_size_m, pt.getY()*tile_size_m);
+    return pt_m;
     }
 
+    /**
+    * Convert from metre to grid cell index
+    *
+    * @param m length in metre
+    * @return Grid cell index
+    */
     static public int Convert_m_cell (double m) {
-        return Math.round((float)m*1000/tile_size_mm);
-    }
-    
-    static public Pose2d Convert_mm_Pose2d (int pos[]) {
-        return new Pose2d(pos[0]/1000.0f, pos[1]/1000.0f, new Rotation2d(pos[2]*Math.PI/180));
+        return (int) Math.round(m/tile_size_m);
     }
 
-    public int [][] getWalls() {
-        return walls;
+    public double [][] getWalls() {
+        return walls_m;
     }
 
-    public int [][] getObs() {
-        return obs;
+    public double [][] getObs() {
+        return obs_m;
     }
 
-    public int [][] getObsRound() {
-        return obsRound;
+    public double [][] getObsRound() {
+        return obsRound_m;
     }
 }

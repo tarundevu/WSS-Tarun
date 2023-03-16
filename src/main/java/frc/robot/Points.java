@@ -38,8 +38,8 @@ public class Points{
   public Points() {
     trolleyCount = 1;
     binCount = 1;
-    pointMap.put("Bin1", new Pose2d(new Translation2d((double)(Layout.obs_mm[0][0]/1000.0),(double)(Layout.obs_mm[0][1]/1000)), new Rotation2d(Layout.obs_mm[0][4]/180 * Math.PI)));
-    obstacleMap.put("Bin1", new Pose2d(new Translation2d((double)(Layout.obs_mm[0][0]/1000.0),(double)(Layout.obs_mm[0][1]/1000)), new Rotation2d(Layout.obs_mm[0][4]/180 * Math.PI)));
+    pointMap.put("Bin1", new Pose2d(new Translation2d((double)(Layout.obs_m[0][0]),(double)(Layout.obs_m[0][1])), new Rotation2d(Layout.obs_m[0][4])));
+    obstacleMap.put("Bin1", new Pose2d(new Translation2d((double)(Layout.obs_m[0][0]),(double)(Layout.obs_m[0][1])), new Rotation2d(Layout.obs_m[0][4])));
     pointMap.put("T1",trolley);
     pointMap.put("T2",trolley);
     pointMap.put("T3",trolley);
@@ -53,7 +53,7 @@ public class Points{
     trolleyCount = 1;
     binCount = 1;
     pointMap.clear();
-    pointMap.put("Bin1", new Pose2d(new Translation2d((double)(Layout.obs_mm[0][0]/1000.0),(double)(Layout.obs_mm[0][1]/1000)), new Rotation2d(Layout.obs_mm[0][4]/180 * Math.PI)));
+    pointMap.put("Bin1", new Pose2d(new Translation2d((double)(Layout.obs_m[0][0]),(double)(Layout.obs_m[0][1])), new Rotation2d(Layout.obs_m[0][4])));
     
   }
   public void resetObsMap() {
@@ -210,37 +210,39 @@ public void updateAllPoints(){
 
 // From hashmap
   public void AddObsGrid(){
-    int tile_size_mm = RobotContainer.m_layout.tile_size_mm;
-   
     for (Map.Entry<String, Pose2d> obstacleEntry :obstacleMap.entrySet()) {
       if(obstacleEntry.getKey().contains( "T")) {
-          int cx_mm = (int)(obstacleEntry.getValue().getTranslation().getX()*1000);
-          int cy_mm= (int)(obstacleEntry.getValue().getTranslation().getY()*1000);
-          RobotContainer.m_Grid.AddObsRound(Math.round((float)cx_mm/tile_size_mm), Math.round((float)cy_mm/tile_size_mm), Math.round((float)300/tile_size_mm));  
+          
+          int x0 = Layout.Convert_m_cell(obstacleEntry.getValue().getTranslation().getX());
+          int y0 = Layout.Convert_m_cell(obstacleEntry.getValue().getTranslation().getY());
+          int dia = Layout.Convert_m_cell(0.3);
+          RobotContainer.m_Grid.AddObsRound(x0, y0, dia);
       }
       else if(obstacleEntry.getKey().contains( "Bin")) {
-        int cx_mm = (int)(obstacleEntry.getValue().getTranslation().getX()*1000);
-        int cy_mm= (int)(obstacleEntry.getValue().getTranslation().getY()*1000);
-        RobotContainer.m_Grid.AddObstacle(Math.round((float)cx_mm/tile_size_mm), Math.round((float)cy_mm/tile_size_mm), Math.round((float)300/tile_size_mm), Math.round((float)420/tile_size_mm), obstacleEntry.getValue().getRotation().getRadians());  
+        int x0 = Layout.Convert_m_cell(obstacleEntry.getValue().getTranslation().getX());
+        int y0 = Layout.Convert_m_cell(obstacleEntry.getValue().getTranslation().getY());
+        int dx = Layout.Convert_m_cell(0.3);
+        int dy = Layout.Convert_m_cell(0.42);
+        RobotContainer.m_Grid.AddObstacle(x0, y0, dx, dy, obstacleEntry.getValue().getRotation().getRadians());
       }
           
     }
         
-    RobotContainer.m_Grid.ExpandObstacles(Globals.robotRadius_mm);
+    RobotContainer.m_Grid.ExpandObstacles(Globals.robotRadius_m);
   }
   public void removeObs(String key){
     RobotContainer.m_Grid.ClearObs(); 
     RobotContainer.m_Grid.AddFixedObstacles(RobotContainer.m_layout);
-    RobotContainer.m_Grid.ExpandObstacles(Globals.robotRadius_mm);
+    RobotContainer.m_Grid.ExpandObstacles(Globals.robotRadius_m);
     obstacleMap.remove(key);
     AddObsGrid();
    
   }
  
   public void SetTrolleysAsObstacles(){
-    obstacleMap.put("T1", Layout.Convert_mm_Pose2d(Layout.T1Pos));
-    obstacleMap.put("T2", Layout.Convert_mm_Pose2d(Layout.T2Pos));
-    obstacleMap.put("T3", Layout.Convert_mm_Pose2d(Layout.T3Pos));
+    obstacleMap.put("T1", Layout.T1Pos);
+    obstacleMap.put("T2", Layout.T2Pos);
+    obstacleMap.put("T3", Layout.T3Pos);
     AddObsGrid();
   }
   

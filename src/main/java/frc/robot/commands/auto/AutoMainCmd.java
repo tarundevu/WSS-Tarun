@@ -52,7 +52,7 @@ public class AutoMainCmd extends SequentialCommandGroup
             // new LoopMovetoB(),
             // new LoopCmd(new LoopMovetoB(), ()-> Globals.endConditionTaskBMapping())  
             // new InitialCalibration()
-            new Task_B()
+            // new Task_B()
             // Move out of starting position
             // new MovetoB(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.T1Pos).getTranslation(), 0.5)),
             // new Rotate2Orientation(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.T1Pos).getTranslation(), 0.5)),
@@ -75,7 +75,7 @@ public class AutoMainCmd extends SequentialCommandGroup
         // new Task_A_trolley1st()
     //   new MovetoB(new Pose2d(new Translation2d(1.8, 1.7),new Rotation2d(0))),
     
-        // new Task_A_pick1st()
+        new Task_A_pick1st()
         // new InstantCommand(()->RobotContainer.m_points.SetTrolleysAsObstacles()),
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.testPickUpBinPos)),
         // // new MovetoB(Layout.Convert_mm_Pose2d(Layout.T2Pos)),

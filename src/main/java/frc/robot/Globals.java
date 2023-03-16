@@ -93,7 +93,7 @@ public class Globals
     };
 // End Conditions //
 
-    public static float robotRadius_mm = 240;
+    public static double robotRadius_m = 0.24;
 
     // End condition for pick and place
     // NOTE: 2d array has 3 columns but there are 4 objects

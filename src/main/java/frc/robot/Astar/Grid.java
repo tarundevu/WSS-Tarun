@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
-import frc.robot.Globals;
 import frc.robot.RobotContainer;
 
 public class Grid extends Network{
@@ -14,8 +13,8 @@ public class Grid extends Network{
     private ArrayList<Tile> tiles;
 
     public Grid(Layout layout) {
-        xSize = Layout.X_SIZE;
-        ySize = Layout.Y_SIZE;
+        xSize = Layout.Convert_m_cell(Layout.x_size_m) + 1;
+        ySize = Layout.Convert_m_cell(Layout.y_size_m) + 1;
 
         tiles = new ArrayList<>();
         //Add individual cell
@@ -43,20 +42,31 @@ public class Grid extends Network{
 
     public void AddFixedObstacles(Layout layout) {
         //Add fixed walls
-        int[][] walls = layout.getWalls();
+        double[][] walls = layout.getWalls();
         for(int i=0; i< walls.length; i++) {
-            AddWall(walls[i][0], walls[i][1], walls[i][2], walls[i][3]);
+            int x0 = Layout.Convert_m_cell(walls[i][0]);
+            int y0 = Layout.Convert_m_cell(walls[i][1]);
+            int x1 = Layout.Convert_m_cell(walls[i][2]);
+            int y1 = Layout.Convert_m_cell(walls[i][3]);
+            AddWall(x0, y0, x1, y1);
         }
 
         //Add fixed obstacles
-        int[][] obs = layout.getObs();
+        double[][] obs = layout.getObs();
         for(int i=0; i< obs.length; i++) {
-            AddObstacle(obs[i][0], obs[i][1], obs[i][2], obs[i][3], obs[i][4]*Math.PI/180);
+            int x0 = Layout.Convert_m_cell(obs[i][0]);
+            int y0 = Layout.Convert_m_cell(obs[i][1]);
+            int dx = Layout.Convert_m_cell(obs[i][2]);
+            int dy = Layout.Convert_m_cell(obs[i][3]);
+            AddObstacle(x0, y0, dx, dy, obs[i][4]);
         }
-        
-        int[][] obsRound = layout.getObsRound();
+
+        double[][] obsRound = layout.getObsRound();
         for(int i=0; i< obsRound.length; i++) {
-            AddObsRound(obsRound[i][0], obsRound[i][1], obsRound[i][2]);
+            int x0 = Layout.Convert_m_cell(obsRound[i][0]);
+            int y0 = Layout.Convert_m_cell(obsRound[i][1]);
+            int dia = Layout.Convert_m_cell(obsRound[i][2]);
+            AddObsRound(x0, y0, dia);
         }
      }
      /**
@@ -64,10 +74,10 @@ public class Grid extends Network{
    *
    * @param robotRadius_mm robot radius in mm
    */
-    public void ExpandObstacles(float robotRadius_mm) {
+    public void ExpandObstacles(double robotRadius_m) {
 
         //Expand obstacle by robot radius. These are no entry zones
-        int robotRadius = Math.round((float)robotRadius_mm/Layout.tile_size_mm);
+        int robotRadius = Layout.Convert_m_cell(robotRadius_m);
 
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
@@ -109,8 +119,8 @@ public class Grid extends Network{
         //Expand obstacle by path cost. These are high cost cell to force robot away from obstacle
         //It is possible for robot to enter these cells (tiles).
         //Number of cells to expand and their values are defined here
-        double keepOutDist_mm = 250;      
-        int numOfCells = Math.round((float)keepOutDist_mm/Layout.tile_size_mm);  
+        double keepOutDist_m = 0.250;      
+        int numOfCells = Layout.Convert_m_cell(keepOutDist_m);  
         double expansion[] = new double[numOfCells];
         double factor = 0.75;//Math.exp(Math.log(0.1f)/numOfCells);
         double cost = Node.maxObsValue*factor;
@@ -304,7 +314,7 @@ public class Grid extends Network{
 
             double aa = angle[i]+startAngle;  //angle to check
             double pos_x = xy.getX() + dist*Math.cos(aa);
-            double pos_y = xy.getX() + dist*Math.sin(aa);
+            double pos_y = xy.getY() + dist*Math.sin(aa);
             int grid_x = Layout.Convert_m_cell(pos_x);
             int grid_y = Layout.Convert_m_cell(pos_y);
             t = find(grid_x, grid_y);
@@ -332,7 +342,6 @@ public class Grid extends Network{
         // For now, use the lowest first find.
         return pos[lowestIdx];   //angle[lowestIndx]
     }
-
 
     @Override
     public Iterable<Node> getNodes() {

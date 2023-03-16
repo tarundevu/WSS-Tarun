@@ -50,9 +50,9 @@ public class SortItems extends SequentialCommandGroup{
         new MoveCamera(286),
         new SelectCommand(
             Map.ofEntries(
-                Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T2Pos))),
-                Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T3Pos))),
-                Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T1Pos)))
+                Map.entry(CommandSelector.ONE, new GotoTrolley(Layout.T2Pos)),
+                Map.entry(CommandSelector.TWO, new GotoTrolley(Layout.T3Pos)),
+                Map.entry(CommandSelector.THREE, new GotoTrolley(Layout.T1Pos))
                 ), 
             SortItems::selectTarget
             ),
@@ -70,15 +70,15 @@ public class SortItems extends SequentialCommandGroup{
         //new MoveRobot(1, -0.05, 0, 0, 0.1),
         new SelectCommand(
             Map.ofEntries(
-                Map.entry(CommandSelector.ONE,new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos))),
-                Map.entry(CommandSelector.TWO, new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos)))
+                Map.entry(CommandSelector.ONE,new MovetoB(Layout.PickUpBinPos)),
+                Map.entry(CommandSelector.TWO, new MovetoB(Layout.PickUpBin2Pos))
                 ), 
             SortItems::selectBin
         ),
         new SelectCommand(
             Map.ofEntries(
-                Map.entry(CommandSelector.ONE,new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees())),
-                Map.entry(CommandSelector.TWO, new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos).getRotation().getDegrees()))
+                Map.entry(CommandSelector.ONE,new Rotate2Orientation(Layout.PickUpBinPos.getRotation().getDegrees())),
+                Map.entry(CommandSelector.TWO, new Rotate2Orientation(Layout.PickUpBin2Pos.getRotation().getDegrees()))
                 ), 
             SortItems::selectRotation
         ),
@@ -114,15 +114,15 @@ public class SortItems extends SequentialCommandGroup{
         //new MoveRobot(1, -0.05, 0, 0, 0.1),
         new SelectCommand(
             Map.ofEntries(
-                Map.entry(CommandSelector.ONE,new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos))),
-                Map.entry(CommandSelector.TWO, new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos)))
+                Map.entry(CommandSelector.ONE,new MovetoB(Layout.PickUpBinPos)),
+                Map.entry(CommandSelector.TWO, new MovetoB(Layout.PickUpBin2Pos))
                 ), 
             SortItems::selectBin
         ),
         new SelectCommand(
             Map.ofEntries(
-                Map.entry(CommandSelector.ONE,new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees())),
-                Map.entry(CommandSelector.TWO, new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos).getRotation().getDegrees()))
+                Map.entry(CommandSelector.ONE,new Rotate2Orientation(Layout.PickUpBinPos.getRotation().getDegrees())),
+                Map.entry(CommandSelector.TWO, new Rotate2Orientation(Layout.PickUpBin2Pos.getRotation().getDegrees()))
                 ), 
             SortItems::selectRotation
         ),

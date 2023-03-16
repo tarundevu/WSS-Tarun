@@ -20,12 +20,12 @@ public class Task_A_pick1st extends SequentialCommandGroup{
           //## Calibrate Robot Position ##//
           new InitialCalibration(),
           //## Read WOB ##// 
-          new MovetoB(Layout.Convert_mm_Pose2d(Layout.workOrderPos)),
+          new MovetoB(Layout.workOrderPos),
           new ReadWOB(),
           //## Sort Items ##//
           //## pick up bin 1 ##//
-          new MovetoB(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)),
-          new Rotate2Orientation(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos).getRotation().getDegrees()),
+          new MovetoB(Layout.PickUpBinPos),
+          new Rotate2Orientation(Layout.PickUpBinPos.getRotation().getDegrees()),
           new Align2Line(),
           new ViewItem(),
           new LoopCmd(new SortItems(), ()->Globals.WOBLoopCondition()),

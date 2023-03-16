@@ -28,8 +28,8 @@ public class ResetPosition extends SequentialCommandGroup{
     super(
       new SelectCommand(
             Map.ofEntries(
-                Map.entry(CommandSelector.ONE, new InstantCommand(()->RobotContainer.m_omnidrive.UpdatePosition(Layout.Convert_mm_Pose2d(Layout.PickUpBinPos)))),
-                Map.entry(CommandSelector.TWO, new InstantCommand(()->RobotContainer.m_omnidrive.UpdatePosition(Layout.Convert_mm_Pose2d(Layout.PickUpBin2Pos))))
+                Map.entry(CommandSelector.ONE, new InstantCommand(()->RobotContainer.m_omnidrive.UpdatePosition(Layout.PickUpBinPos))),
+                Map.entry(CommandSelector.TWO, new InstantCommand(()->RobotContainer.m_omnidrive.UpdatePosition(Layout.PickUpBin2Pos)))
                
                 ), 
             ResetPosition::selectPosition

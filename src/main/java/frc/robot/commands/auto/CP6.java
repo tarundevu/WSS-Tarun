@@ -14,9 +14,9 @@ public class CP6 extends SequentialCommandGroup{
   public CP6(){
     super(
       new MoveCamera(286),
-      new GotoTrolley(Layout.Convert_mm_Pose2d(Layout.T1Pos)),
+      new GotoTrolley(Layout.T1Pos),
       new TrolleyHolder(1),
-      new GotoColor(Layout.Convert_mm_Pose2d(Layout.RedPos)),
+      new GotoColor(Layout.RedPos),
       new TrolleyHolder(0)
     );
   }

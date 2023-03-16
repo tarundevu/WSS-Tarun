@@ -124,7 +124,7 @@ public class OmniDrive extends SubsystemBase
         gyro.zeroYaw();
         curHeading = targetHeading = getYawRad();
 
-        m_odometry = new OmniDriveOdometry(Layout.Convert_mm_Pose2d(Layout.startPos));
+        m_odometry = new OmniDriveOdometry(Layout.startPos);
 
     }
     public double getDir(){
@@ -427,7 +427,7 @@ public class OmniDrive extends SubsystemBase
 
    public void initialise(){
         setRobotSpeedXYW(0,0,0);
-        m_odometry.resetPosition(Layout.Convert_mm_Pose2d(Layout.startPos));
+        m_odometry.resetPosition(Layout.startPos);
         Globals.startYaw = getYawRad();
         gyro.zeroYaw();
         curHeading = targetHeading = getYawRad();

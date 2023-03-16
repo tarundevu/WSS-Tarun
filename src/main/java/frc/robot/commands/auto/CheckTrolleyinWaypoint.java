@@ -44,7 +44,7 @@ public class CheckTrolleyinWaypoint extends SequentialCommandGroup{
   @Override
   public void initialize() {
     for (Map.Entry<String, Pose2d> obstacleEntry : RobotContainer.m_points.obstacleMap.entrySet()) {
-      if (obstacleEntry.getValue().getTranslation().getX() < Globals.curPose.getTranslation().getX() + Globals.robotRadius_mm / 1000){
+      if (obstacleEntry.getValue().getTranslation().getX() < Globals.curPose.getTranslation().getX() + Globals.robotRadius_m / 1000){
         m_trolleyFlag = true;
         m_trolley = obstacleEntry.getKey();
         break;
