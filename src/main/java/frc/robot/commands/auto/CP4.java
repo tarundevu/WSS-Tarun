@@ -16,6 +16,7 @@ public class CP4 extends SequentialCommandGroup{
       new MoveCamera(286),
       new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
       new MovetoB(new Pose2d(1.0,3.5,new Rotation2d(0))) //target posisiton
+      
     );
   }
 }

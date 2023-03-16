@@ -76,6 +76,10 @@ public class AutoMainCmd extends SequentialCommandGroup
     //   new MovetoB(new Pose2d(new Translation2d(1.8, 1.7),new Rotation2d(0))),
     
         new Task_A_pick1st()
+        // new InstantCommand(()-> System.out.println(RobotContainer.m_Grid.findGotoPos(Layout.T1Pos.getTranslation(), 0.5)))
+        // new MovetoB(RobotContainer.m_Grid.findGotoPos(Layout.T1Pos.getTranslation(), 0.5))
+        // new GotoTrolley(Layout.T1Pos)
+        // new testing(Layout.T1Pos)
         // new InstantCommand(()->RobotContainer.m_points.SetTrolleysAsObstacles()),
         // new MovetoB(Layout.Convert_mm_Pose2d(Layout.testPickUpBinPos)),
         // // new MovetoB(Layout.Convert_mm_Pose2d(Layout.T2Pos)),

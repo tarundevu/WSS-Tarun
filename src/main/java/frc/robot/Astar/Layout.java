@@ -47,7 +47,7 @@ public class Layout {
 
     public static final Pose2d TestPickUpBinPos = new Pose2d(0.63, 1.05,  new Rotation2d(-Math.PI/2) );
     public static final Pose2d PickUpBinPos = new Pose2d(1.4-0.72, 1.1,  new Rotation2d(-Math.PI/2) );
-    public static final Pose2d PickUpBin2Pos = new Pose2d(1.38-0.509, 3.0+0.509,  new Rotation2d(-Math.PI/4) );
+    public static final Pose2d PickUpBin2Pos = new Pose2d(1.38-0.509, 3.0+0.509,  new Rotation2d(-Math.PI*3/4) );
     //These are coordinates of the red colored target area (NOTE: indicate the angle of orientation)
     public static final Pose2d RedPos = new Pose2d(2, 4.32,  new Rotation2d(Math.toRadians(-45)));
   
@@ -60,7 +60,7 @@ public class Layout {
     //These are coordinates of the trolleys (NOTE: indicate the angle of orientation) 
     public static final Pose2d T1Pos = new Pose2d(0.5, 1.6,  new Rotation2d(Math.toRadians(90)));
   
-    public static final Pose2d T2Pos = new Pose2d(2, 1.85,  new Rotation2d(Math.toRadians(-45)));
+    public static final Pose2d T2Pos = new Pose2d(2, 1.85,  new Rotation2d(Math.toRadians(-90)));
 
     public static final Pose2d T3Pos = new Pose2d(0.150, 4.35,  new Rotation2d(Math.toRadians(45)));
 

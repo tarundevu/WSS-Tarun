@@ -340,6 +340,10 @@ public class Grid extends Network{
         // Find best position. It should be based on lowest cost. If there are more than 1 lowest cost,
         // the chose the nearest point.
         // For now, use the lowest first find.
+        double n_angle = pos[lowestIdx].getRotation().getRadians() - Math.PI*3/2;
+        if (n_angle <= -Math.PI)
+            n_angle += 2*Math.PI;
+        pos[lowestIdx] = new Pose2d(pos[lowestIdx].getTranslation(),new Rotation2d(n_angle));
         return pos[lowestIdx];   //angle[lowestIndx]
     }
 
