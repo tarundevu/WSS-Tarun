@@ -44,7 +44,7 @@ public class Menu extends SubsystemBase
 
    
     int menuNum=0;
-    private final String[] menuName;
+   private final String[] menuName;
 
     public Menu(final OI oi) {
 
@@ -83,6 +83,7 @@ public class Menu extends SubsystemBase
         tab.add("TestPicking", new TestPicking());
         tab.add("TestLine", new TestLine());
         tab.add("TestColor", new TestColor());
+        // tab.add("CP6", new CP6());
         
         //A-up button, Y-down button
         m_oi.buttonA.whenPressed( ()->{Globals.menuItem--;Globals.menuItem=(Globals.menuItem+menuNum)%menuNum;});
@@ -94,8 +95,8 @@ public class Menu extends SubsystemBase
     public void periodic()
     {
       
-        D_menu.setString( menuName[Globals.menuItem]);
-        D_button.setNumber(m_oi.getDriveButtons());
+       D_menu.setString( menuName[Globals.menuItem]);
+       D_button.setNumber(m_oi.getDriveButtons());
         for (int i=0; i<Globals.DNUM; i++) {
             D_debug[i].setNumber(Globals.debug[i]);
         }

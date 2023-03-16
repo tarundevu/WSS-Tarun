@@ -32,7 +32,7 @@ public class RobotContainer {
   public final static Vision m_vision = new Vision();
   public final static Points m_points = new Points();
   //user menu
-  public final static Menu m_menu = new Menu(m_oi);
+  public static Menu m_menu ;
   //commands
   public final static TeleCmd m_teleCmd = new TeleCmd(m_omnidrive, m_oi, m_arm);
   public static AutoMainCmd m_autoCmd;
@@ -60,6 +60,7 @@ public class RobotContainer {
     // Create solver
     m_Astar = new AStarAlgorithm(m_Grid);
     m_autoCmd = new AutoMainCmd();
+    m_menu = new Menu(m_oi);
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

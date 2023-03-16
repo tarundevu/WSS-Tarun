@@ -308,8 +308,10 @@ public class Grid extends Network{
         double lowestCost = Node.maxObsValue;
         double startAngle = angle[startIndx];
         int lowestIdx = 0;
-        // System.out.println(":::::::::::::::::::");
-        // System.out.printf("cur_xy=%f,%f xy=%f,%f a=%f startIndx=%d \n", cur_x, cur_y, x, y, a, startIndx);
+        System.out.println(":::::::::::::::::::");
+        double x = RobotContainer.m_omnidrive.getPose().getTranslation().getX();
+        double y = RobotContainer.m_omnidrive.getPose().getTranslation().getY();
+        System.out.printf("cur_xy=%f,%f  tgt_xy=%f,%fa=%f startIndx=%d \n", x, y, xy.getX(), xy.getY(), a, startIndx);
         for(int i=0; i<(8); i++) {
 
             double aa = angle[i]+startAngle;  //angle to check
@@ -322,7 +324,7 @@ public class Grid extends Network{
                 cost[i] = t.getObsValue();
                 if (i==0)
                     cost[i] -= 10;
-                //  System.out.printf("i=%d x,y=%d,%d a=%f cost=%f\n", i, grid_x, grid_y, aa, cost[i]);
+                 System.out.printf("i=%d x,y=%d,%d a=%f cost=%f\n", i, grid_x, grid_y, aa, cost[i]);
             }
             else {
                 cost[i] = Node.maxObsValue;
@@ -331,8 +333,8 @@ public class Grid extends Network{
             if (lowestCost>cost[i]) {
                 lowestCost = cost[i];
                 lowestIdx = i;
-                // System.out.println(pos[i]);
-                // System.out.printf("xl,yl=%d,%d lowestCost=%f\n", grid_x, grid_y, lowestCost);
+                System.out.println(pos[i]);
+                System.out.printf("xl,yl=%d,%d lowestCost=%f\n", grid_x, grid_y, lowestCost);
             }
 
         }

@@ -29,7 +29,7 @@ public class TeleCmd extends CommandBase
         m_sensor = RobotContainer.m_sensor;
         m_oi = RobotContainer.m_oi;
         m_arm = RobotContainer.m_arm;
-        addRequirements(m_omnidrive); //add the drive subsystem as a requirement 
+        //addRequirements(m_omnidrive); //add the drive subsystem as a requirement 
 		//addRequirements(m_menu); 
     }
 

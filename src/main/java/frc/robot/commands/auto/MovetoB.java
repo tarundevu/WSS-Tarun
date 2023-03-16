@@ -2,6 +2,7 @@ package frc.robot.commands.auto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
@@ -39,12 +40,14 @@ public class MovetoB extends SequentialCommandGroup
 
 //   );
     private Trajectory m_Trajectory ;
+    
     private List<Translation2d> m_pathWayPoints;
     //Set max velocity, acceleration and centripedal acceleration (turn speed)
     static private final CentripetalAccelerationConstraint m_CurveConstraint = new CentripetalAccelerationConstraint(0.5);
     static private final TrajectoryConfig m_Config = new TrajectoryConfig(0.4, 0.4).addConstraint(m_CurveConstraint).setReversed(false);
-
+    private boolean m_fn_flag;
     static protected Pose2d m_posB2;    
+    private Supplier<Pose2d> m_posB_fn;
     protected Pose2d m_posB;
     private double m_dist;
     static private boolean m_trajFlag = false;
@@ -67,8 +70,14 @@ public class MovetoB extends SequentialCommandGroup
         //calculate error between real position and the tile center it is mapped to 
         //
         double dx, dy;
-        dx = m_posB.getTranslation().getX() - curPose.getTranslation().getX();
-        dy = m_posB.getTranslation().getY() - curPose.getTranslation().getY();
+        if (m_fn_flag == true){
+            dx = m_posB_fn.get().getTranslation().getX() - curPose.getTranslation().getX();
+            dy = m_posB_fn.get().getTranslation().getY() - curPose.getTranslation().getY();
+        }
+        else{
+            dx = m_posB.getTranslation().getX() - curPose.getTranslation().getX();
+            dy = m_posB.getTranslation().getY() - curPose.getTranslation().getY();
+        }
         m_dist = Math.sqrt(dx*dx + dy*dy);
 
         Tile nodeStart, nodeEnd;
@@ -150,8 +159,14 @@ public class MovetoB extends SequentialCommandGroup
     public Trajectory getTrajectory() {
         return m_Trajectory;
     }
-
-	public MovetoB(Pose2d pose2d)
+    public MovetoB(Supplier<Pose2d> posB){
+        this(posB.get(), true);
+        m_posB_fn = posB;
+    }
+    public MovetoB(Pose2d poseB){
+        this(poseB, false);
+    }
+	public MovetoB(Pose2d pose2d, boolean flag)
     {
         
         super (
@@ -172,7 +187,9 @@ public class MovetoB extends SequentialCommandGroup
         );
         m_posB = pose2d;
         MovetoB.m_initFlag = false;
+        m_fn_flag = flag;
 
     }
+
     
 }
