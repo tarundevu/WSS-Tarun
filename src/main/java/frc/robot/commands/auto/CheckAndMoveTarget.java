@@ -20,7 +20,7 @@ public class CheckAndMoveTarget extends SequentialCommandGroup{
         super(
             new MovetoPoint(targetName, dist),
             new InstantCommand(()-> System.out.println("After MovetoPoint")),
-            // new Rotate2Orientation(targetName, dist),
+            new Rotate2Orientation(targetName, dist),
             new InstantCommand(()-> System.out.println("After Rotate2Orientation"))
         );
     }

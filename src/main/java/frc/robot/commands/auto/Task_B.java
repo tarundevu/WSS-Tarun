@@ -15,7 +15,7 @@ public class Task_B extends SequentialCommandGroup{
     super(
       // Puts camera in viewing position
       new MoveArm(new Translation2d(0.3,0.4), 2),
-      new MoveCamera(275),
+      new MoveCamera(282),
       new InstantCommand(() -> Globals.cvMode = -1),
       // Move out of starting position
       new MoveRobot(0, -0.05, 0, 0, 5),
