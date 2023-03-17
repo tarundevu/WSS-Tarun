@@ -78,7 +78,7 @@ public class Globals
     public static double startYaw;
     public static int curTrolley = 0;
 // Extra //
-    public static Pose2d g_posB; 
+    public static Pose2d g_posB = new Pose2d(); 
     public static int LoopCnt = 0; // use as counter for loops
     public static int loopCount = 0;
     public static Pose2d curPose;
@@ -94,6 +94,12 @@ public class Globals
       new Pose2d(new Translation2d(0,0.43), new Rotation2d(-Math.PI/2)),
       new Pose2d(new Translation2d(0,0.43), new Rotation2d(-Math.PI/2)),
     };
+    public static Pose2d[] placeholderTrolleyPos = {
+      new Pose2d(new Translation2d(0.15,0.15), new Rotation2d(0)),
+      new Pose2d(new Translation2d(0.15,0.45), new Rotation2d(0)),
+      new Pose2d(new Translation2d(0.15,0.75), new Rotation2d(0)),
+    };
+    public static int placeholderCount = 0;
 // End Conditions //
 
     public static double robotRadius_m = 0.24;

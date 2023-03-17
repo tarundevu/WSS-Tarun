@@ -283,9 +283,10 @@ public class Grid extends Network{
    * @param y object centre Y pos (in m)
    * @param dist dist of robot pos from object (in m)
    */
+    static Pose2d[] pos = new Pose2d[8];
     public Pose2d findGotoPos(Translation2d xy, double dist){
         Tile t;
-        Pose2d[] pos = new Pose2d[8];
+        
         double[] cost = new double[8];
 
         double dx = RobotContainer.m_omnidrive.getPose().getTranslation().getX() - xy.getX();

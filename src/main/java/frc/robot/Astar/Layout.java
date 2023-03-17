@@ -65,7 +65,7 @@ public class Layout {
     public static final Pose2d T3Pos = new Pose2d(0.150, 4.35,  new Rotation2d(Math.toRadians(45)));
 
     // Position for robot to go to for reading work order
-    public static final Pose2d workOrderPos = new Pose2d(1.1, 0.250,  new Rotation2d(Math.toRadians(-90)));
+    public static final Pose2d workOrderPos = new Pose2d(1.2, 0.250,  new Rotation2d(Math.toRadians(-90)));
 
     // Robot start position.
     public static final Pose2d startPos = new Pose2d(0.210, 0.210, new Rotation2d(-Math.PI/2) );
