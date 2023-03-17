@@ -14,7 +14,7 @@ public class MovetoBWaypoint extends MovetoB{
   private Rotation2d curRot;
   private Rotation2d addRotation;
   public MovetoBWaypoint() {
-    super(new Pose2d(new Translation2d(0.46, 0.26), new Rotation2d()));
+    super(new Pose2d(new Translation2d(0.56, 0.26), new Rotation2d()));
     
   }
   @Override

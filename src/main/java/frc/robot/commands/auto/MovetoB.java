@@ -70,7 +70,7 @@ public class MovetoB extends SequentialCommandGroup
         //calculate error between real position and the tile center it is mapped to 
         //
         double dx, dy;
-        if (m_fn_flag == true){
+        if (m_fn_flag){
             dx = m_posB_fn.get().getTranslation().getX() - curPose.getTranslation().getX();
             dy = m_posB_fn.get().getTranslation().getY() - curPose.getTranslation().getY();
         }

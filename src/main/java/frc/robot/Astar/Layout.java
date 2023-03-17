@@ -70,7 +70,9 @@ public class Layout {
     // Robot start position.
     public static final Pose2d startPos = new Pose2d(0.210, 0.210, new Rotation2d(-Math.PI/2) );
     // public static final Pose2d startPos = new Pose2d(0.96,1.1, new Rotation2d(-Math.PI/2) ); //For open house/testing
-
+    public static Pose2d getCalibrationPos(){
+        return PickUpBinPos;
+    }
      public Layout() {
        
       

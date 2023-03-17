@@ -95,10 +95,15 @@ public class Globals
       new Pose2d(new Translation2d(0,0.43), new Rotation2d(-Math.PI/2)),
     };
     public static Pose2d[] placeholderTrolleyPos = {
-      new Pose2d(new Translation2d(0.15,0.15), new Rotation2d(0)),
-      new Pose2d(new Translation2d(0.15,0.45), new Rotation2d(0)),
-      new Pose2d(new Translation2d(0.15,0.75), new Rotation2d(0)),
+      new Pose2d(new Translation2d(0.3 + 0.25,0.6),  new Rotation2d(Math.PI/2)),
+      new Pose2d(new Translation2d(0.3 + 0.25,1.2 ), new Rotation2d(Math.PI/2)),
+      new Pose2d(new Translation2d(0.3 + 0.25,1.8), new Rotation2d(Math.PI/2)),
     };
+    // public static Pose2d[] placeholderTrolleyPos = {
+    //   new Pose2d(new Translation2d(0.15,0.15), new Rotation2d(Math.toRadians(135))),
+    //   new Pose2d(new Translation2d(0.15,0.45), new Rotation2d((Math.toRadians(135)))),
+    //   new Pose2d(new Translation2d(0.15,0.75), new Rotation2d((Math.toRadians(135)))),
+    // };
     public static int placeholderCount = 0;
 // End Conditions //
 

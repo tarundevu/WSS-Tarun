@@ -60,7 +60,7 @@ public class Points{
     obstacleMap.clear();
   }
 
-  public void updateObsPoint(String pointname, Pose2d newpose) {
+  public void addObsPoint(String pointname, Pose2d newpose) {
     obstacleMap.put(pointname, newpose);
     
   }
@@ -207,7 +207,12 @@ public void updateAllPoints(){
   }
 }
 
-
+public void AddSingleRoundObs(Translation2d xy){
+  int x0 = Layout.Convert_m_cell(xy.getX());
+  int y0 = Layout.Convert_m_cell(xy.getY());
+  int dia = Layout.Convert_m_cell(0.3);
+  RobotContainer.m_Grid.AddObsRound(x0, y0, dia);
+}
 // From hashmap
   public void AddObsGrid(){
     for (Map.Entry<String, Pose2d> obstacleEntry :obstacleMap.entrySet()) {

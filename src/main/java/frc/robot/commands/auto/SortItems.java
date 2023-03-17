@@ -94,8 +94,8 @@ public class SortItems extends SequentialCommandGroup{
         new MoveCamera(286),
         new SelectCommand(
             Map.ofEntries(
-                Map.entry(CommandSelector.ONE, new CheckAndMoveTarget("T2", 0.5)),
-                Map.entry(CommandSelector.TWO, new CheckAndMoveTarget("T3", 0.5)),
+                Map.entry(CommandSelector.ONE, new CheckAndMoveTarget("T3", 0.5)),
+                Map.entry(CommandSelector.TWO, new CheckAndMoveTarget("T2", 0.5)),
                 Map.entry(CommandSelector.THREE, new CheckAndMoveTarget("T1", 0.5))
                 ), 
             SortItems::selectTarget

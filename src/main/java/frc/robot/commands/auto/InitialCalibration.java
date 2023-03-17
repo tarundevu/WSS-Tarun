@@ -20,7 +20,8 @@ public class InitialCalibration extends SequentialCommandGroup{
   public InitialCalibration(){
     super(
       // moves to the 1st pick up bin
-      new MovetoB(Layout.PickUpBinPos),
+      new MovetoB(Layout::getCalibrationPos),
+      new Rotate2Orientation(Layout::getCalibrationPos),
       // Lifts arm up and close gripper
       new DetectionPosition().alongWith(new Gripper(0,80)),
       // sets cv mode to line detection
