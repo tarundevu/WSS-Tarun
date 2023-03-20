@@ -14,8 +14,7 @@ public class CP7 extends SequentialCommandGroup {
 
         super(
             // Puts camera in viewing position
-            new MoveArm(new Translation2d(0.3,0.4), 2),
-            new MoveCamera(286),
+            new PerspTfCamPos(),
             // Put to finding trolley and transform point 
             new InstantCommand(() -> Globals.cvMode = 4),
             // Move out of the way
@@ -24,7 +23,9 @@ public class CP7 extends SequentialCommandGroup {
             // Loop MoveRobot Commands until target area is found
             new loopMoveRobotWaypoint(),
             new LoopCmd(new loopMoveRobotWaypoint(), () -> Globals.endConditionCP7()),
-            new MovetoPoint("Trolley", 0.5)
+            new CheckAndMoveTarget("T1", 0.5),
+            new Align2Trolley(),
+            new TrolleyHolder(1)
             );
     }
 }

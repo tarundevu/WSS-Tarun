@@ -67,7 +67,6 @@ public class Vision extends SubsystemBase{
     
     public double getResolution(int wh){
       double[] dimension = new double[2];
-
       dimension[0] = 800;//(SmartDashboard.getNumber("imW",0));
       dimension[1] = 600;//(SmartDashboard.getNumber("imH",0));
       return dimension[wh];
@@ -107,10 +106,6 @@ public class Vision extends SubsystemBase{
       return objects;
   }
 
-  public double[] getDistanceTarget(String targetName){
-    double[] distance = (table.getEntry(targetName).getDoubleArray(defaultValue));
-    return distance;
-  }
   public void setColor(String color){
       /*
       * Black : 0
@@ -135,28 +130,6 @@ public class Vision extends SubsystemBase{
       
   }
 
-  // public void updatePoint(String targetName){
-  //     double x, y;
-  //     int w = (int)Globals.curPose.getRotation().getDegrees();
-  //     if (w != -90){
-  //         y = Globals.curPose.getTranslation().getY() + getDistanceTarget(targetName)[1] + RobotContainer.m_points.camOffset.getTranslation().getY();
-  //         x = Globals.curPose.getTranslation().getX() + getDistanceTarget(targetName)[0] + RobotContainer.m_points.camOffset.getTranslation().getX();
-  //     }
-  //     else{
-  //         x = Globals.curPose.getTranslation().getX() + getDistanceTarget(targetName)[1] + RobotContainer.m_points.camOffset.getTranslation().getY();
-  //         y = Globals.curPose.getTranslation().getY() - getDistanceTarget(targetName)[0] + RobotContainer.m_points.camOffset.getTranslation().getX(); 
-  //     }
-  //     RobotContainer.m_points.updatePoint(targetName, new Pose2d(new Translation2d(x, y), Globals.curPose.getRotation()));  
-  // }
-
-  // public void updateAllPoints(){
-  //     String[] targetAreas = {"RedTarget", "GreenTarget", "BlueTarget", "Trolley"};
-  //     for (String targetName: targetAreas){
-  //         if(getDistanceTarget(targetName)[0] != 0 && getDistanceTarget(targetName)[1] != 0 ){
-  //             updatePoint(targetName);
-  //         }
-  //     }
-  // }
   public String array(){
     String n = "tt";
     String.format(" %s", n);
@@ -168,7 +141,7 @@ public class Vision extends SubsystemBase{
      Globals.curTarget = 0;
      Globals.curItemType = 0;
      Globals.curAngle = 0;
-     m_arm.setCameraAngle(286);
+     m_arm.setCameraAngle(Globals.NormalCameraAngle);
       
     }
    

@@ -21,6 +21,7 @@ public class Globals
     static public int debug[] = new int[DNUM];
     static public String[] debugNames = new String[] {"debug0", "debug1", "debug2", "debug3"};
 // Vision //
+    //Calibration
     /** (length in m)/(800 pixels) */
     public static double convertPxToM = 0.00060625;//0.0006225;//0.0006075 // 0.56/800 , 0.00058 good // Resolution
     public static double camera_offset = 0.1; //actual is 10.5cm
@@ -33,6 +34,12 @@ public class Globals
     public static double AdjustFactor = 1;
     public static int imH = 600;
     public static int imW = 800;
+    // Camera angles
+    public static int NormalCameraAngle = 286;
+    public static int ColorDetectionAngle = 265;
+    public static int ViewingAngle = 263;
+    public static int WOBAngle = 148;
+    public static int PerspTfCamAngle = 274;
     /**
      *  CokeU = 0
      *  Coke  = 1
@@ -60,8 +67,6 @@ public class Globals
      *  Work Order Board = 2
      */
     public static int cvMode = -1;
-    public static Pose2d[] TargetList = new Pose2d[] {};
-    public static Pose2d[] TrolleyList = new Pose2d[] {};
     /**
 	   *                                              C|D|J  <p>            
 	   *                                            R|x|x|x| <p>
@@ -178,28 +183,23 @@ public class Globals
   return true;
 }
 
-  public static boolean endConditionCP5(String targetArea){
-    loopCount++;
-    if(loopCount<19 && RobotContainer.m_vision.getDistanceTarget(targetArea)[0] == 0){
-        return false;
-    }
-    else{
-        loopCount = 0;
-        return true;
-    }
-  } 
-
-  public static boolean endConditionCP7(){
-    loopCount++;
-    // Count 19
-    if(loopCount<19 && (RobotContainer.m_vision.getDistanceTarget("Trolley")[0] == 0)){
-        return false;
-    }
-    else{
-        loopCount = 0;
-        return true;
-    }
-  } 
+public static boolean endConditionCP5(String targetArea){
+    
+  if(curPose.getTranslation().getY() < 3.7 && !RobotContainer.m_points.pointMap.containsKey(targetArea)){
+      return false;
+  }
+  else{
+      return true;
+  }
+}  
+public static boolean endConditionCP7(){
+  if(curPose.getTranslation().getY() < 3.7 && !RobotContainer.m_points.pointMap.containsKey("T1")){
+      return false;
+  }
+  else{
+      return true;
+  }
+} 
   public static Pose2d waypoint = new Pose2d();
   public static boolean endConditionTaskBMapping(){
     loopCount++;
