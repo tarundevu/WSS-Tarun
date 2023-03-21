@@ -30,7 +30,6 @@ private final static OmniDrive m_omnidrive = RobotContainer.m_omnidrive;
   public GotoColor(Pose2d pose) {
       super(
       // Gets offsetted coordinates from getCoord() which takes in the color coordinates as parameter
-      // new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation(),"color"), new Rotation2d(0))),
       new MovetoB(RobotContainer.m_Grid.findGotoPos(pose.getTranslation(), 0.6)),
       // // Rotates the robot to the orientation of the target area
       new Rotate2Orientation(RobotContainer.m_Grid.findGotoPos(pose.getTranslation(), 0.6).getRotation().getDegrees()),

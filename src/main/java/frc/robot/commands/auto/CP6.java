@@ -15,13 +15,9 @@ public class CP6 extends SequentialCommandGroup{
     super(
       new DetectionPosition(),
       new GotoTrolley(Layout.T1Pos),
-      // new MovetoB(new Pose2d(RobotContainer.m_omnidrive.getCoord(Layout.T1Pos.getTranslation(),"trolley"), new Rotation2d(0))),
-      // new Rotate2Orientation(Layout.T1Pos.getRotation().getDegrees()),
       new TrolleyHolder(1),
       new InstantCommand(()-> RobotContainer.m_vision.setColor("Red")),
       new GotoColor(Layout.RedPos),
-      // new MovetoB(new Pose2d(RobotContainer.m_omnidrive.getCoord(Layout.RedPos.getTranslation(),"color"), new Rotation2d(0))),
-      // new Rotate2Orientation(Layout.RedPos.getRotation().getDegrees()),
       new TrolleyHolder(0)
     );
   }

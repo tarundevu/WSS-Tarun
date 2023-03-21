@@ -30,7 +30,6 @@ public class GotoTrolley extends SequentialCommandGroup {
   public GotoTrolley(Pose2d pose) {
     super(
       new MovetoB(RobotContainer.m_Grid.findGotoPos(pose.getTranslation(), 0.5)),
-      // new MovetoB(new Pose2d(m_omnidrive.getCoord(pose.getTranslation(),"trolley"), new Rotation2d(0)))
       new Rotate2Orientation(RobotContainer.m_Grid.findGotoPos(pose.getTranslation(), 0.5).getRotation().getDegrees())
       // new Align2Trolley(), // CALL the align2trolley command after executing this command
       // new WaitCommand(1)

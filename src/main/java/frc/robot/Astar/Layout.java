@@ -28,7 +28,7 @@ public class Layout {
     public static final double obs_m[][] = {
         //x0    y0      xSize   ySize   Angle
         {1.400, 1.100,  0.300,  0.420,  0 },   //pickup bin
-        {1.380, 3.000,  0.300,  0.420,  -Math.PI/4 },   //pickup bin
+        {1.380, 3.000,  0.300,  0.420,  -Math.PI/4 },   //pickup bin2
     };
     public static final double obsRound_m[][] = {
         //x,    y,      diameter

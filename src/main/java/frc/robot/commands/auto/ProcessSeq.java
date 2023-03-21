@@ -18,8 +18,8 @@ public class ProcessSeq extends SequentialCommandGroup {
   public ProcessSeq(){
     super(  
         
-        new PickItemfromBin(),
-        new ViewItem()
+        new PickItemfromBin()
+        // new ViewItem()
 
         // new MoveArm(new Translation2d(0.33,0.24), 0.5),
         // new WaitCommand(2),

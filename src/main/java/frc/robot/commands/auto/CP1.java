@@ -19,8 +19,8 @@ public class CP1 extends SequentialCommandGroup{
   public CP1(){
     super(
       // set arm to vertical position
-      new MoveArm(new Translation2d(0.33,0.24), 0.5), // Line detection position
-     
+      new DetectionPosition(), // Line detection position
+      new MoveRobotSense(1, 0.3, 0, 0,0.25, ()-> RobotContainer.m_sensor.getIRDistance()<=15),
       new ViewItem(),
       new OpenHseLoopCommand(new ProcessSeq())
      
