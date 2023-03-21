@@ -78,6 +78,9 @@ public class MoveRobot extends CommandBase
     @Override
     public void initialize()
     {   
+        if(m_getRot!=null){
+            m_dist = m_getRot.get().getRadians();
+        }
         m_setpoint = new TrapezoidProfile.State(0, m_startSpeed);
         m_endFlag = false;
         //Negative distance don't seem to work with the library function????

@@ -67,7 +67,7 @@ public class MovetoB extends SequentialCommandGroup
         int start_x = Layout.Convert_m_cell(curPose.getTranslation().getX());
         int start_y = Layout.Convert_m_cell(curPose.getTranslation().getY());
 
-        m_rot = m_posB.getRotation().minus(curPose.getRotation());
+        // m_rot = m_posB.getRotation().minus(curPose.getRotation());
 
         //calculate error between real position and the tile center it is mapped to 
         //
@@ -75,10 +75,12 @@ public class MovetoB extends SequentialCommandGroup
         if (m_fn_flag==true) {
             dx = m_posB_fn.get().getTranslation().getX() - curPose.getTranslation().getX();
             dy = m_posB_fn.get().getTranslation().getY() - curPose.getTranslation().getY();
+            m_rot = m_posB_fn.get().getRotation().minus(curPose.getRotation());
         }
         else {
             dx = m_posB.getTranslation().getX() - curPose.getTranslation().getX();
             dy = m_posB.getTranslation().getY() - curPose.getTranslation().getY();
+            m_rot = m_posB.getRotation().minus(curPose.getRotation());
         }
         m_dist = Math.sqrt(dx*dx + dy*dy);
 
@@ -192,10 +194,10 @@ public class MovetoB extends SequentialCommandGroup
                     new PIDController(0.25, 0, 0),
                     new PIDController(0.25, 0, 0),
                     new ProfiledPIDController(1, 0, 0, new Constraints(Math.PI/2, Math.PI/2) ) ), 
-                new MoveRobotStr(MovetoB::Get_poseB2), MovetoB::TrajCondition)
+                new MoveRobotStr(MovetoB::Get_poseB2), MovetoB::TrajCondition),
             
             //End with rotation to the target heading???
-            // new MoveRobot(MovetoB::Get_rot, 0, 0, Math.PI/2)
+            new MoveRobot(MovetoB::Get_rot, 0, 0, Math.PI/2)
         );
         m_posB = posB;
         MovetoB.m_initFlag = false;
