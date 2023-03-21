@@ -1,5 +1,8 @@
 package frc.robot.commands.auto;
 
+import java.util.function.Supplier;
+
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 //WPI imports
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -32,6 +35,13 @@ public class MoveRobot extends CommandBase
 
     protected double m_startSpeed, m_endSpeed, m_maxSpeed;
     protected double m_dist;
+    private Supplier<Rotation2d> m_getRot=null;
+
+    public MoveRobot(Supplier<Rotation2d> getRot, double startSpeed, double endSpeed, double maxSpeed)
+    {
+        this(2, 0, startSpeed, endSpeed, maxSpeed);
+        m_getRot = getRot;
+    }
     /**
      * This command moves the robot a certain distance following a trapezoidal speed profile.
      * <p>

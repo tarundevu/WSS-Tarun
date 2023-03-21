@@ -52,7 +52,8 @@ public class AutoMainCmd extends SequentialCommandGroup
             // new LoopMovetoB(),
             // new LoopCmd(new LoopMovetoB(), ()-> Globals.endConditionTaskBMapping())  
             // new InitialCalibration()
-            new Task_B()
+            // new Task_B()
+            new Task_A_pick1st()
             // Move out of starting position
             // new MovetoB(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.T1Pos).getTranslation(), 0.5)),
             // new Rotate2Orientation(RobotContainer.m_Grid.findGotoPos(Layout.Convert_mm_Pose2d(Layout.T1Pos).getTranslation(), 0.5)),

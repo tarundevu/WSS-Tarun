@@ -41,6 +41,8 @@ public class Rotate2Orientation extends MoveRobot {
         updateLoopPoint = false;
         s_angle = angle;
     }
+
+
     /**
      * This command is used to align the robot to the object that is to be picked
      * @param pose - The pose of the target coordinates
